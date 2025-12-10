@@ -1,0 +1,201 @@
+"""
+Main application class for Soplos Repo Selector.
+Handles application lifecycle, initialization, and coordination between modules.
+"""
+
+import sys
+import os
+import signal
+from pathlib import Path
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk, GLib, Gio
+
+from .environment import get_environment_detector
+from .theme_manager import get_theme_manager, initialize_theming
+from .i18n_manager import get_i18n_manager, initialize_i18n, _
+from config.constants import APP_ID, APP_NAME, APP_VERSION
+
+
+class SoplosRepoSelectorApplication(Gtk.Application):
+    """
+    Main application class for Soplos Repo Selector.
+    Manages the application lifecycle and coordinates between all components.
+    """
+    
+    def __init__(self):
+        """Initialize the application."""
+        super().__init__(
+            application_id=APP_ID,
+            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE
+        )
+        
+        # Application state
+        self.main_window = None
+        self.environment_detector = None
+        self.theme_manager = None
+        self.i18n_manager = None
+        
+        # Application paths
+        self.app_path = Path(__file__).parent.parent
+        self.assets_path = self.app_path / 'assets'
+        self.locale_path = self.app_path / 'locale'
+        
+        # Connect signals
+        self.connect('startup', self.on_startup)
+        self.connect('activate', self.on_activate)
+        self.connect('command-line', self.on_command_line)
+        self.connect('shutdown', self.on_shutdown)
+        
+        # Setup signal handlers for graceful shutdown
+        signal.signal(signal.SIGINT, self._handle_signal)
+        signal.signal(signal.SIGTERM, self._handle_signal)
+        
+    def on_shutdown(self, app):
+        """Called when the application shuts down."""
+        print("Shutting down Soplos Repo Selector...")
+        self._cleanup_garbage()
+
+    def _cleanup_garbage(self):
+        """Remove __pycache__ and other temporary files."""
+        try:
+            import shutil
+            root_path = self.app_path
+            
+            # Clean __pycache__
+            for root, dirs, files in os.walk(root_path):
+                if '__pycache__' in dirs:
+                    pycache_path = os.path.join(root, '__pycache__')
+                    try:
+                        shutil.rmtree(pycache_path, ignore_errors=True)
+                    except Exception:
+                        pass
+        except Exception as e:
+            print(f"Cleanup warning: {e}")
+    
+    def on_startup(self, app):
+        """Called when the application starts up."""
+        print(f"Starting {APP_NAME} v{APP_VERSION}...")
+        
+        # Initialize core systems
+        self._initialize_environment()
+        self._initialize_internationalization()
+        self._initialize_theming()
+        self._setup_application_properties()
+        
+        print("Application initialization completed")
+    
+    def on_activate(self, app):
+        """Called when the application is activated."""
+        if self.main_window is None:
+            self._create_main_window()
+        
+        # Present the window
+        if self.main_window:
+            self.main_window.present()
+    
+    def on_command_line(self, app, command_line):
+        """Handle command line arguments."""
+        args = command_line.get_arguments()
+        # Simple handling for now
+        self.activate()
+        return 0
+    
+    def _initialize_environment(self):
+        """Initialize environment detection."""
+        try:
+            self.environment_detector = get_environment_detector()
+            env_info = self.environment_detector.detect_all()
+            
+            print(f"Desktop Environment: {env_info['desktop_environment']}")
+            
+            # Configure environment variables for optimal integration
+            self.environment_detector.configure_environment_variables()
+            
+        except Exception as e:
+            print(f"Error initializing environment detection: {e}")
+    
+    def _initialize_internationalization(self):
+        """Initialize the internationalization system."""
+        try:
+            current_lang = initialize_i18n(str(self.locale_path))
+            self.i18n_manager = get_i18n_manager()
+            print(f"Language initialized: {current_lang}")
+            
+            # Set up gettext
+            import gettext
+            gettext.bindtextdomain('soplos-repo-selector', str(self.locale_path))
+            gettext.textdomain('soplos-repo-selector')
+            
+        except Exception as e:
+            print(f"Error initializing internationalization: {e}")
+    
+    def _initialize_theming(self):
+        """Initialize the theming system."""
+        try:
+            loaded_theme = initialize_theming(str(self.assets_path))
+            self.theme_manager = get_theme_manager()
+            print(f"Theme loaded: {loaded_theme}")
+        except Exception as e:
+            print(f"Error initializing theming: {e}")
+    
+    def _setup_application_properties(self):
+        """Setup application-wide properties."""
+        GLib.set_prgname(APP_ID)
+        GLib.set_application_name(_(APP_NAME))
+        
+        # Set WM_CLASS
+        if hasattr(Gdk, 'set_program_class'):
+            Gdk.set_program_class(APP_ID)
+        
+        # Set default window icon if available
+        # TODO: Add icon to assets
+    
+    def _create_main_window(self):
+        """Create the main application window."""
+        try:
+            # Import here to avoid circular imports
+            from ui.main_window import MainWindow
+            
+            self.main_window = MainWindow(
+                application=self,
+                environment_detector=self.environment_detector,
+                theme_manager=self.theme_manager,
+                i18n_manager=self.i18n_manager
+            )
+            
+            # Connect window destroy signal
+            self.main_window.connect('destroy', self._on_window_destroy)
+            
+        except Exception as e:
+            print(f"Error creating main window: {e}")
+            import traceback
+            traceback.print_exc()
+            self.quit()
+    
+    def _on_window_destroy(self, window):
+        """Handle main window destruction."""
+        self.main_window = None
+        self.quit()
+    
+    def _handle_signal(self, signum, frame):
+        """Handle system signals for graceful shutdown."""
+        print(f"Received signal {signum}, shutting down...")
+        GLib.idle_add(self.quit)
+
+
+def run_application(argv: list = None) -> int:
+    """Run the application."""
+    if argv is None:
+        argv = sys.argv
+    
+    app = SoplosRepoSelectorApplication()
+    
+    try:
+        return app.run(argv)
+    except KeyboardInterrupt:
+        return 0
+    except Exception as e:
+        print(f"Application error: {e}")
+        return 1

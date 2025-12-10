@@ -1,0 +1,44 @@
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+.venv/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+*.egg
+*.log
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+/.tox/
+instance/
+.cache/
+# IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# GTK / app specific
+.local/share/*/cache
+*.desktop
+
+# Secrets/env
+.env
+.venv
+
+# compiled assets
+__pycache__/
+assets/icons/

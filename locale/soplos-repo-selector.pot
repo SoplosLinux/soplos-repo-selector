@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-10 20:07+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:15
+msgid "Edit Repository"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:15
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:38
+msgid "Add Repository"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:18
+#: /usr/local/bin/soplos-repo-selector/ui/views/gpg_view.py:109
+msgid "Cancel"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:19
+msgid "Save"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:43
+msgid "Type:"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:53
+msgid "URI:"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:59
+msgid "Distribution:"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:65
+msgid "Components:"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:71
+msgid "Signed By (Key):"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:73
+msgid "Optional (key path or fingerprint)"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/repo_edit.py:78
+msgid "Comment:"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/speed_test.py:17
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:52
+msgid "Find Fastest Mirrors"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/speed_test.py:19
+msgid "Close"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/speed_test.py:20
+msgid "Select Best"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/speed_test.py:41
+msgid "Initializing speed test..."
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/speed_test.py:59
+msgid "Testing mirrors... This may take a moment."
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/dialogs/speed_test.py:81
+msgid "Test completed."
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/gpg_view.py:35
+msgid "Import Key"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/gpg_view.py:42
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:45
+msgid "Refresh"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/gpg_view.py:104
+msgid "Import GPG Key"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/gpg_view.py:110
+msgid "Import"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/gpg_view.py:135
+msgid "Import Error"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:53
+msgid "Test mirrors speed and select the fastest ones"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:61
+msgid "Apply Changes"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:96
+msgid "No repositories found"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:146
+msgid "Delete Repository?"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:149
+msgid ""
+"Are you sure you want to delete this repository?\n"
+"\n"
+"{}"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:210
+msgid "Changes Applied"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:212
+msgid "Repositories have been updated successfully."
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:221
+msgid "Error Saving"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/views/repo_view.py:223
+msgid "Could not save repositories. Check logs for details."
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/widgets/repo_row.py:75
+msgid "Edit"
+msgstr ""
+
+#: /usr/local/bin/soplos-repo-selector/ui/widgets/repo_row.py:82
+msgid "Delete"
+msgstr ""
