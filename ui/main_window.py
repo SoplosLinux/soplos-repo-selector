@@ -16,35 +16,188 @@ from ui.views.sources_generator_view import SourcesGeneratorView
 from ui.views.welcome_view import WelcomeView
 
 class MainWindow(Gtk.ApplicationWindow):
-    """Main window class."""
-    
+    def _setup_ui(self):
+        """Inicializa la interfaz principal, igualando la estructura de Welcome."""
+        main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        self.add(main_vbox)
+
+        # --- Barra de progreso oculta (arriba) ---
+        self.progress_revealer = Gtk.Revealer()
+        self.progress_revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
+
+        progress_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+        progress_box.set_margin_top(10)
+        progress_box.set_margin_bottom(10)
+        progress_box.set_margin_start(20)
+        progress_box.set_margin_end(20)
+
+        self.progress_bar = Gtk.ProgressBar()
+        self.progress_bar.set_show_text(True)
+        progress_box.pack_start(self.progress_bar, False, False, 0)
+
+        self.progress_label = Gtk.Label(label=_("Ready"))
+        progress_box.pack_start(self.progress_label, False, False, 0)
+
+        self.progress_revealer.add(progress_box)
+        main_vbox.pack_start(self.progress_revealer, False, False, 0)
+
+        # --- Contenido de pestañas ---
+        self.notebook = Gtk.Notebook()
+        self.notebook.set_scrollable(True)
+        self.notebook.set_tab_pos(Gtk.PositionType.TOP)
+        self.notebook.set_show_tabs(True)
+        self.notebook.set_show_border(False)
+        try:
+            self.notebook.get_style_context().add_class('soplos-notebook')
+        except Exception:
+            pass
+        try:
+            self._apply_notebook_custom_css()
+        except Exception:
+            pass
+        main_vbox.pack_start(self.notebook, True, True, 0)
+
+        # Pestaña 1: Welcome
+        self.welcome_view = WelcomeView(self)
+        self._add_tab(self.welcome_view, _("Welcome"), "user-home")
+
+        # Pestaña 2: Sources Generator
+        self.sources_view = SourcesGeneratorView(self)
+        self._add_tab(self.sources_view, _("Sources Generator"), "network-server-symbolic")
+
+        # Pestaña 3: Repositorios
+        self.repo_view = RepoView(self)
+        self._add_tab(self.repo_view, _("Repositories"), "software-properties")
+
+        # Pestaña 4: GPG Keys
+        self.gpg_view = GPGView(self)
+        self._add_tab(self.gpg_view, _("GPG Keys"), "security-high-symbolic")
+
+        # --- Footer (Status Bar) ---
+        self._create_status_bar(main_vbox)
     def __init__(self, application, environment_detector, theme_manager, i18n_manager):
-        super().__init__(application=application, title=_(APP_NAME))
-        
+        super().__init__(application=application)
+        self.application = application
         self.environment_detector = environment_detector
         self.theme_manager = theme_manager
         self.i18n_manager = i18n_manager
-        
+        self.set_title(_(APP_NAME))
         self.set_default_size(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT)
-        
+        self.set_position(Gtk.WindowPosition.CENTER)
+        self.get_style_context().add_class('soplos-window')
+        self._create_header_bar_with_fallback()
         self._setup_ui()
         self.show_all()
-        # Initialize notebook to page 0 (Welcome)
         GLib.idle_add(lambda: self.notebook.set_current_page(0))
-        # Initial status update
         self._update_system_info()
-    
-    def _setup_ui(self):
-        """Setup the User Interface."""
-        # Clean Header (TitleBar) without StackSwitcher
+        """Inicializa la interfaz principal, igualando la estructura de Welcome."""
+        main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        self.add(main_vbox)
+
+        # --- Barra de progreso oculta (arriba) ---
+        self.progress_revealer = Gtk.Revealer()
+        self.progress_revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
+
+        progress_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+        progress_box.set_margin_top(10)
+        progress_box.set_margin_bottom(10)
+        progress_box.set_margin_start(20)
+        progress_box.set_margin_end(20)
+
+        self.progress_bar = Gtk.ProgressBar()
+        self.progress_bar.set_show_text(True)
+        progress_box.pack_start(self.progress_bar, False, False, 0)
+
+        self.progress_label = Gtk.Label(label=_("Ready"))
+        progress_box.pack_start(self.progress_label, False, False, 0)
+
+        self.progress_revealer.add(progress_box)
+        main_vbox.pack_start(self.progress_revealer, False, False, 0)
+
+        # --- Contenido de pestañas ---
+        self.notebook = Gtk.Notebook()
+        self.notebook.set_scrollable(True)
+        self.notebook.set_tab_pos(Gtk.PositionType.TOP)
+        self.notebook.set_show_tabs(True)
+        self.notebook.set_show_border(False)
+        try:
+            self.notebook.get_style_context().add_class('soplos-notebook')
+        except Exception:
+            pass
+        try:
+            self._apply_notebook_custom_css()
+        except Exception:
+            pass
+        main_vbox.pack_start(self.notebook, True, True, 0)
+
+        # Pestaña 1: Welcome
+        self.welcome_view = WelcomeView(self)
+        self._add_tab(self.welcome_view, _("Welcome"), "user-home")
+
+        # Pestaña 2: Sources Generator
+        self.sources_view = SourcesGeneratorView(self)
+        self._add_tab(self.sources_view, _("Sources Generator"), "network-server-symbolic")
+
+        # Pestaña 3: Repositorios
+        self.repo_view = RepoView(self)
+        self._add_tab(self.repo_view, _("Repositories"), "software-properties")
+
+        # Pestaña 4: GPG Keys
+        self.gpg_view = GPGView(self)
+        self._add_tab(self.gpg_view, _("GPG Keys"), "security-high-symbolic")
+
+        # --- Footer (Status Bar) ---
+        self._create_status_bar(main_vbox)
+
+    def _create_header_bar_with_fallback(self):
+        """Crea el HeaderBar moderno, con fallback a decoraciones nativas en XFCE/KDE."""
+        desktop_env = 'unknown'
+        try:
+            if self.environment_detector:
+                desktop_env = getattr(self.environment_detector.desktop_environment, 'value', str(self.environment_detector.desktop_environment)).lower()
+        except Exception:
+            pass
+        # Si es XFCE/KDE, usar decoraciones nativas
+        if desktop_env in ['xfce', 'kde', 'plasma']:
+            return
+        # Si es GNOME u otros, usar CSD
         header = Gtk.HeaderBar()
         header.set_show_close_button(True)
         header.set_title(_(APP_NAME))
-        # header.set_subtitle(f"v{APP_VERSION}") # Subtitle is in footer now
+        try:
+            header.set_has_subtitle(True)
+            header.set_subtitle(f"v{APP_VERSION}")
+        except Exception:
+            pass
         header.set_decoration_layout("menu:minimize,maximize,close")
+        header.get_style_context().add_class('titlebar')
+        self._add_header_buttons(header)
         self.set_titlebar(header)
-        
-        self._create_menu(header)
+        self.header = header
+
+    def _create_language_menu(self):
+        """Crea el menú de selección de idioma."""
+        menu = Gtk.Menu()
+        available_languages = self.i18n_manager.SUPPORTED_LANGUAGES
+        current_lang = self.i18n_manager.current_language
+        for lang_code, lang_name in available_languages.items():
+            item = Gtk.CheckMenuItem(label=f"{lang_name} ({lang_code.upper()})")
+            item.set_active(lang_code == current_lang)
+            item.connect('activate', self._on_language_changed, lang_code)
+            menu.append(item)
+        menu.show_all()
+        return menu
+
+    def _on_language_changed(self, widget, lang_code):
+        self.i18n_manager.set_language(lang_code)
+        # Aquí podrías recargar la UI si es necesario
+
+    def _on_theme_toggle(self, widget):
+        # Cambia el tema (implementación básica, puedes mejorarla)
+        if hasattr(self.theme_manager, 'toggle_theme'):
+            self.theme_manager.toggle_theme()
+
+    # ...existing code...
 
         # Main Layout (Vertical)
         main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -74,7 +227,19 @@ class MainWindow(Gtk.ApplicationWindow):
         self.notebook = Gtk.Notebook()
         self.notebook.set_scrollable(True)
         self.notebook.set_tab_pos(Gtk.PositionType.TOP)
+        # Mostrar siempre las pestañas para coincidir con Soplos Welcome
+        self.notebook.set_show_tabs(True)
         self.notebook.set_show_border(False)
+        # Añadir clase de estilo para permitir personalizaciones CSS si existen
+        try:
+            self.notebook.get_style_context().add_class('soplos-notebook')
+        except Exception:
+            pass
+        # Apply the same custom notebook CSS as Soplos Welcome
+        try:
+            self._apply_notebook_custom_css()
+        except Exception:
+            pass
         main_vbox.pack_start(self.notebook, True, True, 0)
         
         # Tab 1: Welcome (Inicio)
@@ -151,6 +316,36 @@ class MainWindow(Gtk.ApplicationWindow):
         label_box.show_all()
         
         self.notebook.append_page(content_widget, label_box)
+
+    def _apply_notebook_custom_css(self):
+        """Apply custom CSS to make the notebook tab bar thicker (copied from Soplos Welcome)."""
+        css_provider = Gtk.CssProvider()
+        css_data = """
+        notebook > header {
+            min-height: 20px;
+            padding: 0px 0;
+        }
+        
+        notebook > header > tabs > tab {
+            min-height: 20px;
+            padding: 8px 12px;
+        }
+        
+        notebook > header > tabs > tab label {
+            padding: 4px 8px;
+        }
+        """
+        try:
+            css_provider.load_from_data(css_data.encode('utf-8'))
+            screen = Gdk.Screen.get_default()
+            style_context = Gtk.StyleContext()
+            style_context.add_provider_for_screen(
+                screen,
+                css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            )
+        except Exception as e:
+            print(f"Error applying notebook CSS: {e}")
     
     def _create_menu(self, header):
         """Create the hamburger menu."""
