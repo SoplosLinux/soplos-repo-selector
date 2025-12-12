@@ -11,21 +11,32 @@ Welcome view:
 
 ![Welcome](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot1.png)
 
-Repository list and actions:
+Repositories tab (list and actions):
 
-![Repository list](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot2.png)
+![Repositories](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot2.png)
 
-GPG Keys manager:
+Sources Generator (speed test integrated):
 
-![GPG keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot3.png)
+![Sources Generator](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot3.png)
 
-Mirror speed test:
+GPG Keys tab:
 
-![Speed test](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
+![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
 
-### 🆕 What's new in version 2.0.0 (December 10, 2025)
+### 🆕 What's new in version 2.0.0
+- Release date: December 10, 2025
+- Patch: December 12, 2025 — maintenance update (see details below)
+
+#### Patch (2025-12-12)
+- Fixed `Sources Generator` tab to preserve per-distribution DEB822 blocks and respect the selected mirror.
+- Integrated the mirror speed test into the same Sources Generator tab (no external windows required).
+- Fixed issues in the Repositories list tab (layout and selection bugs).
+- Added GPG tab enhancements: fingerprint and expiry display, export and delete actions with safe validation.
+- Replaced four screenshots with updated captures for the Welcome, Repositories, Sources Generator (speed test integrated) and GPG Keys tabs.
+
+#### Original 2.0.0 highlights (December 10, 2025)
 - Major refactor for multi-desktop compatibility and modern theming aligned with Soplos Welcome.
 - Improved repository management, GPG key handling, mirror detection and speed testing.
 - Updated AppStream/DEP-11 metadata for better software center integration.

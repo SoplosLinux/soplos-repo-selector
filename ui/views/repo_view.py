@@ -6,12 +6,13 @@ Displays and manages the list of repositories.
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
+import os
 
 from core.i18n_manager import _
 from services.repo_manager import get_repo_manager
 from ui.widgets.repo_row import RepoRow
 from ui.dialogs.repo_edit import RepoEditDialog
-from ui.dialogs.speed_test import SpeedTestDialog
+# Speed test dialog removed from this view to avoid duplicate tests
 
 class RepoView(Gtk.Box):
     """View for managing repositories."""
@@ -24,6 +25,7 @@ class RepoView(Gtk.Box):
         
         self._create_ui()
         self.refresh_repos()
+        self._start_autorefresh()
     
     def _create_ui(self):
         """Create view UI."""
@@ -49,10 +51,7 @@ class RepoView(Gtk.Box):
         sep = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
         action_bar.pack_start(sep, False, False, 6)
         
-        speed_btn = Gtk.Button(label=_("Find Fastest Mirrors"))
-        speed_btn.set_tooltip_text(_("Test mirrors speed and select the fastest ones"))
-        speed_btn.connect("clicked", self._on_speed_test_clicked)
-        action_bar.pack_start(speed_btn, False, False, 0)
+        # Removed redundant speed test button (use Sources Generator)
         
         # Spacer
         action_bar.pack_start(Gtk.Label(), True, True, 0)
@@ -169,39 +168,12 @@ class RepoView(Gtk.Box):
         else:
             dialog.destroy()
         
-    def _on_speed_test_clicked(self, btn):
-        dialog = SpeedTestDialog(self.main_window)
-        response = dialog.run()
-        
-        if response == Gtk.ResponseType.OK:
-            best_mirror = dialog.get_selected_mirror()
-            dialog.destroy()
-            
-            if best_mirror:
-                # Ask user if they want to replace existing main repos with this mirror?
-                # Or just add it? Usually we replace.
-                # Logic to replace main repo is complex.
-                # For now, let's just show a message or add it as new.
-                
-                # Simple implementation: Add as new repo
-                new_repo = {
-                    'type': 'deb',
-                    'uri': best_mirror['url'],
-                    'distribution': 'stable', # How to guess?
-                    'components': 'main contrib non-free',
-                    'comment': f"Fastest mirror selected: {best_mirror['speed_mbps']:.2f} MB/s",
-                    'file': None # Will be auto determined
-                }
-                self.repos.append(new_repo)
-                self.refresh_ui_from_data()
-                self._on_repo_changed(None)
-        else:
-            dialog.destroy()
-        
     def _on_apply_clicked(self, btn):
         self.apply_btn.set_sensitive(False)
         
         if self.repo_manager.save_repos(self.repos):
+            # Refresh view to reflect on-disk state immediately
+            self.refresh_repos()
             dialog = Gtk.MessageDialog(
                 transient_for=self.main_window,
                 flags=0,
@@ -224,6 +196,48 @@ class RepoView(Gtk.Box):
             dialog.run()
             dialog.destroy()
             self.apply_btn.set_sensitive(True)
+
+    def _start_autorefresh(self):
+        """Start a periodic watcher that detects external changes and refreshes UI."""
+        try:
+            self._watched_paths = [self.repo_manager.sources_list, self.repo_manager.sources_parts]
+            self._paths_mtime = self._snapshot_paths_mtime()
+            # Check every 3 seconds
+            GLib.timeout_add_seconds(3, self._check_fs_changes)
+        except Exception:
+            # If anything fails, don't crash the UI; just skip auto-refresh
+            self._watched_paths = []
+            self._paths_mtime = {}
+
+    def _snapshot_paths_mtime(self):
+        mtimes = {}
+        for path in self._watched_paths:
+            try:
+                if os.path.isdir(path):
+                    # snapshot all children files
+                    for fn in os.listdir(path):
+                        full = os.path.join(path, fn)
+                        try:
+                            mtimes[full] = os.path.getmtime(full)
+                        except Exception:
+                            mtimes[full] = None
+                else:
+                    mtimes[path] = os.path.getmtime(path)
+            except Exception:
+                mtimes[path] = None
+        return mtimes
+
+    def _check_fs_changes(self):
+        """Called periodically by GLib; returns True to continue calling."""
+        try:
+            new_mtimes = self._snapshot_paths_mtime()
+            if new_mtimes != self._paths_mtime:
+                # Detected change on disk; refresh UI
+                self._paths_mtime = new_mtimes
+                self.refresh_repos()
+        except Exception:
+            pass
+        return True
             
     def refresh_ui_from_data(self):
         """Redraw list from self.repos."""

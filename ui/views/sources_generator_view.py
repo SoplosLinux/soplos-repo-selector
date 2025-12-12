@@ -4,21 +4,28 @@ Tab 1: Select Distribution, Components, and Mirror to generate sources.
 """
 
 import gi
+import threading
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
 
 from core.i18n_manager import _
 from services.speed_test_service import RepoSpeedTester
 from services.repo_manager import get_repo_manager
-from ui.dialogs.speed_test import SpeedTestDialog
+
 
 class SourcesGeneratorView(Gtk.Box):
     """View for generating main APT sources."""
     
     def __init__(self, main_window):
-        super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+        # Reduce overall spacing to compact vertical gaps
+        super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self.main_window = main_window
         self.repo_manager = get_repo_manager()
+        self.tester = RepoSpeedTester()
+        self.speed_results = []
+        # Track row widgets to update progress bars when max speed changes
+        self.row_widgets = {}
+        self.max_speed_seen = 1.0
         
         # Defaults - Soplos Hybrid Mode (Trixie + Testing)
         # Using a set for selected distros to handle multi-selection
@@ -78,7 +85,6 @@ class SourcesGeneratorView(Gtk.Box):
         dist_box.pack_start(self.backports_check, False, False, 0)
             
         dist_frame.add(dist_box)
-        self.pack_start(dist_frame, False, False, 0)
         
         # 2. Components Selection
         comp_frame = Gtk.Frame(label=_("2. Select Components"))
@@ -104,34 +110,80 @@ class SourcesGeneratorView(Gtk.Box):
             comp_box.pack_start(chk, False, False, 0)
             
         comp_frame.add(comp_box)
-        self.pack_start(comp_frame, False, False, 0)
+
+        # Arrange Distribution and Components side-by-side in two columns
+        # Slightly tighter columns spacing to reclaim vertical space
+        top_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+        top_box.set_homogeneous(False)
+
+        # Let frames expand to share available vertical space and reduce left-alignment
+        dist_frame.set_hexpand(True)
+        dist_frame.set_vexpand(True)
+        comp_frame.set_hexpand(True)
+        comp_frame.set_vexpand(True)
+
+        top_box.pack_start(dist_frame, True, True, 0)
+        top_box.pack_start(comp_frame, True, True, 0)
+
+        self.pack_start(top_box, False, False, 0)
         
         # 3. Mirror Selection
         mirror_frame = Gtk.Frame(label=_("3. Select Mirror"))
-        mirror_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        mirror_box.set_margin_top(10)
-        mirror_box.set_margin_bottom(10)
-        mirror_box.set_margin_start(10)
-        mirror_box.set_margin_end(10)
+        # Compact mirror area margins so more vertical room is available
+        mirror_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        mirror_box.set_margin_top(6)
+        mirror_box.set_margin_bottom(6)
+        mirror_box.set_margin_start(8)
+        mirror_box.set_margin_end(8)
+        # Make mirror_frame expand to fill the same width as top frames
+        try:
+            mirror_frame.set_hexpand(True)
+            mirror_frame.set_halign(Gtk.Align.FILL)
+        except Exception:
+            pass
         
         self.mirror_label = Gtk.Label(label=_("Current: http://deb.debian.org/debian (Global CDN)"))
         self.mirror_label.set_xalign(0)
         mirror_box.pack_start(self.mirror_label, False, False, 0)
         self.selected_mirror_url = "http://deb.debian.org/debian"
         
-        speed_btn = Gtk.Button(label=_("Find Fastest Mirror"))
-        icon = Gtk.Image.new_from_icon_name("network-wireless-symbolic", Gtk.IconSize.BUTTON)
-        speed_btn.set_image(icon)
-        speed_btn.connect("clicked", self._on_speed_test_clicked)
-        mirror_box.pack_start(speed_btn, False, False, 0)
-        
+        # Note: the speed test trigger button is placed with the action buttons
+        # (created later) so the central mirror area remains free for results.
+        # Inline results list (updates as mirrors are tested)
+        self.status_label = Gtk.Label(label="")
+        self.status_label.set_xalign(0)
+        mirror_box.pack_start(self.status_label, False, False, 0)
+
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scrolled.set_vexpand(True)
+        # Ensure results list has a reasonable visible height so rows are readable
+        try:
+            scrolled.set_min_content_height(240)
+        except Exception:
+            pass
+        self.list_box = Gtk.ListBox()
+        self.list_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        self.list_box.connect('row-activated', self._on_result_selected)
+        scrolled.add(self.list_box)
+
+        # Put the scrolled results inside the same mirror box so the frame
+        # containing the mirror label and the results shares the same width
+        mirror_box.pack_start(scrolled, True, True, 6)
         mirror_frame.add(mirror_box)
-        self.pack_start(mirror_frame, False, False, 0)
+        # Make the mirror frame expand to fill available width (so it matches results)
+        self.pack_start(mirror_frame, True, True, 0)
         
         # Action Buttons
         actions_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         actions_box.set_halign(Gtk.Align.END)
         
+        speed_btn = Gtk.Button(label=_("Find Fastest Mirror"))
+        speed_icon = Gtk.Image.new_from_icon_name("network-wireless-symbolic", Gtk.IconSize.BUTTON)
+        speed_btn.set_image(speed_icon)
+        speed_btn.connect("clicked", self._on_speed_test_clicked)
+        actions_box.pack_start(speed_btn, False, False, 0)
+
         apply_btn = Gtk.Button(label=_("Generate Source List"))
         apply_btn.get_style_context().add_class('suggested-action')
         apply_btn.connect("clicked", self._on_generate_clicked)
@@ -151,20 +203,179 @@ class SourcesGeneratorView(Gtk.Box):
     def _on_comp_toggled(self, button, comp_id):
         self.selected_components[comp_id] = button.get_active()
         
-    def _on_speed_test_clicked(self, btn):
-        dialog = SpeedTestDialog(self.main_window)
-        response = dialog.run()
-        
-        if response == Gtk.ResponseType.OK:
-            best = dialog.get_selected_mirror()
-            dialog.destroy()
-            if best:
-                self.selected_mirror_url = best['url']
+    def _run_speed_test(self, trigger_button):
+        """Run the speed test service and update UI via callbacks."""
+        try:
+            results = self.tester.test_mirrors_parallel(callback=self._speed_result_callback)
+            GLib.idle_add(self._on_speed_test_finished, results, trigger_button)
+        except Exception:
+            GLib.idle_add(self._on_speed_test_finished, [], trigger_button)
+
+    def _speed_result_callback(self, result: dict):
+        # Called from worker thread for each mirror; schedule UI update
+        GLib.idle_add(self._on_single_result, result)
+
+    def _on_single_result(self, result: dict):
+        # Collect result, update footer and rebuild compact, ordered list
+        try:
+            # Replace existing result for same URL or append new
+            try:
+                url = result.get('url')
+                replaced = False
+                for idx, r in enumerate(self.speed_results):
+                    if r.get('url') == url:
+                        self.speed_results[idx] = result
+                        replaced = True
+                        break
+                if not replaced:
+                    self.speed_results.append(result)
+
+                # Update max seen speed
+                try:
+                    sv = float(result.get('speed_mbps', 0) or 0.0)
+                    if sv > self.max_speed_seen:
+                        self.max_speed_seen = sv
+                except Exception:
+                    pass
+
+                total = max(1, len(self.tester.mirrors))
+                # compute unique count by URL to avoid duplicates
+                unique_urls = {r.get('url') for r in self.speed_results if r.get('url')}
+                fraction = min(1.0, len(unique_urls) / float(total))
+                try:
+                    self.main_window.show_progress(_("Testing mirrors..."), fraction)
+                except Exception:
+                    pass
+
+            except Exception:
+                # Protect against unexpected errors updating/adding a single result
+                pass
+
+            # Order results: successful first, by speed desc
+            success = [r for r in self.speed_results if r.get('status') == 'success']
+            failed = [r for r in self.speed_results if r.get('status') != 'success']
+            success.sort(key=lambda x: float(x.get('speed_mbps', 0) or 0.0), reverse=True)
+            ordered = success + failed
+
+            # Rebuild compact list
+            for child in self.list_box.get_children():
+                self.list_box.remove(child)
+
+            for r in ordered:
+                s = float(r.get('speed_mbps', 0) or 0.0)
+                row = Gtk.ListBoxRow()
+                row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+                row_box.set_margin_top(2)
+                row_box.set_margin_bottom(2)
+                row_box.set_margin_start(2)
+                row_box.set_margin_end(2)
+
+                # smaller icon
+                icon_name = "network-cellular-signal-good-symbolic"
+                if s > 10.0:
+                    icon_name = "network-cellular-signal-excellent-symbolic"
+                elif s < 1.0:
+                    icon_name = "network-cellular-signal-weak-symbolic"
+                icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR)
+                row_box.pack_start(icon, False, False, 4)
+
+                vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
+                url_label = Gtk.Label(label=r.get('url', ''))
+                url_label.set_xalign(0)
+                url_label.get_style_context().add_class('bold')
+                info = f"{r.get('country','Unknown')} - {s:.2f} MB/s ({r.get('latency_ms',0):.0f} ms)"
+                info_label = Gtk.Label(label=info)
+                info_label.set_xalign(0)
+                info_label.get_style_context().add_class('dim-label')
+                vbox.pack_start(url_label, False, False, 0)
+                vbox.pack_start(info_label, False, False, 0)
+                row_box.pack_start(vbox, True, True, 6)
+
+                progress = Gtk.ProgressBar()
+                try:
+                    frac = min(1.0, float(s) / float(self.max_speed_seen)) if self.max_speed_seen > 0 else 0.0
+                except Exception:
+                    frac = 0.0
+                progress.set_fraction(frac)
+                try:
+                    progress.set_show_text(True)
+                    progress.set_text(f"{s:.2f} MB/s")
+                except Exception:
+                    pass
+                row_box.pack_start(progress, False, False, 6)
+
+                row.add(row_box)
+                self.list_box.add(row)
+
+            self.list_box.show_all()
+
+            if ordered:
+                best = ordered[0]
+                self.selected_mirror_url = best.get('url', self.selected_mirror_url)
+                try:
+                    self.mirror_label.set_text(_("Current: {} ({}, {:.2f} MB/s)").format(
+                        best.get('url',''), best.get('country',''), best.get('speed_mbps',0)
+                    ))
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+    def _on_speed_test_finished(self, results, trigger_button):
+        # Hide footer progress and re-enable trigger
+        try:
+            self.main_window.hide_progress()
+        except Exception:
+            pass
+
+        try:
+            trigger_button.set_sensitive(True)
+        except Exception:
+            pass
+
+        # Ensure results list is populated and select first
+        if results:
+            self.speed_results = results
+            row = self.list_box.get_row_at_index(0)
+            if row:
+                self.list_box.select_row(row)
+                best = results[0]
+                if best:
+                    self.selected_mirror_url = best.get('url', self.selected_mirror_url)
+                    self.mirror_label.set_text(_("Current: {} ({}, {:.2f} MB/s)").format(
+                        best.get('url',''), best.get('country',''), best.get('speed_mbps',0)
+                    ))
+
+    def _on_result_selected(self, listbox, row):
+        try:
+            idx = row.get_index()
+            if 0 <= idx < len(self.speed_results):
+                sel = self.speed_results[idx]
+                self.selected_mirror_url = sel.get('url', self.selected_mirror_url)
                 self.mirror_label.set_text(_("Current: {} ({}, {:.2f} MB/s)").format(
-                    best['url'], best['country'], best['speed_mbps']
+                    sel.get('url',''), sel.get('country',''), sel.get('speed_mbps',0)
                 ))
-        else:
-            dialog.destroy()
+        except Exception:
+            pass
+    def _on_speed_test_clicked(self, btn):
+        # Disable button while testing
+        btn.set_sensitive(False)
+
+        # Reveal footer progress and initialize
+        try:
+            self.main_window.show_progress(_("Testing mirrors... This may take a moment."), None)
+        except Exception:
+            pass
+
+        # Clear previous results
+        for child in self.list_box.get_children():
+            self.list_box.remove(child)
+        self.speed_results = []
+
+        # Run tests in background thread
+        thread = threading.Thread(target=self._run_speed_test, args=(btn,))
+        thread.daemon = True
+        thread.start()
             
     def _on_generate_clicked(self, btn):
         if not self.selected_distros:

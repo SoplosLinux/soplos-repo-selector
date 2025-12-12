@@ -93,6 +93,37 @@ class GPGView(Gtk.Box):
             info_box.pack_start(desc_label, True, True, 0)
             
             box.pack_start(info_box, True, True, 0)
+
+            # Details column (fingerprint, expiry)
+            details = self.gpg_manager.get_key_details(key['path']) or {}
+            details_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+            fpr = details.get('fingerprint') or ''
+            expiry = details.get('expiry') or ''
+            fpr_label = Gtk.Label(label=fpr)
+            fpr_label.set_xalign(0)
+            fpr_label.get_style_context().add_class('dim-label')
+            details_box.pack_start(fpr_label, True, True, 0)
+
+            expiry_label = Gtk.Label(label=expiry)
+            expiry_label.set_xalign(0)
+            expiry_label.get_style_context().add_class('dim-label')
+            details_box.pack_start(expiry_label, True, True, 0)
+
+            box.pack_start(details_box, False, False, 0)
+
+            # Actions column (Export / Delete)
+            action_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+            export_btn = Gtk.Button(label=_("Exportar"))
+            export_btn.connect('clicked', self._on_export_clicked, key)
+            action_box.pack_start(export_btn, False, False, 0)
+
+            delete_btn = Gtk.Button(label=_("Borrar"))
+            # attach a small state to manage confirm-once behavior
+            delete_btn._confirm_state = False
+            delete_btn.connect('clicked', self._on_delete_clicked, key, delete_btn)
+            action_box.pack_start(delete_btn, False, False, 0)
+
+            box.pack_start(action_box, False, False, 0)
             
             row.add(box)
             self.list_box.add(row)
@@ -139,3 +170,70 @@ class GPGView(Gtk.Box):
                 md.destroy()
         else:
             dialog.destroy()
+
+    def _on_export_clicked(self, btn, key):
+        dialog = Gtk.FileChooserDialog(
+            title=_("Export Key"),
+            parent=self.main_window,
+            action=Gtk.FileChooserAction.SAVE,
+        )
+        dialog.add_buttons(
+            _("Cancel"), Gtk.ResponseType.CANCEL,
+            _("Save"), Gtk.ResponseType.ACCEPT
+        )
+        dialog.set_do_overwrite_confirmation(True)
+
+        response = dialog.run()
+        if response == Gtk.ResponseType.ACCEPT:
+            dst = dialog.get_filename()
+            dialog.destroy()
+            success, msg = self.gpg_manager.export_key(key['path'], dst)
+            if success:
+                self.refresh_keys()
+            else:
+                md = Gtk.MessageDialog(
+                    parent=self.main_window,
+                    flags=0,
+                    message_type=Gtk.MessageType.ERROR,
+                    buttons=Gtk.ButtonsType.OK,
+                    text=_("Export Error")
+                )
+                md.format_secondary_text(msg)
+                md.run()
+                md.destroy()
+        else:
+            dialog.destroy()
+
+    def _on_delete_clicked(self, btn, key, delete_btn):
+        # Two-step inline confirmation: first click arms the button, second click deletes.
+        if not getattr(delete_btn, '_confirm_state', False):
+            delete_btn.set_label(_('Confirmar borrar'))
+            delete_btn._confirm_state = True
+
+            def reset_label():
+                try:
+                    delete_btn.set_label(_('Borrar'))
+                    delete_btn._confirm_state = False
+                except Exception:
+                    pass
+                return False
+
+            # reset after 5 seconds if no confirmation
+            GLib.timeout_add_seconds(5, reset_label)
+            return
+
+        # Proceed to delete
+        success, msg = self.gpg_manager.delete_key(key['path'], force=False)
+        if success:
+            self.refresh_keys()
+        else:
+            md = Gtk.MessageDialog(
+                parent=self.main_window,
+                flags=0,
+                message_type=Gtk.MessageType.ERROR,
+                buttons=Gtk.ButtonsType.OK,
+                text=_('Delete Error')
+            )
+            md.format_secondary_text(msg)
+            md.run()
+            md.destroy()

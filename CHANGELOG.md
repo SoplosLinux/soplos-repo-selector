@@ -39,6 +39,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 - Enhanced key download functionality from URLs.
 - Better key verification and management.
 
+### Patch - 2025-12-12
+- Fixed `Sources Generator` to preserve DEB822 block grouping and respect selected mirror.
+- Integrated mirror speed test into the Sources Generator tab (no external windows).
+- Fixed layout and selection bugs in the Repositories list tab.
+- Added GPG tab improvements: fingerprint/expiry display, export and delete actions with safe validation.
+- Replaced four screenshots (Welcome, Repositories, Sources Generator, GPG Keys).
+
 ### 🚀 Mirror Detection & Speed Testing
 - Improved fastest mirror detection algorithm.
 - Enhanced speed testing with better progress reporting.

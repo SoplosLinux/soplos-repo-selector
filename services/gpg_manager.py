@@ -4,9 +4,12 @@ Handles importing, listing, and verifying GPG keys for repositories.
 """
 
 import os
+import shutil
 import subprocess
+import glob
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional
+from datetime import datetime
 
 from utils.logger import log_info, log_error, log_warning
 
@@ -67,6 +70,43 @@ class GPGManager:
             
         return info
 
+    def get_key_details(self, key_path: str) -> Optional[Dict[str, Optional[str]]]:
+        """Return fingerprint, expiry (ISO) and uid for a key file, or None."""
+        try:
+            result = subprocess.run(
+                ["gpg", "--show-keys", "--with-colons", key_path],
+                check=False, capture_output=True, text=True, timeout=3
+            )
+            if result.returncode != 0:
+                return None
+
+            fingerprint = ''
+            expiry: Optional[str] = None
+            uid = ''
+
+            for line in result.stdout.split('\n'):
+                parts = line.split(':')
+                if not parts:
+                    continue
+                tag = parts[0]
+                if tag == 'fpr' and len(parts) >= 10:
+                    fingerprint = parts[-1]
+                elif tag == 'pub' and len(parts) > 6:
+                    exp_field = parts[6]
+                    if exp_field and exp_field.isdigit():
+                        try:
+                            ts = int(exp_field)
+                            expiry = datetime.utcfromtimestamp(ts).isoformat() + 'Z'
+                        except Exception:
+                            expiry = None
+                elif tag == 'uid' and len(parts) > 9:
+                    uid = parts[9]
+
+            return {'fingerprint': fingerprint, 'expiry': expiry, 'uid': uid}
+        except Exception as e:
+            log_warning(f"Error extracting key details for {key_path}: {e}")
+            return None
+
     def import_key_from_file(self, source_path: str, key_name: str = None) -> Tuple[bool, str]:
         """
         Imports a GPG key from a file.
@@ -110,6 +150,95 @@ class GPGManager:
             log_error(f"Error importing key: {e}")
             return False, str(e)
 
+    def export_key(self, src_path: str, dst_path: str) -> Tuple[bool, str]:
+        """
+        Export a key file from `src_path` to `dst_path`.
+        If the source is ASCII-armored and the destination ends with `.gpg`,
+        it will attempt to dearmor into a binary `.gpg` file.
+        Returns (success, message_or_dst).
+        """
+        try:
+            if not os.path.exists(src_path):
+                return False, f"Source {src_path} does not exist"
+
+            # If destination parent doesn't exist, try to create (may fail if needs root)
+            dst_dir = os.path.dirname(dst_path) or '.'
+            if not os.path.exists(dst_dir):
+                try:
+                    os.makedirs(dst_dir, exist_ok=True)
+                except PermissionError:
+                    return False, f"Permission denied creating destination directory {dst_dir}"
+
+            if self._is_ascii_armored(src_path) and dst_path.endswith('.gpg'):
+                # dearmor ASCII to binary
+                cmd = ['gpg', '--dearmor', '-o', dst_path, src_path]
+                res = subprocess.run(cmd, capture_output=True, text=True)
+                if res.returncode == 0:
+                    return True, dst_path
+                else:
+                    return False, res.stderr or 'gpg --dearmor failed'
+            else:
+                try:
+                    shutil.copyfile(src_path, dst_path)
+                    return True, dst_path
+                except PermissionError:
+                    return False, f"Permission denied writing to {dst_path}"
+                except Exception as e:
+                    return False, str(e)
+
+        except Exception as e:
+            log_error(f"Error exporting key: {e}")
+            return False, str(e)
+
+    def delete_key(self, key_path: str, force: bool = False) -> Tuple[bool, str]:
+        """
+        Delete a key file at `key_path` after validating it's not referenced by APT sources.
+        If `force` is True, deletion proceeds even if references are found.
+        Returns (success, message).
+        """
+        try:
+            if not os.path.exists(key_path):
+                return False, f"Key {key_path} does not exist"
+
+            # Search for references in apt sources
+            referenced_in = []
+            candidates = ['/etc/apt/sources.list']
+            candidates.extend(glob.glob('/etc/apt/sources.list.d/*'))
+            for conf in candidates:
+                try:
+                    if not os.path.isfile(conf):
+                        continue
+                    with open(conf, 'r', errors='ignore') as f:
+                        data = f.read()
+                        if key_path in data or os.path.basename(key_path) in data:
+                            referenced_in.append(conf)
+                except Exception:
+                    continue
+
+            if referenced_in and not force:
+                return False, f"Key referenced in: {', '.join(referenced_in)}"
+
+            # Attempt to remove file (may require root)
+            try:
+                os.remove(key_path)
+                return True, f"Deleted {key_path}"
+            except PermissionError:
+                # Fallback to pkexec rm
+                try:
+                    res = subprocess.run(['pkexec', 'rm', '-f', key_path], capture_output=True, text=True)
+                    if res.returncode == 0:
+                        return True, f"Deleted {key_path} (via pkexec)"
+                    else:
+                        return False, res.stderr or 'pkexec rm failed'
+                except Exception as e:
+                    return False, str(e)
+            except FileNotFoundError:
+                return False, f"Key {key_path} not found"
+            except Exception as e:
+                return False, str(e)
+        except Exception as e:
+            log_error(f"Error deleting key: {e}")
+            return False, str(e)
     def _is_ascii_armored(self, file_path: str) -> bool:
         try:
             with open(file_path, 'rb') as f:

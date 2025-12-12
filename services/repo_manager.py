@@ -83,10 +83,11 @@ class RepoManager:
         # (This logic implies we should track original state, but for now 
         # we can just iterate over the keys we found)
         
-        success = True
-        for file_path, file_repos in repos_by_file.items():
-            if not self.file_manager.write_sources_file(file_path, file_repos):
-                success = False
+        # Attempt to write all files in a single grouped operation so we can
+        # perform privilege escalation only once when needed.
+        success = self.file_manager.write_multiple_sources_files(repos_by_file)
+        if not success:
+            for file_path in repos_by_file.keys():
                 log_error(f"Failed to save {file_path}")
         
         if success:

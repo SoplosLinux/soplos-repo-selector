@@ -15,13 +15,37 @@ from utils.logger import log_info, log_error, log_warning
 # Default mirrors list
 DEFAULT_MIRRORS = [
     "http://deb.debian.org/debian",
+    # CDN variants
+    "http://cdn-aws.deb.debian.org/debian",
+    "http://cloudfront.debian.net/debian",
+    # Official country mirrors
     "http://ftp.us.debian.org/debian",
     "http://ftp.uk.debian.org/debian",
     "http://ftp.de.debian.org/debian",
     "http://ftp.fr.debian.org/debian",
     "http://ftp.es.debian.org/debian",
     "http://ftp.it.debian.org/debian",
-    "http://ftp.br.debian.org/debian"
+    "http://ftp.br.debian.org/debian",
+    # Popular mirrors
+    "http://mirrors.kernel.org/debian",
+    "http://debian.mirrors.ovh.net/debian",
+    "http://mirror.bytemark.co.uk/debian",
+    "http://mirror.netcologne.de/debian",
+    "http://ftp.heanet.ie/mirrors/debian",
+    "http://ftp.riken.jp/debian",
+    "http://ftp.snt.utwente.nl/debian",
+    "http://mirror.init7.net/debian",
+    # Chinese mirrors
+    "http://mirrors.ustc.edu.cn/debian",
+    "http://mirrors.tuna.tsinghua.edu.cn/debian",
+    "http://mirrors.aliyun.com/debian",
+    "http://mirror.sjtu.edu.cn/debian",
+    # Other useful mirrors
+    "http://mirror.math.princeton.edu/pub/debian",
+    "http://mirror.corenet.jp/debian",
+    "http://ftp.uni-kl.de/debian",
+    "http://mirror.linux.org.au/debian",
+    "http://mirror.ox.ac.uk/debian"
 ]
 
 class RepoSpeedTester:
@@ -29,10 +53,13 @@ class RepoSpeedTester:
     
     def __init__(self, mirrors: List[str] = None):
         self.mirrors = mirrors or DEFAULT_MIRRORS
-        self.timeout = 5
+        # timeouts for requests: (connect_timeout, read_timeout)
+        self.timeout = (3, 5)
         self.test_file_size = 512 * 1024  # 512KB for quick test
+        # maximum seconds to wait for all mirrors to complete before marking remaining as timed out
+        self.per_mirror_timeout = 12
         
-    def measure_download_speed(self, url: str) -> Dict[str, Any]:
+    def measure_download_speed(self, url: str, progress_callback: Optional[Callable[[Dict], None]] = None) -> Dict[str, Any]:
         """
         Measures real download speed from a repository.
         Returns dictionary with results.
@@ -50,23 +77,47 @@ class RepoSpeedTester:
                 try:
                     start_time = time.time()
                     response = requests.get(test_url, timeout=self.timeout, stream=True)
-                    
+
                     if response.status_code == 200:
                         downloaded = 0
                         download_start = time.time()
-                        
+                        last_update = download_start
+
                         for chunk in response.iter_content(chunk_size=8192):
                             downloaded += len(chunk)
+
+                            now = time.time()
+                            # send intermittent progress updates (throttled)
+                            if progress_callback and (now - last_update >= 0.25 or downloaded >= self.test_file_size):
+                                elapsed_partial = now - download_start
+                                if elapsed_partial > 0:
+                                    speed_partial = (downloaded / (1024 * 1024)) / elapsed_partial
+                                else:
+                                    speed_partial = 0.0
+
+                                try:
+                                    progress_callback({
+                                        'status': 'in_progress',
+                                        'downloaded_bytes': downloaded,
+                                        'speed_mbps': speed_partial,
+                                        'latency_ms': elapsed_partial * 1000,
+                                        'url': url
+                                    })
+                                except Exception:
+                                    pass
+
+                                last_update = now
+
                             if downloaded > self.test_file_size:
                                 break
-                        
+
                         elapsed = time.time() - download_start
-                        
+
                         if elapsed > 0:
                             speed_mbps = (downloaded / (1024 * 1024)) / elapsed
                         else:
                             speed_mbps = 0
-                        
+
                         return {
                             'speed_mbps': speed_mbps,
                             'latency_ms': elapsed * 1000,
@@ -97,27 +148,78 @@ class RepoSpeedTester:
         
         def test_single_mirror(mirror_url):
             country = self.get_mirror_country(mirror_url)
-            speed_result = self.measure_download_speed(mirror_url)
-            
+            # Wrap progress updates to include url and country
+            def _progress_cb(partial: Dict[str, Any]):
+                partial_result = {
+                    'url': mirror_url,
+                    'country': country,
+                    **partial
+                }
+                # Append/update partial into all_results for visibility
+                all_results.append(partial_result)
+                if callback:
+                    try:
+                        callback(partial_result)
+                    except Exception as e:
+                        log_error("Error in speed test callback (partial)", e)
+
+            speed_result = self.measure_download_speed(mirror_url, progress_callback=_progress_cb)
+
             result = {
                 'url': mirror_url,
                 'country': country,
                 **speed_result
             }
-            
+
+            # Remove previous partial entries for this URL and append final
+            all_results[:] = [r for r in all_results if r.get('url') != mirror_url]
             all_results.append(result)
-            
+
             if callback:
                 try:
                     callback(result)
                 except Exception as e:
                     log_error("Error in speed test callback", e)
-            
+
             return result
         
+        # Run tests in a thread pool and avoid indefinite blocking by waiting
+        # up to `per_mirror_timeout` seconds for unfinished futures.
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-            futures = [executor.submit(test_single_mirror, mirror) for mirror in self.mirrors]
-            concurrent.futures.wait(futures)
+            futures = {executor.submit(test_single_mirror, mirror): mirror for mirror in self.mirrors}
+
+            # Wait in short intervals until either all done or timeout
+            unfinished = set(futures.keys())
+            wait_interval = 0.5
+            elapsed = 0.0
+            while unfinished and elapsed < self.per_mirror_timeout:
+                done, not_done = concurrent.futures.wait(unfinished, timeout=wait_interval, return_when=concurrent.futures.FIRST_COMPLETED)
+                unfinished = not_done
+                elapsed += wait_interval
+
+            # Any futures still unfinished after timeout -> mark as timed out and try to cancel
+            if unfinished:
+                for fut in list(unfinished):
+                    mirror_url = futures.get(fut)
+                    try:
+                        fut.cancel()
+                    except Exception:
+                        pass
+
+                    # append a timeout result for the mirror so UI can update and progress completes
+                    timeout_result = {
+                        'url': mirror_url,
+                        'country': self.get_mirror_country(mirror_url),
+                        'speed_mbps': 0,
+                        'latency_ms': 9999,
+                        'status': 'timeout'
+                    }
+                    all_results.append(timeout_result)
+                    if callback:
+                        try:
+                            callback(timeout_result)
+                        except Exception as e:
+                            log_error("Error in speed test callback (timeout)", e)
         
         # Sort results
         successful_results = [r for r in all_results if r['status'] == 'success']
@@ -135,6 +237,9 @@ class RepoSpeedTester:
             
             country_map = {
                 "deb.debian.org": "Global CDN",
+                "cdn-aws.deb.debian.org": "Global CDN",
+                "cloudfront.debian.net": "Global CDN",
+                "mirrors.kernel.org": "Global Mirror",
                 "ftp.us.debian.org": "United States",
                 "ftp.uk.debian.org": "United Kingdom", 
                 "ftp.de.debian.org": "Germany",
@@ -146,7 +251,23 @@ class RepoSpeedTester:
                 "ftp.it.debian.org": "Italy",
                 "ftp.cn.debian.org": "China",
                 "ftp.ru.debian.org": "Russia",
-                "ftp.ca.debian.org": "Canada"
+                "ftp.ca.debian.org": "Canada",
+                "debian.mirrors.ovh.net": "France",
+                "mirror.bytemark.co.uk": "United Kingdom",
+                "mirror.netcologne.de": "Germany",
+                "ftp.heanet.ie": "Ireland",
+                "ftp.riken.jp": "Japan",
+                "ftp.snt.utwente.nl": "Netherlands",
+                "mirror.init7.net": "Switzerland",
+                "mirrors.ustc.edu.cn": "China",
+                "mirrors.tuna.tsinghua.edu.cn": "China",
+                "mirrors.aliyun.com": "China",
+                "mirror.sjtu.edu.cn": "China",
+                "mirror.math.princeton.edu": "United States",
+                "mirror.corenet.jp": "Japan",
+                "ftp.uni-kl.de": "Germany",
+                "mirror.linux.org.au": "Australia",
+                "mirror.ox.ac.uk": "United Kingdom"
             }
             
             for domain, country in country_map.items():
@@ -167,15 +288,47 @@ class RepoSpeedTester:
 def get_country_mirrors() -> Dict[str, List[str]]:
     """Returns mirrors organized by country."""
     return {
-        'Global': ['http://deb.debian.org/debian'],
-        'United States': ['http://ftp.us.debian.org/debian', 'http://mirrors.kernel.org/debian'],
-        'United Kingdom': ['http://ftp.uk.debian.org/debian'],
-        'Germany': ['http://ftp.de.debian.org/debian'],
-        'France': ['http://ftp.fr.debian.org/debian'],
+        'Global': [
+            'http://deb.debian.org/debian',
+            'http://cdn-aws.deb.debian.org/debian',
+            'http://cloudfront.debian.net/debian',
+            'http://mirrors.kernel.org/debian',
+            'http://debian.mirrors.ovh.net/debian'
+        ],
+        'United States': [
+            'http://ftp.us.debian.org/debian',
+            'http://mirror.math.princeton.edu/pub/debian'
+        ],
+        'United Kingdom': [
+            'http://ftp.uk.debian.org/debian',
+            'http://mirror.bytemark.co.uk/debian',
+            'http://mirror.ox.ac.uk/debian'
+        ],
+        'Germany': [
+            'http://ftp.de.debian.org/debian',
+            'http://mirror.netcologne.de/debian',
+            'http://ftp.uni-kl.de/debian'
+        ],
+        'France': [
+            'http://ftp.fr.debian.org/debian',
+            'http://debian.mirrors.ovh.net/debian'
+        ],
         'Spain': ['http://ftp.es.debian.org/debian'],
         'Italy': ['http://ftp.it.debian.org/debian'],
         'Brazil': ['http://ftp.br.debian.org/debian'],
-        'China': ['http://ftp.cn.debian.org/debian'],
-        'Russia': ['http://ftp.ru.debian.org/debian'],
-        # Add more as needed
+        'China': [
+            'http://mirrors.ustc.edu.cn/debian',
+            'http://mirrors.tuna.tsinghua.edu.cn/debian',
+            'http://mirrors.aliyun.com/debian',
+            'http://mirror.sjtu.edu.cn/debian'
+        ],
+        'Japan': [
+            'http://ftp.riken.jp/debian',
+            'http://mirror.corenet.jp/debian'
+        ],
+        'Netherlands': ['http://ftp.snt.utwente.nl/debian'],
+        'Ireland': ['http://ftp.heanet.ie/mirrors/debian'],
+        'Australia': ['http://mirror.linux.org.au/debian'],
+        'Canada': ['http://ftp.ca.debian.org/debian'],
+        'Switzerland': ['http://mirror.init7.net/debian']
     }
