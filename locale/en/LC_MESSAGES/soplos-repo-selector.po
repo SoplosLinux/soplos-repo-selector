@@ -1,14 +1,14 @@
-# English translations for Soplos Repo Selector
-# Automatically generated, 2025.
-#
+# English translation for Soplos Repo Selector
+# Copyright (C) 2025 Sergi Perich
+# This file is distributed under the same license as the soplos-repo-selector package.
 msgid ""
 msgstr ""
 "Project-Id-Version: soplos-repo-selector 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-12 22:49+0100\n"
 "PO-Revision-Date: 2025-12-12 22:49+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Last-Translator: Sergi Perich <info@soploslinux.com>\n"
+"Language-Team: English <info@soploslinux.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

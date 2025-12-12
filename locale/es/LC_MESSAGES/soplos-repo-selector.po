@@ -1,8 +1,6 @@
 # Spanish translation for Soplos Repo Selector
 # Copyright (C) 2025 Sergi Perich
 # This file is distributed under the same license as the soplos-repo-selector package.
-# Automatically generated, 2025.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: soplos-repo-selector 1.0\n"

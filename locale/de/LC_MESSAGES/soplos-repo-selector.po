@@ -1,16 +1,14 @@
-# German translations for PACKAGE package.
-# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2025.
-#
+# German translation for Soplos Repo Selector
+# Copyright (C) 2025 Sergi Perich
+# This file is distributed under the same license as the soplos-repo-selector package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: soplos-repo-selector 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-12 22:49+0100\n"
 "PO-Revision-Date: 2025-12-12 22:49+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Last-Translator: Sergi Perich <info@soploslinux.com>\n"
+"Language-Team: German <info@soploslinux.com>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -402,23 +400,23 @@ msgstr "GPG-Schlüssel"
 
 #: ui/main_window.py:168 ui/main_window.py:290
 msgid "Ready"
-msgstr ""
+msgstr "Bereit"
 
 #: ui/main_window.py:262
 msgid "Running on {} ({})"
-msgstr ""
+msgstr "Läuft auf {} ({})"
 
 #: ui/main_window.py:279
 msgid "Working..."
-msgstr ""
+msgstr "Arbeite..."
 
 #: ui/widgets/repo_row.py:75
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: ui/widgets/repo_row.py:82 ui/views/gpg_view.py:131 ui/views/gpg_view.py:226
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: ui/views/welcome_view.py:64
 msgid ""
@@ -426,214 +424,214 @@ msgid ""
 "\n"
 "This application will help you get started configuring repositories and "
 "mirrors for your system."
-msgstr ""
+msgstr "Willkommen beim erweiterten Repository-Manager für Soplos Linux.\n\nDiese Anwendung hilft Ihnen bei der Konfiguration von Repositorys und Spiegelservern für Ihr System."
 
 #: ui/views/welcome_view.py:77
 msgid "Use the tabs above to:"
-msgstr ""
+msgstr "Verwenden Sie die obigen Reiter, um:"
 
 #: ui/views/welcome_view.py:96
 msgid "• Generate optimized repository sources"
-msgstr ""
+msgstr "• Optimierte Repository-Quellen generieren"
 
 #: ui/views/welcome_view.py:97
 msgid "• Find fastest download mirrors"
-msgstr ""
+msgstr "• Schnellste Download-Spiegelserver finden"
 
 #: ui/views/welcome_view.py:98
 msgid "• Manage repositories and GPG keys"
-msgstr ""
+msgstr "• Repositorys und GPG-Schlüssel verwalten"
 
 #: ui/views/welcome_view.py:99
 msgid "• Customize free / non-free components"
-msgstr ""
+msgstr "• Freie / unfreie Komponenten anpassen"
 
 #: ui/views/gpg_view.py:35
 msgid "Import Key"
-msgstr ""
+msgstr "Schlüssel importieren"
 
 #: ui/views/gpg_view.py:42 ui/views/repo_view.py:47
 msgid "Refresh"
-msgstr ""
+msgstr "Aktualisieren"
 
 #: ui/views/gpg_view.py:76
 msgid "No GPG keys found"
-msgstr ""
+msgstr "Keine GPG-Schlüssel gefunden"
 
 #: ui/views/gpg_view.py:127
 msgid "Export"
-msgstr ""
+msgstr "Exportieren"
 
 #: ui/views/gpg_view.py:146
 msgid "Import GPG Key"
-msgstr ""
+msgstr "GPG-Schlüssel importieren"
 
 #: ui/views/gpg_view.py:152
 msgid "Import"
-msgstr ""
+msgstr "Importieren"
 
 #: ui/views/gpg_view.py:177
 msgid "Import Error"
-msgstr ""
+msgstr "Importfehler"
 
 #: ui/views/gpg_view.py:187
 msgid "Export Key"
-msgstr ""
+msgstr "Schlüssel exportieren"
 
 #: ui/views/gpg_view.py:210
 msgid "Export Error"
-msgstr ""
+msgstr "Exportfehler"
 
 #: ui/views/gpg_view.py:221
 msgid "Confirm Delete"
-msgstr ""
+msgstr "Löschen bestätigen"
 
 #: ui/views/gpg_view.py:246
 msgid "Delete Error"
-msgstr ""
+msgstr "Löschfehler"
 
 #: ui/views/repo_view.py:60
 msgid "Apply Changes"
-msgstr ""
+msgstr "Änderungen anwenden"
 
 #: ui/views/repo_view.py:95
 msgid "No repositories found"
-msgstr ""
+msgstr "Keine Repositorys gefunden"
 
 #: ui/views/repo_view.py:145
 msgid "Delete Repository?"
-msgstr ""
+msgstr "Repository löschen?"
 
 #: ui/views/repo_view.py:148
 msgid ""
 "Are you sure you want to delete this repository?\n"
 "\n"
 "{}"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie dieses Repository löschen möchten?\n\n{}"
 
 #: ui/views/repo_view.py:182
 msgid "Changes Applied"
-msgstr ""
+msgstr "Änderungen angewendet"
 
 #: ui/views/repo_view.py:184
 msgid "Repositories have been updated successfully."
-msgstr ""
+msgstr "Repositorys wurden erfolgreich aktualisiert."
 
 #: ui/views/repo_view.py:193
 msgid "Error Saving"
-msgstr ""
+msgstr "Fehler beim Speichern"
 
 #: ui/views/repo_view.py:195
 msgid "Could not save repositories. Check logs for details."
-msgstr ""
+msgstr "Konnte Repositorys nicht speichern. Überprüfen Sie die Logs für Details."
 
 #: ui/views/sources_generator_view.py:51
 msgid "1. Select Debian Distribution(s)"
-msgstr ""
+msgstr "1. Debian-Distribution(en) auswählen"
 
 #: ui/views/sources_generator_view.py:63
 msgid "Debian 13 (Trixie)"
-msgstr ""
+msgstr "Debian 13 (Trixie)"
 
 #: ui/views/sources_generator_view.py:64
 msgid "Debian 14 (Forky)"
-msgstr ""
+msgstr "Debian 14 (Forky)"
 
 #: ui/views/sources_generator_view.py:65
 msgid "Testing"
-msgstr ""
+msgstr "Testing"
 
 #: ui/views/sources_generator_view.py:66
 msgid "Sid"
-msgstr ""
+msgstr "Sid"
 
 #: ui/views/sources_generator_view.py:67
 msgid "Unstable"
-msgstr ""
+msgstr "Instabil"
 
 #: ui/views/sources_generator_view.py:68
 msgid "Experimental"
-msgstr ""
+msgstr "Experimental"
 
 #: ui/views/sources_generator_view.py:82
 msgid "Include Backports"
-msgstr ""
+msgstr "Backports einbeziehen"
 
 #: ui/views/sources_generator_view.py:90
 msgid "2. Select Components"
-msgstr ""
+msgstr "2. Komponenten auswählen"
 
 #: ui/views/sources_generator_view.py:99
 msgid "Main (Free Software)"
-msgstr ""
+msgstr "Main (Freie Software)"
 
 #: ui/views/sources_generator_view.py:100
 msgid "Contrib (Drivers/Packages relying on non-free)"
-msgstr ""
+msgstr "Contrib (Treiber/Pakete abhängig von non-free)"
 
 #: ui/views/sources_generator_view.py:101
 msgid "Non-Free (Proprietary software)"
-msgstr ""
+msgstr "Non-Free (Proprietäre Software)"
 
 #: ui/views/sources_generator_view.py:102
 msgid "Non-Free Firmware (Hardware support)"
-msgstr ""
+msgstr "Non-Free Firmware (Hardware-Unterstützung)"
 
 #: ui/views/sources_generator_view.py:131
 msgid "3. Select Mirror"
-msgstr ""
+msgstr "3. Spiegelserver auswählen"
 
 #: ui/views/sources_generator_view.py:146
 msgid "Current: {} (Global CDN)"
-msgstr ""
+msgstr "Aktuell: {} (Globales CDN)"
 
 #: ui/views/sources_generator_view.py:181
 msgid "Find Fastest Mirror"
-msgstr ""
+msgstr "Schnellsten Spiegel suchen"
 
 #: ui/views/sources_generator_view.py:187
 msgid "Generate Source List"
-msgstr ""
+msgstr "Quellenliste generieren"
 
 #: ui/views/sources_generator_view.py:246
 msgid "Testing mirrors..."
-msgstr ""
+msgstr "Teste Spiegelserver..."
 
 #: ui/views/sources_generator_view.py:288
 msgid "{} - {:.2f} MB/s ({} ms)"
-msgstr ""
+msgstr "{} - {:.2f} MB/s ({} ms)"
 
 #: ui/views/sources_generator_view.py:318
 #: ui/views/sources_generator_view.py:347
 #: ui/views/sources_generator_view.py:357
 #, python-brace-format
 msgid "Current: {url} ({country}, {speed:.2f} MB/s)"
-msgstr ""
+msgstr "Aktuell: {url} ({country}, {speed:.2f} MB/s)"
 
 #: ui/views/sources_generator_view.py:368
 msgid "Testing mirrors... This may take a moment."
-msgstr ""
+msgstr "Teste Spiegelserver... Dies kann einen Moment dauern."
 
 #: ui/views/sources_generator_view.py:384
 msgid "Warning"
-msgstr ""
+msgstr "Warnung"
 
 #: ui/views/sources_generator_view.py:384
 msgid "Please select at least one distribution."
-msgstr ""
+msgstr "Bitte wählen Sie mindestens eine Distribution."
 
 #: ui/views/sources_generator_view.py:427
 msgid "Sources Generated"
-msgstr ""
+msgstr "Quellen generiert"
 
 #: ui/views/sources_generator_view.py:428
 msgid "Your sources have been updated successfully."
-msgstr ""
+msgstr "Ihre Quellen wurden erfolgreich aktualisiert."
 
 #: ui/views/sources_generator_view.py:430
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: ui/views/sources_generator_view.py:431
 msgid "Could not save sources files. Check permissions."
-msgstr ""
+msgstr "Konnte Quellendateien nicht speichern. Berechtigungen prüfen."
