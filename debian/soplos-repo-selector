@@ -1,4 +1,39 @@
-#!/bin/sh
-#/usr/bin/env bash
-# Launcher script placeholder for packaging
-exec python3 -m main "$@"
+#!/bin/bash
+# Advanced wrapper to launch Soplos Repo Selector with desktop integration
+export WMCLASS="org.soplos.reposelector"
+export GDK_STARTUP_NOTIFICATION_ID="${STARTUP_ID:-0}"
+cd /usr/share/soplos-repo-selector
+exec python3 -c "
+import sys
+import os
+sys.path.insert(0, '/usr/share/soplos-repo-selector')
+os.environ['GDK_STARTUP_ID'] = '${GDK_STARTUP_NOTIFICATION_ID}'
+os.environ['WMCLASS'] = 'org.soplos.reposelector'
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, GLib, Gdk
+
+GLib.set_prgname('org.soplos.reposelector')
+GLib.set_application_name('soplos-repo-selector')
+Gtk.Window.set_default_icon_name('org.soplos.reposelector')
+if hasattr(Gdk, 'set_program_class'):
+	Gdk.set_program_class('org.soplos.reposelector')
+
+import main
+try:
+	if hasattr(main, 'main'):
+		sys.exit(main.main())
+	else:
+		for attr_name in dir(main):
+			if attr_name.lower() in ['main', 'run', 'start']:
+				attr = getattr(main, attr_name)
+				if callable(attr):
+					sys.exit(attr())
+					break
+		else:
+			pass
+except Exception as e:
+	print(f'Error executing main.py: {e}')
+	sys.exit(1)
+"

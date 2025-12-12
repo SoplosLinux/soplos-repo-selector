@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Soplos Repo Selector 2.0 - Gestor de Repositorios Avanzado
+Soplos Repo Selector 2.0.0 - Advanced Repository Manager
 
-Punto de entrada principal de la aplicación.
+Main application entry point.
 """
 
 import sys
@@ -11,38 +11,37 @@ import os
 import warnings
 from pathlib import Path
 
-# Añadir la raíz del proyecto al PYTHONPATH
+# Add the project root to PYTHONPATH
 PROJECT_ROOT = Path(__file__).parent
 sys.path.insert(0, str(PROJECT_ROOT))
-
-# Suprimir advertencias de accesibilidad para una salida más limpia
+# Suppress accessibility warnings for a cleaner output
 warnings.filterwarnings('ignore', '.*Couldn\'t connect to accessibility bus.*', Warning)
 warnings.filterwarnings('ignore', '.*Failed to connect to socket.*', Warning)
 
-# Deshabilitar puente de accesibilidad si no está explícitamente habilitado
+# Disable accessibility bridge unless explicitly enabled
 if not os.environ.get('ENABLE_ACCESSIBILITY'):
     os.environ['NO_AT_BRIDGE'] = '1'
     os.environ['AT_SPI_BUS'] = '0'
 
 def main():
-    """Punto de entrada principal para Soplos Repo Selector."""
+    """Main entry point for Soplos Repo Selector."""
     try:
-        # Importar y ejecutar la aplicación
-        # Nota: core.application será implementado en el siguiente paso
+        # Import and run the application
+        # Note: core.application will be implemented in the following step
         from core.application import run_application
         return run_application()
         
     except ImportError as e:
-        print(f"Error de importación: {e}")
-        print("Asegúrate de que todas las dependencias están instaladas:")
+        print(f"Import error: {e}")
+        print("Ensure all dependencies are installed:")
         print("  sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0")
-        # Fallback temporal para depuración hasta que core esté listo
+        # Temporary fallback for debugging until core is ready
         import traceback
         traceback.print_exc()
         return 1
         
     except Exception as e:
-        print(f"Error de la aplicación: {e}")
+        print(f"Application error: {e}")
         import traceback
         traceback.print_exc()
         return 1

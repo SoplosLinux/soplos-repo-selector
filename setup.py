@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='soplos-repo-selector',
     version='2.0.0',
-    description='Gestor gráfico de repositorios APT para sistemas Debian',
+    description='Graphical manager for APT repositories on Debian-based systems',
     long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     author='Soplos Project',
@@ -33,6 +33,6 @@ setup(
     project_urls={
         'Source': 'https://github.com/SoplosLinux/soplos-repo-selector',
         'Tracker': 'https://github.com/SoplosLinux/soplos-repo-selector/issues',
-        'Soplos': 'https://soploslinux.org'
+        'Soplos': 'https://soplos.org'
     }
 )

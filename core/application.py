@@ -150,7 +150,19 @@ class SoplosRepoSelectorApplication(Gtk.Application):
             Gdk.set_program_class(APP_ID)
         
         # Set default window icon if available
-        # TODO: Add icon to assets
+        icon_path = self.assets_path / 'icons' / 'org.soplos.reposelector.png'
+        if icon_path.exists():
+            try:
+                Gtk.Window.set_default_icon_from_file(str(icon_path))
+            except Exception as e:
+                print(f"Error setting application icon: {e}")
+
+        # Setup application menu for GNOME integration (if appropriate)
+        try:
+            if self.environment_detector and getattr(self.environment_detector.desktop_environment, 'value', str(self.environment_detector.desktop_environment)).lower() == 'gnome':
+                self._setup_application_menu()
+        except Exception:
+            pass
     
     def _create_main_window(self):
         """Create the main application window."""
@@ -173,6 +185,34 @@ class SoplosRepoSelectorApplication(Gtk.Application):
             import traceback
             traceback.print_exc()
             self.quit()
+
+    def _setup_application_menu(self):
+        """Setup application menu for GNOME integration."""
+        try:
+            if self.environment_detector and getattr(self.environment_detector.desktop_environment, 'value', str(self.environment_detector.desktop_environment)).lower() == 'gnome':
+                menu = Gio.Menu()
+
+                # Preferences action
+                preferences_action = Gio.SimpleAction.new('preferences', None)
+                preferences_action.connect('activate', lambda a, b: None)
+                self.add_action(preferences_action)
+                menu.append(_('Preferences'), 'app.preferences')
+
+                # About action
+                about_action = Gio.SimpleAction.new('about', None)
+                about_action.connect('activate', lambda a, b: None)
+                self.add_action(about_action)
+                menu.append(_('About'), 'app.about')
+
+                # Quit action
+                quit_action = Gio.SimpleAction.new('quit', None)
+                quit_action.connect('activate', lambda a, b: self.quit())
+                self.add_action(quit_action)
+                menu.append(_('Quit'), 'app.quit')
+
+                self.set_app_menu(menu)
+        except Exception as e:
+            print(f"Error setting up application menu: {e}")
     
     def _on_window_destroy(self, window):
         """Handle main window destruction."""

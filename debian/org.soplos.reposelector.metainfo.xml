@@ -299,16 +299,16 @@
   </provides>
 
   <releases>
-    <release version="2.0" date="2025-12-10">
+    <release version="2.0.0" date="2025-12-10">
       <description>
-        <p xml:lang="es">Lanzamiento 2.0: rediseño de la interfaz, mejoras de rendimiento y mayor compatibilidad.</p>
-        <p xml:lang="en">Release 2.0: UI overhaul, performance improvements and expanded compatibility.</p>
-        <p xml:lang="fr">Version 2.0 : refonte de l'interface, améliorations des performances et compatibilité étendue.</p>
-        <p xml:lang="pt">Versão 2.0: reformulação da interface, melhorias de desempenho e compatibilidade ampliada.</p>
-        <p xml:lang="de">Version 2.0: Benutzeroberfläche überarbeitet, Leistungsverbesserungen und erweiterte Kompatibilität.</p>
-        <p xml:lang="it">Versione 2.0: restyling dell'interfaccia, miglioramenti delle prestazioni e compatibilità ampliata.</p>
-        <p xml:lang="ru">Версия 2.0: переработанный интерфейс, улучшение производительности и расширенная совместимость.</p>
-        <p xml:lang="ro">Versiunea 2.0: interfață reproiectată, îmbunătățiri de performanță și compatibilitate extinsă.</p>
+        <p xml:lang="es">Lanzamiento 2.0.0: rediseño de la interfaz, mejoras de rendimiento y mayor compatibilidad.</p>
+        <p xml:lang="en">Release 2.0.0: UI overhaul, performance improvements and expanded compatibility.</p>
+        <p xml:lang="fr">Version 2.0.0 : refonte de l'interface, améliorations des performances et compatibilité étendue.</p>
+        <p xml:lang="pt">Versão 2.0.0: reformulação da interface, melhorias de desempenho e compatibilidade ampliada.</p>
+        <p xml:lang="de">Version 2.0.0: Benutzeroberfläche überarbeitet, Leistungsverbesserungen und erweiterte Kompatibilität.</p>
+        <p xml:lang="it">Versione 2.0.0: restyling dell'interfaccia, miglioramenti delle prestazioni e compatibilità ampliata.</p>
+        <p xml:lang="ru">Версия 2.0.0: переработанный интерфейс, улучшение производительности и расширенная совместимость.</p>
+        <p xml:lang="ro">Versiunea 2.0.0: interfață reproiectată, îmbunătățiri de performanță și compatibilitate extinsă.</p>
       </description>
     </release>
     <release version="1.0.7" date="2025-07-27">
