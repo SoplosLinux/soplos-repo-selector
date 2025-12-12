@@ -23,13 +23,25 @@ if not os.environ.get('ENABLE_ACCESSIBILITY'):
     os.environ['NO_AT_BRIDGE'] = '1'
     os.environ['AT_SPI_BUS'] = '0'
 
+def cleanup_pycache():
+    """Recursively remove __pycache__ directories."""
+    import shutil
+    try:
+        # PROJECT_ROOT is defined globally
+        for p in PROJECT_ROOT.rglob('__pycache__'):
+            if p.is_dir():
+                shutil.rmtree(p, ignore_errors=True)
+    except Exception as e:
+        print(f"Warning: Failed to cleanup pycache: {e}")
+
 def main():
     """Main entry point for Soplos Repo Selector."""
+    exit_code = 0
     try:
         # Import and run the application
         # Note: core.application will be implemented in the following step
         from core.application import run_application
-        return run_application()
+        exit_code = run_application()
         
     except ImportError as e:
         print(f"Import error: {e}")
@@ -38,13 +50,17 @@ def main():
         # Temporary fallback for debugging until core is ready
         import traceback
         traceback.print_exc()
-        return 1
+        exit_code = 1
         
     except Exception as e:
         print(f"Application error: {e}")
         import traceback
         traceback.print_exc()
-        return 1
+        exit_code = 1
+        
+    finally:
+        cleanup_pycache()
+        return exit_code
 
 if __name__ == '__main__':
     sys.exit(main())
