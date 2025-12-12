@@ -11,6 +11,9 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
 
+from utils.logger import log_info, log_error, log_warning
+from core.i18n_manager import _
+
 from .environment import get_environment_detector, DesktopEnvironment, ThemeType
 
 
@@ -122,7 +125,7 @@ class ThemeManager:
                 else:
                     self.create_light_theme()
             else:
-                print(f"Theme '{theme_name}' not found at {theme_path}")
+                log_warning(_("Theme '{name}' not found at {path}").format(name=theme_name, path=theme_path))
                 return False
         
         try:
@@ -135,10 +138,10 @@ class ThemeManager:
                 is_dark = 'dark' in theme_name or theme_name == 'base' # base is dark by default
                 settings.set_property("gtk-application-prefer-dark-theme", is_dark)
             
-            print(f"Successfully loaded theme: {theme_name}")
+            log_info(_("Successfully loaded theme: {name}").format(name=theme_name))
             return True
         except Exception as e:
-            print(f"Error loading theme '{theme_name}': {e}")
+            log_error(_("Error loading theme '{name}': {err}").format(name=theme_name, err=e))
             return False
 
     def reload_current_theme(self):
@@ -156,7 +159,7 @@ class ThemeManager:
         try:
             self.css_provider.load_from_data(css_content.encode('utf-8'))
         except Exception as e:
-            print(f"Error adding custom CSS: {e}")
+            log_error(_("Error adding custom CSS: {err}").format(err=e))
     
     def load_optimal_theme(self) -> str:
         """Automatically detects and loads the optimal theme."""

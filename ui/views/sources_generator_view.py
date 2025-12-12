@@ -142,10 +142,10 @@ class SourcesGeneratorView(Gtk.Box):
         except Exception:
             pass
         
-        self.mirror_label = Gtk.Label(label=_("Current: http://deb.debian.org/debian (Global CDN)"))
+        self.selected_mirror_url = "http://deb.debian.org/debian"
+        self.mirror_label = Gtk.Label(label=_("Current: {} (Global CDN)").format(self.selected_mirror_url))
         self.mirror_label.set_xalign(0)
         mirror_box.pack_start(self.mirror_label, False, False, 0)
-        self.selected_mirror_url = "http://deb.debian.org/debian"
         
         # Note: the speed test trigger button is placed with the action buttons
         # (created later) so the central mirror area remains free for results.
@@ -283,7 +283,9 @@ class SourcesGeneratorView(Gtk.Box):
                 url_label = Gtk.Label(label=r.get('url', ''))
                 url_label.set_xalign(0)
                 url_label.get_style_context().add_class('bold')
-                info = f"{r.get('country','Unknown')} - {s:.2f} MB/s ({r.get('latency_ms',0):.0f} ms)"
+                country = r.get('country') or _("Unknown")
+                lat_ms = int(r.get('latency_ms', 0) or 0)
+                info = _("{} - {:.2f} MB/s ({} ms)").format(country, s, lat_ms)
                 info_label = Gtk.Label(label=info)
                 info_label.set_xalign(0)
                 info_label.get_style_context().add_class('dim-label')
@@ -313,8 +315,8 @@ class SourcesGeneratorView(Gtk.Box):
                 best = ordered[0]
                 self.selected_mirror_url = best.get('url', self.selected_mirror_url)
                 try:
-                    self.mirror_label.set_text(_("Current: {} ({}, {:.2f} MB/s)").format(
-                        best.get('url',''), best.get('country',''), best.get('speed_mbps',0)
+                    self.mirror_label.set_text(_("Current: {url} ({country}, {speed:.2f} MB/s)").format(
+                        url=best.get('url',''), country=best.get('country',''), speed=float(best.get('speed_mbps',0) or 0)
                     ))
                 except Exception:
                     pass
@@ -342,8 +344,8 @@ class SourcesGeneratorView(Gtk.Box):
                 best = results[0]
                 if best:
                     self.selected_mirror_url = best.get('url', self.selected_mirror_url)
-                    self.mirror_label.set_text(_("Current: {} ({}, {:.2f} MB/s)").format(
-                        best.get('url',''), best.get('country',''), best.get('speed_mbps',0)
+                    self.mirror_label.set_text(_("Current: {url} ({country}, {speed:.2f} MB/s)").format(
+                        url=best.get('url',''), country=best.get('country',''), speed=float(best.get('speed_mbps',0) or 0)
                     ))
 
     def _on_result_selected(self, listbox, row):
@@ -352,8 +354,8 @@ class SourcesGeneratorView(Gtk.Box):
             if 0 <= idx < len(self.speed_results):
                 sel = self.speed_results[idx]
                 self.selected_mirror_url = sel.get('url', self.selected_mirror_url)
-                self.mirror_label.set_text(_("Current: {} ({}, {:.2f} MB/s)").format(
-                    sel.get('url',''), sel.get('country',''), sel.get('speed_mbps',0)
+                self.mirror_label.set_text(_("Current: {url} ({country}, {speed:.2f} MB/s)").format(
+                    url=sel.get('url',''), country=sel.get('country',''), speed=float(sel.get('speed_mbps',0) or 0)
                 ))
         except Exception:
             pass

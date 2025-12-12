@@ -11,6 +11,7 @@ from urllib.parse import urlparse
 from typing import List, Dict, Any, Callable, Optional
 
 from utils.logger import log_info, log_error, log_warning
+from core.i18n_manager import _
 
 # Default mirrors list
 DEFAULT_MIRRORS = [
@@ -236,38 +237,38 @@ class RepoSpeedTester:
             hostname = urlparse(url).netloc
             
             country_map = {
-                "deb.debian.org": "Global CDN",
-                "cdn-aws.deb.debian.org": "Global CDN",
-                "cloudfront.debian.net": "Global CDN",
-                "mirrors.kernel.org": "Global Mirror",
-                "ftp.us.debian.org": "United States",
-                "ftp.uk.debian.org": "United Kingdom", 
-                "ftp.de.debian.org": "Germany",
-                "ftp.fr.debian.org": "France",
-                "ftp.au.debian.org": "Australia",
-                "ftp.jp.debian.org": "Japan",
-                "ftp.br.debian.org": "Brazil",
-                "ftp.es.debian.org": "Spain",
-                "ftp.it.debian.org": "Italy",
-                "ftp.cn.debian.org": "China",
-                "ftp.ru.debian.org": "Russia",
-                "ftp.ca.debian.org": "Canada",
-                "debian.mirrors.ovh.net": "France",
-                "mirror.bytemark.co.uk": "United Kingdom",
-                "mirror.netcologne.de": "Germany",
-                "ftp.heanet.ie": "Ireland",
-                "ftp.riken.jp": "Japan",
-                "ftp.snt.utwente.nl": "Netherlands",
-                "mirror.init7.net": "Switzerland",
-                "mirrors.ustc.edu.cn": "China",
-                "mirrors.tuna.tsinghua.edu.cn": "China",
-                "mirrors.aliyun.com": "China",
-                "mirror.sjtu.edu.cn": "China",
-                "mirror.math.princeton.edu": "United States",
-                "mirror.corenet.jp": "Japan",
-                "ftp.uni-kl.de": "Germany",
-                "mirror.linux.org.au": "Australia",
-                "mirror.ox.ac.uk": "United Kingdom"
+                "deb.debian.org": _("Global CDN"),
+                "cdn-aws.deb.debian.org": _("Global CDN"),
+                "cloudfront.debian.net": _("Global CDN"),
+                "mirrors.kernel.org": _("Global Mirror"),
+                "ftp.us.debian.org": _("United States"),
+                "ftp.uk.debian.org": _("United Kingdom"), 
+                "ftp.de.debian.org": _("Germany"),
+                "ftp.fr.debian.org": _("France"),
+                "ftp.au.debian.org": _("Australia"),
+                "ftp.jp.debian.org": _("Japan"),
+                "ftp.br.debian.org": _("Brazil"),
+                "ftp.es.debian.org": _("Spain"),
+                "ftp.it.debian.org": _("Italy"),
+                "ftp.cn.debian.org": _("China"),
+                "ftp.ru.debian.org": _("Russia"),
+                "ftp.ca.debian.org": _("Canada"),
+                "debian.mirrors.ovh.net": _("France"),
+                "mirror.bytemark.co.uk": _("United Kingdom"),
+                "mirror.netcologne.de": _("Germany"),
+                "ftp.heanet.ie": _("Ireland"),
+                "ftp.riken.jp": _("Japan"),
+                "ftp.snt.utwente.nl": _("Netherlands"),
+                "mirror.init7.net": _("Switzerland"),
+                "mirrors.ustc.edu.cn": _("China"),
+                "mirrors.tuna.tsinghua.edu.cn": _("China"),
+                "mirrors.aliyun.com": _("China"),
+                "mirror.sjtu.edu.cn": _("China"),
+                "mirror.math.princeton.edu": _("United States"),
+                "mirror.corenet.jp": _("Japan"),
+                "ftp.uni-kl.de": _("Germany"),
+                "mirror.linux.org.au": _("Australia"),
+                "mirror.ox.ac.uk": _("United Kingdom")
             }
             
             for domain, country in country_map.items():
@@ -281,54 +282,53 @@ class RepoSpeedTester:
                     code = parts[0][4:].upper()
                     return f"Code: {code}"
             
-            return "Unknown"
+            return _("Unknown")
         except Exception:
-            return "Unknown"
+            return _("Unknown")
 
 def get_country_mirrors() -> Dict[str, List[str]]:
     """Returns mirrors organized by country."""
     return {
-        'Global': [
+        _('Global'): [
             'http://deb.debian.org/debian',
             'http://cdn-aws.deb.debian.org/debian',
             'http://cloudfront.debian.net/debian',
-            'http://mirrors.kernel.org/debian',
-            'http://debian.mirrors.ovh.net/debian'
+            'http://mirrors.kernel.org/debian'
         ],
-        'United States': [
+        _('United States'): [
             'http://ftp.us.debian.org/debian',
             'http://mirror.math.princeton.edu/pub/debian'
         ],
-        'United Kingdom': [
+        _('United Kingdom'): [
             'http://ftp.uk.debian.org/debian',
             'http://mirror.bytemark.co.uk/debian',
             'http://mirror.ox.ac.uk/debian'
         ],
-        'Germany': [
+        _('Germany'): [
             'http://ftp.de.debian.org/debian',
             'http://mirror.netcologne.de/debian',
             'http://ftp.uni-kl.de/debian'
         ],
-        'France': [
+        _('France'): [
             'http://ftp.fr.debian.org/debian',
             'http://debian.mirrors.ovh.net/debian'
         ],
-        'Spain': ['http://ftp.es.debian.org/debian'],
-        'Italy': ['http://ftp.it.debian.org/debian'],
-        'Brazil': ['http://ftp.br.debian.org/debian'],
-        'China': [
+        _('Spain'): ['http://ftp.es.debian.org/debian'],
+        _('Italy'): ['http://ftp.it.debian.org/debian'],
+        _('Brazil'): ['http://ftp.br.debian.org/debian'],
+        _('China'): [
             'http://mirrors.ustc.edu.cn/debian',
             'http://mirrors.tuna.tsinghua.edu.cn/debian',
             'http://mirrors.aliyun.com/debian',
             'http://mirror.sjtu.edu.cn/debian'
         ],
-        'Japan': [
+        _('Japan'): [
             'http://ftp.riken.jp/debian',
             'http://mirror.corenet.jp/debian'
         ],
-        'Netherlands': ['http://ftp.snt.utwente.nl/debian'],
-        'Ireland': ['http://ftp.heanet.ie/mirrors/debian'],
-        'Australia': ['http://mirror.linux.org.au/debian'],
-        'Canada': ['http://ftp.ca.debian.org/debian'],
-        'Switzerland': ['http://mirror.init7.net/debian']
+        _('Netherlands'): ['http://ftp.snt.utwente.nl/debian'],
+        _('Ireland'): ['http://ftp.heanet.ie/mirrors/debian'],
+        _('Australia'): ['http://mirror.linux.org.au/debian'],
+        _('Canada'): ['http://ftp.ca.debian.org/debian'],
+        _('Switzerland'): ['http://mirror.init7.net/debian']
     }

@@ -1,424 +1,424 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Spanish translation for Soplos Repo Selector
+# Copyright (C) 2025 Sergi Perich
+# This file is distributed under the same license as the soplos-repo-selector package.
+# Automatically generated, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: soplos-repo-selector 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-12 22:49+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-12-12 22:49+0100\n"
+"Last-Translator: Sergi Perich <info@soploslinux.com>\n"
+"Language-Team: Spanish <info@soploslinux.com>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/theme_manager.py:128
 #, python-brace-format
 msgid "Theme '{name}' not found at {path}"
-msgstr ""
+msgstr "Tema '{name}' no encontrado en {path}"
 
 #: core/theme_manager.py:141
 #, python-brace-format
 msgid "Successfully loaded theme: {name}"
-msgstr ""
+msgstr "Tema cargado correctamente: {name}"
 
 #: core/theme_manager.py:144
 #, python-brace-format
 msgid "Error loading theme '{name}': {err}"
-msgstr ""
+msgstr "Error cargando el tema '{name}': {err}"
 
 #: core/theme_manager.py:162
 #, python-brace-format
 msgid "Error adding custom CSS: {err}"
-msgstr ""
+msgstr "Error al añadir CSS personalizado: {err}"
 
 #: core/application.py:58
 msgid "Shutting down Soplos Repo Selector..."
-msgstr ""
+msgstr "Cerrando Soplos Repo Selector..."
 
 #: core/application.py:76
 #, python-brace-format
 msgid "Cleanup warning: {err}"
-msgstr ""
+msgstr "Advertencia de limpieza: {err}"
 
 #: core/application.py:80
 #, python-brace-format
 msgid "Starting {name} v{ver}..."
-msgstr ""
+msgstr "Iniciando {name} v{ver}..."
 
 #: core/application.py:88
 msgid "Application initialization completed"
-msgstr ""
+msgstr "Inicialización de la aplicación completada"
 
 #: core/application.py:112
 #, python-brace-format
 msgid "Desktop Environment: {env}"
-msgstr ""
+msgstr "Entorno de escritorio: {env}"
 
 #: core/application.py:118
 #, python-brace-format
 msgid "Error initializing environment detection: {err}"
-msgstr ""
+msgstr "Error al inicializar la detección del entorno: {err}"
 
 #: core/application.py:125
 #, python-brace-format
 msgid "Language initialized: {lang}"
-msgstr ""
+msgstr "Idioma inicializado: {lang}"
 
 #: core/application.py:133
 #, python-brace-format
 msgid "Error initializing internationalization: {err}"
-msgstr ""
+msgstr "Error al inicializar la internacionalización: {err}"
 
 #: core/application.py:140
 #, python-brace-format
 msgid "Theme loaded: {theme}"
-msgstr ""
+msgstr "Tema cargado: {theme}"
 
 #: core/application.py:142
 #, python-brace-format
 msgid "Error initializing theming: {err}"
-msgstr ""
+msgstr "Error al inicializar los temas: {err}"
 
 #: core/application.py:159
 #, python-brace-format
 msgid "Error setting application icon: {err}"
-msgstr ""
+msgstr "Error al establecer el icono de la aplicación: {err}"
 
 #: core/application.py:185
 #, python-brace-format
 msgid "Error creating main window: {err}"
-msgstr ""
+msgstr "Error al crear la ventana principal: {err}"
 
 #: core/application.py:200
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: core/application.py:206
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: core/application.py:212
 msgid "Quit"
-msgstr ""
+msgstr "Salir"
 
 #: core/application.py:216
 #, python-brace-format
 msgid "Error setting up application menu: {err}"
-msgstr ""
+msgstr "Error al configurar el menú de la aplicación: {err}"
 
 #: core/application.py:225
 #, python-brace-format
 msgid "Received signal {num}, shutting down..."
-msgstr ""
+msgstr "Se recibió la señal {num}, cerrando..."
 
 #: core/application.py:241
 #, python-brace-format
 msgid "Application error: {err}"
-msgstr ""
+msgstr "Error de la aplicación: {err}"
 
 #: services/speed_test_service.py:240 services/speed_test_service.py:241
 #: services/speed_test_service.py:242
 msgid "Global CDN"
-msgstr ""
+msgstr "CDN global"
 
 #: services/speed_test_service.py:243
 msgid "Global Mirror"
-msgstr ""
+msgstr "Espejo global"
 
 #: services/speed_test_service.py:244 services/speed_test_service.py:267
 #: services/speed_test_service.py:298
 msgid "United States"
-msgstr ""
+msgstr "Estados Unidos"
 
 #: services/speed_test_service.py:245 services/speed_test_service.py:257
 #: services/speed_test_service.py:271 services/speed_test_service.py:302
 msgid "United Kingdom"
-msgstr ""
+msgstr "Reino Unido"
 
 #: services/speed_test_service.py:246 services/speed_test_service.py:258
 #: services/speed_test_service.py:269 services/speed_test_service.py:307
 msgid "Germany"
-msgstr ""
+msgstr "Alemania"
 
 #: services/speed_test_service.py:247 services/speed_test_service.py:256
 #: services/speed_test_service.py:312
 msgid "France"
-msgstr ""
+msgstr "Francia"
 
 #: services/speed_test_service.py:248 services/speed_test_service.py:270
 #: services/speed_test_service.py:331
 msgid "Australia"
-msgstr ""
+msgstr "Australia"
 
 #: services/speed_test_service.py:249 services/speed_test_service.py:260
 #: services/speed_test_service.py:268 services/speed_test_service.py:325
 msgid "Japan"
-msgstr ""
+msgstr "Japón"
 
 #: services/speed_test_service.py:250 services/speed_test_service.py:318
 msgid "Brazil"
-msgstr ""
+msgstr "Brasil"
 
 #: services/speed_test_service.py:251 services/speed_test_service.py:316
 msgid "Spain"
-msgstr ""
+msgstr "España"
 
 #: services/speed_test_service.py:252 services/speed_test_service.py:317
 msgid "Italy"
-msgstr ""
+msgstr "Italia"
 
 #: services/speed_test_service.py:253 services/speed_test_service.py:263
 #: services/speed_test_service.py:264 services/speed_test_service.py:265
 #: services/speed_test_service.py:266 services/speed_test_service.py:319
 msgid "China"
-msgstr ""
+msgstr "China"
 
 #: services/speed_test_service.py:254
 msgid "Russia"
-msgstr ""
+msgstr "Rusia"
 
 #: services/speed_test_service.py:255 services/speed_test_service.py:332
 msgid "Canada"
-msgstr ""
+msgstr "Canadá"
 
 #: services/speed_test_service.py:259 services/speed_test_service.py:330
 msgid "Ireland"
-msgstr ""
+msgstr "Irlanda"
 
 #: services/speed_test_service.py:261 services/speed_test_service.py:329
 msgid "Netherlands"
-msgstr ""
+msgstr "Países Bajos"
 
 #: services/speed_test_service.py:262 services/speed_test_service.py:333
 msgid "Switzerland"
-msgstr ""
+msgstr "Suiza"
 
 #: services/speed_test_service.py:285 services/speed_test_service.py:287
 #: ui/views/sources_generator_view.py:286
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: services/speed_test_service.py:292
 msgid "Global"
-msgstr ""
+msgstr "Global"
 
 #: services/repo_file_manager.py:56
 #, python-brace-format
 msgid "Read {count} repositories from {path}"
-msgstr ""
+msgstr "Leídos {count} repositorios desde {path}"
 
 #: services/repo_file_manager.py:60
 #, python-brace-format
 msgid "Error reading file {path}"
-msgstr ""
+msgstr "Error leyendo el archivo {path}"
 
 #: services/repo_file_manager.py:93
 #, python-brace-format
 msgid "Error writing file {path}"
-msgstr ""
+msgstr "Error escribiendo el archivo {path}"
 
 #: services/repo_file_manager.py:398
 #, python-brace-format
 msgid "File written successfully: {path}"
-msgstr ""
+msgstr "Archivo escrito correctamente: {path}"
 
 #: services/repo_file_manager.py:416
 #, python-brace-format
 msgid "pkexec failed: {stderr}"
-msgstr ""
+msgstr "pkexec falló: {stderr}"
 
 #: services/repo_file_manager.py:482
 msgid "All files written successfully (direct move)"
-msgstr ""
+msgstr "Todos los archivos escritos correctamente (movimiento directo)"
 
 #: services/repo_file_manager.py:503
 msgid "pkexec grouped move failed"
-msgstr ""
+msgstr "Fallo en el movimiento agrupado con pkexec"
 
 #: services/repo_file_manager.py:523
 msgid "All files written successfully (grouped pkexec)"
-msgstr ""
+msgstr "Todos los archivos escritos correctamente (pkexec agrupado)"
 
 #: services/repo_file_manager.py:535
 msgid "Error in grouped write"
-msgstr ""
+msgstr "Error en la escritura agrupada"
 
 #: services/gpg_manager.py:32
 #, python-brace-format
 msgid "Could not create {path}: {err}"
-msgstr ""
+msgstr "No se pudo crear {path}: {err}"
 
 #: services/gpg_manager.py:70
 #, python-brace-format
 msgid "Error getting key info needed for {path}: {err}"
-msgstr ""
+msgstr "Error obteniendo información de la clave necesaria para {path}: {err}"
 
 #: services/gpg_manager.py:108
 #, python-brace-format
 msgid "Error extracting key details for {path}: {err}"
-msgstr ""
+msgstr "Error extrayendo detalles de la clave para {path}: {err}"
 
 #: services/gpg_manager.py:118
 #, python-brace-format
 msgid "File {path} does not exist"
-msgstr ""
+msgstr "El archivo {path} no existe"
 
 #: services/gpg_manager.py:151
 #, python-brace-format
 msgid "Error importing key: {err}"
-msgstr ""
+msgstr "Error importando la clave: {err}"
 
 #: services/gpg_manager.py:163
 #, python-brace-format
 msgid "Source {path} does not exist"
-msgstr ""
+msgstr "La fuente {path} no existe"
 
 #: services/gpg_manager.py:171
 #, python-brace-format
 msgid "Permission denied creating destination directory {dir}"
-msgstr ""
+msgstr "Permiso denegado al crear el directorio de destino {dir}"
 
 #: services/gpg_manager.py:180
 msgid "gpg --dearmor failed"
-msgstr ""
+msgstr "gpg --dearmor falló"
 
 #: services/gpg_manager.py:186
 #, python-brace-format
 msgid "Permission denied writing to {path}"
-msgstr ""
+msgstr "Permiso denegado al escribir en {path}"
 
 #: services/gpg_manager.py:191
 #, python-brace-format
 msgid "Error exporting key: {err}"
-msgstr ""
+msgstr "Error exportando la clave: {err}"
 
 #: services/gpg_manager.py:202
 #, python-brace-format
 msgid "Key {path} does not exist"
-msgstr ""
+msgstr "La clave {path} no existe"
 
 #: services/gpg_manager.py:220
 #, python-brace-format
 msgid "Key referenced in: {list}"
-msgstr ""
+msgstr "Clave referenciada en: {list}"
 
 #: services/gpg_manager.py:225
 #, python-brace-format
 msgid "Deleted {path}"
-msgstr ""
+msgstr "Eliminado {path}"
 
 #: services/gpg_manager.py:231
 #, python-brace-format
 msgid "Deleted {path} (via pkexec)"
-msgstr ""
+msgstr "Eliminado {path} (vía pkexec)"
 
 #: services/gpg_manager.py:233
 msgid "pkexec rm failed"
-msgstr ""
+msgstr "pkexec rm falló"
 
 #: services/gpg_manager.py:237
 #, python-brace-format
 msgid "Key {path} not found"
-msgstr ""
+msgstr "Clave {path} no encontrada"
 
 #: services/gpg_manager.py:241
 #, python-brace-format
 msgid "Error deleting key: {err}"
-msgstr ""
+msgstr "Error eliminando la clave: {err}"
 
 #: ui/dialogs/repo_edit.py:15
 msgid "Edit Repository"
-msgstr ""
+msgstr "Editar repositorio"
 
 #: ui/dialogs/repo_edit.py:15 ui/views/repo_view.py:40
 msgid "Add Repository"
-msgstr ""
+msgstr "Añadir repositorio"
 
 #: ui/dialogs/repo_edit.py:18 ui/views/gpg_view.py:151 ui/views/gpg_view.py:192
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: ui/dialogs/repo_edit.py:19 ui/views/gpg_view.py:193
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: ui/dialogs/repo_edit.py:43
 msgid "Type:"
-msgstr ""
+msgstr "Tipo:"
 
 #: ui/dialogs/repo_edit.py:45
 msgid "Binary (deb)"
-msgstr ""
+msgstr "Binario (deb)"
 
 #: ui/dialogs/repo_edit.py:46
 msgid "Source (deb-src)"
-msgstr ""
+msgstr "Origen (deb-src)"
 
 #: ui/dialogs/repo_edit.py:53
 msgid "URI:"
-msgstr ""
+msgstr "URI:"
 
 #: ui/dialogs/repo_edit.py:59
 msgid "Distribution:"
-msgstr ""
+msgstr "Distribución:"
 
 #: ui/dialogs/repo_edit.py:65
 msgid "Components:"
-msgstr ""
+msgstr "Componentes:"
 
 #: ui/dialogs/repo_edit.py:71
 msgid "Signed By (Key):"
-msgstr ""
+msgstr "Firmado por (clave):"
 
 #: ui/dialogs/repo_edit.py:73
 msgid "Optional (key path or fingerprint)"
-msgstr ""
+msgstr "Opcional (ruta de la clave o huella)"
 
 #: ui/dialogs/repo_edit.py:78
 msgid "Comment:"
-msgstr ""
+msgstr "Comentario:"
 
 #: ui/main_window.py:141
 msgid "Welcome"
-msgstr ""
+msgstr "Bienvenido"
 
 #: ui/main_window.py:145
 msgid "Sources Generator"
-msgstr ""
+msgstr "Generador de fuentes"
 
 #: ui/main_window.py:149
 msgid "Repositories"
-msgstr ""
+msgstr "Repositorios"
 
 #: ui/main_window.py:153 ui/views/gpg_view.py:156
 msgid "GPG Keys"
-msgstr ""
+msgstr "Claves GPG"
 
 #: ui/main_window.py:168 ui/main_window.py:290
 msgid "Ready"
-msgstr ""
+msgstr "Listo"
 
 #: ui/main_window.py:262
 msgid "Running on {} ({})"
-msgstr ""
+msgstr "Ejecutándose en {} ({})"
 
 #: ui/main_window.py:279
 msgid "Working..."
-msgstr ""
+msgstr "Trabajando..."
 
 #: ui/widgets/repo_row.py:75
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: ui/widgets/repo_row.py:82 ui/views/gpg_view.py:131 ui/views/gpg_view.py:226
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: ui/views/welcome_view.py:64
 msgid ""
@@ -426,214 +426,214 @@ msgid ""
 "\n"
 "This application will help you get started configuring repositories and "
 "mirrors for your system."
-msgstr ""
+msgstr "Bienvenido al Administrador Avanzado de Repositorios de Soplos Linux.\n\nEsta aplicación te ayudará a empezar a configurar repositorios y espejos para tu sistema."
 
 #: ui/views/welcome_view.py:77
 msgid "Use the tabs above to:"
-msgstr ""
+msgstr "Usa las pestañas de arriba para:"
 
 #: ui/views/welcome_view.py:96
 msgid "• Generate optimized repository sources"
-msgstr ""
+msgstr "• Generar fuentes de repositorio optimizadas"
 
 #: ui/views/welcome_view.py:97
 msgid "• Find fastest download mirrors"
-msgstr ""
+msgstr "• Encontrar los espejos de descarga más rápidos"
 
 #: ui/views/welcome_view.py:98
 msgid "• Manage repositories and GPG keys"
-msgstr ""
+msgstr "• Gestionar repositorios y claves GPG"
 
 #: ui/views/welcome_view.py:99
 msgid "• Customize free / non-free components"
-msgstr ""
+msgstr "• Personalizar componentes libres / no libres"
 
 #: ui/views/gpg_view.py:35
 msgid "Import Key"
-msgstr ""
+msgstr "Importar clave"
 
 #: ui/views/gpg_view.py:42 ui/views/repo_view.py:47
 msgid "Refresh"
-msgstr ""
+msgstr "Actualizar"
 
 #: ui/views/gpg_view.py:76
 msgid "No GPG keys found"
-msgstr ""
+msgstr "No se encontraron claves GPG"
 
 #: ui/views/gpg_view.py:127
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: ui/views/gpg_view.py:146
 msgid "Import GPG Key"
-msgstr ""
+msgstr "Importar clave GPG"
 
 #: ui/views/gpg_view.py:152
 msgid "Import"
-msgstr ""
+msgstr "Importar"
 
 #: ui/views/gpg_view.py:177
 msgid "Import Error"
-msgstr ""
+msgstr "Error de importación"
 
 #: ui/views/gpg_view.py:187
 msgid "Export Key"
-msgstr ""
+msgstr "Exportar clave"
 
 #: ui/views/gpg_view.py:210
 msgid "Export Error"
-msgstr ""
+msgstr "Error de exportación"
 
 #: ui/views/gpg_view.py:221
 msgid "Confirm Delete"
-msgstr ""
+msgstr "Confirmar eliminación"
 
 #: ui/views/gpg_view.py:246
 msgid "Delete Error"
-msgstr ""
+msgstr "Error al eliminar"
 
 #: ui/views/repo_view.py:60
 msgid "Apply Changes"
-msgstr ""
+msgstr "Aplicar cambios"
 
 #: ui/views/repo_view.py:95
 msgid "No repositories found"
-msgstr ""
+msgstr "No se encontraron repositorios"
 
 #: ui/views/repo_view.py:145
 msgid "Delete Repository?"
-msgstr ""
+msgstr "¿Eliminar repositorio?"
 
 #: ui/views/repo_view.py:148
 msgid ""
 "Are you sure you want to delete this repository?\n"
 "\n"
 "{}"
-msgstr ""
+msgstr "¿Estás seguro de que quieres eliminar este repositorio?\n\n{}"
 
 #: ui/views/repo_view.py:182
 msgid "Changes Applied"
-msgstr ""
+msgstr "Cambios aplicados"
 
 #: ui/views/repo_view.py:184
 msgid "Repositories have been updated successfully."
-msgstr ""
+msgstr "Los repositorios se han actualizado correctamente."
 
 #: ui/views/repo_view.py:193
 msgid "Error Saving"
-msgstr ""
+msgstr "Error al guardar"
 
 #: ui/views/repo_view.py:195
 msgid "Could not save repositories. Check logs for details."
-msgstr ""
+msgstr "No se pudieron guardar los repositorios. Revisa los registros para más detalles."
 
 #: ui/views/sources_generator_view.py:51
 msgid "1. Select Debian Distribution(s)"
-msgstr ""
+msgstr "1. Seleccionar distribución(es) de Debian"
 
 #: ui/views/sources_generator_view.py:63
 msgid "Debian 13 (Trixie)"
-msgstr ""
+msgstr "Debian 13 (Trixie)"
 
 #: ui/views/sources_generator_view.py:64
 msgid "Debian 14 (Forky)"
-msgstr ""
+msgstr "Debian 14 (Forky)"
 
 #: ui/views/sources_generator_view.py:65
 msgid "Testing"
-msgstr ""
+msgstr "Testing"
 
 #: ui/views/sources_generator_view.py:66
 msgid "Sid"
-msgstr ""
+msgstr "Sid"
 
 #: ui/views/sources_generator_view.py:67
 msgid "Unstable"
-msgstr ""
+msgstr "Inestable"
 
 #: ui/views/sources_generator_view.py:68
 msgid "Experimental"
-msgstr ""
+msgstr "Experimental"
 
 #: ui/views/sources_generator_view.py:82
 msgid "Include Backports"
-msgstr ""
+msgstr "Incluir backports"
 
 #: ui/views/sources_generator_view.py:90
 msgid "2. Select Components"
-msgstr ""
+msgstr "2. Seleccionar componentes"
 
 #: ui/views/sources_generator_view.py:99
 msgid "Main (Free Software)"
-msgstr ""
+msgstr "Main (Software libre)"
 
 #: ui/views/sources_generator_view.py:100
 msgid "Contrib (Drivers/Packages relying on non-free)"
-msgstr ""
+msgstr "Contrib (Controladores/Paquetes que dependen de software no libre)"
 
 #: ui/views/sources_generator_view.py:101
 msgid "Non-Free (Proprietary software)"
-msgstr ""
+msgstr "Non-Free (Software propietario)"
 
 #: ui/views/sources_generator_view.py:102
 msgid "Non-Free Firmware (Hardware support)"
-msgstr ""
+msgstr "Firmware no libre (soporte de hardware)"
 
 #: ui/views/sources_generator_view.py:131
 msgid "3. Select Mirror"
-msgstr ""
+msgstr "3. Seleccionar espejo"
 
 #: ui/views/sources_generator_view.py:146
 msgid "Current: {} (Global CDN)"
-msgstr ""
+msgstr "Actual: {} (CDN global)"
 
 #: ui/views/sources_generator_view.py:181
 msgid "Find Fastest Mirror"
-msgstr ""
+msgstr "Buscar el espejo más rápido"
 
 #: ui/views/sources_generator_view.py:187
 msgid "Generate Source List"
-msgstr ""
+msgstr "Generar lista de fuentes"
 
 #: ui/views/sources_generator_view.py:246
 msgid "Testing mirrors..."
-msgstr ""
+msgstr "Probando espejos..."
 
 #: ui/views/sources_generator_view.py:288
 msgid "{} - {:.2f} MB/s ({} ms)"
-msgstr ""
+msgstr "{} - {:.2f} MB/s ({} ms)"
 
 #: ui/views/sources_generator_view.py:318
 #: ui/views/sources_generator_view.py:347
 #: ui/views/sources_generator_view.py:357
 #, python-brace-format
 msgid "Current: {url} ({country}, {speed:.2f} MB/s)"
-msgstr ""
+msgstr "Actual: {url} ({country}, {speed:.2f} MB/s)"
 
 #: ui/views/sources_generator_view.py:368
 msgid "Testing mirrors... This may take a moment."
-msgstr ""
+msgstr "Probando espejos... Esto puede tardar un momento."
 
 #: ui/views/sources_generator_view.py:384
 msgid "Warning"
-msgstr ""
+msgstr "Advertencia"
 
 #: ui/views/sources_generator_view.py:384
 msgid "Please select at least one distribution."
-msgstr ""
+msgstr "Por favor selecciona al menos una distribución."
 
 #: ui/views/sources_generator_view.py:427
 msgid "Sources Generated"
-msgstr ""
+msgstr "Fuentes generadas"
 
 #: ui/views/sources_generator_view.py:428
 msgid "Your sources have been updated successfully."
-msgstr ""
+msgstr "Tus fuentes se han actualizado correctamente."
 
 #: ui/views/sources_generator_view.py:430
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: ui/views/sources_generator_view.py:431
 msgid "Could not save sources files. Check permissions."
-msgstr ""
+msgstr "No se pudieron guardar los archivos de fuentes. Comprueba los permisos."

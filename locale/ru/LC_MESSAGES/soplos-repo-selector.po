@@ -1,404 +1,405 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Russian translations for PACKAGE package.
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Automatically generated, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-12 22:49+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-12-12 22:49+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: core/theme_manager.py:128
 #, python-brace-format
 msgid "Theme '{name}' not found at {path}"
-msgstr ""
+msgstr "Тема '{name}' не найдена по пути {path}"
 
 #: core/theme_manager.py:141
 #, python-brace-format
 msgid "Successfully loaded theme: {name}"
-msgstr ""
+msgstr "Тема успешно загружена: {name}"
 
 #: core/theme_manager.py:144
 #, python-brace-format
 msgid "Error loading theme '{name}': {err}"
-msgstr ""
+msgstr "Ошибка при загрузке темы '{name}': {err}"
 
 #: core/theme_manager.py:162
 #, python-brace-format
 msgid "Error adding custom CSS: {err}"
-msgstr ""
+msgstr "Ошибка при добавлении пользовательского CSS: {err}"
 
 #: core/application.py:58
 msgid "Shutting down Soplos Repo Selector..."
-msgstr ""
+msgstr "Завершение работы Soplos Repo Selector..."
 
 #: core/application.py:76
 #, python-brace-format
 msgid "Cleanup warning: {err}"
-msgstr ""
+msgstr "Предупреждение об очистке: {err}"
 
 #: core/application.py:80
 #, python-brace-format
 msgid "Starting {name} v{ver}..."
-msgstr ""
+msgstr "Запуск {name} v{ver}..."
 
 #: core/application.py:88
 msgid "Application initialization completed"
-msgstr ""
+msgstr "Инициализация приложения завершена"
 
 #: core/application.py:112
 #, python-brace-format
 msgid "Desktop Environment: {env}"
-msgstr ""
+msgstr "Окружение рабочего стола: {env}"
 
 #: core/application.py:118
 #, python-brace-format
 msgid "Error initializing environment detection: {err}"
-msgstr ""
+msgstr "Ошибка инициализации обнаружения окружения: {err}"
 
 #: core/application.py:125
 #, python-brace-format
 msgid "Language initialized: {lang}"
-msgstr ""
+msgstr "Язык инициализирован: {lang}"
 
 #: core/application.py:133
 #, python-brace-format
 msgid "Error initializing internationalization: {err}"
-msgstr ""
+msgstr "Ошибка инициализации интернационализации: {err}"
 
 #: core/application.py:140
 #, python-brace-format
 msgid "Theme loaded: {theme}"
-msgstr ""
+msgstr "Тема загружена: {theme}"
 
 #: core/application.py:142
 #, python-brace-format
 msgid "Error initializing theming: {err}"
-msgstr ""
+msgstr "Ошибка инициализации темы: {err}"
 
 #: core/application.py:159
 #, python-brace-format
 msgid "Error setting application icon: {err}"
-msgstr ""
+msgstr "Ошибка установки иконки приложения: {err}"
 
 #: core/application.py:185
 #, python-brace-format
 msgid "Error creating main window: {err}"
-msgstr ""
+msgstr "Ошибка при создании главного окна: {err}"
 
 #: core/application.py:200
 msgid "Preferences"
-msgstr ""
+msgstr "Настройки"
 
 #: core/application.py:206
 msgid "About"
-msgstr ""
+msgstr "О программе"
 
 #: core/application.py:212
 msgid "Quit"
-msgstr ""
+msgstr "Выход"
 
 #: core/application.py:216
 #, python-brace-format
 msgid "Error setting up application menu: {err}"
-msgstr ""
+msgstr "Ошибка настройки меню приложения: {err}"
 
 #: core/application.py:225
 #, python-brace-format
 msgid "Received signal {num}, shutting down..."
-msgstr ""
+msgstr "Получен сигнал {num}, завершение..."
 
 #: core/application.py:241
 #, python-brace-format
 msgid "Application error: {err}"
-msgstr ""
+msgstr "Ошибка приложения: {err}"
 
 #: services/speed_test_service.py:240 services/speed_test_service.py:241
 #: services/speed_test_service.py:242
 msgid "Global CDN"
-msgstr ""
+msgstr "Глобальный CDN"
 
 #: services/speed_test_service.py:243
 msgid "Global Mirror"
-msgstr ""
+msgstr "Глобальный зеркальный сервер"
 
 #: services/speed_test_service.py:244 services/speed_test_service.py:267
 #: services/speed_test_service.py:298
 msgid "United States"
-msgstr ""
+msgstr "США"
 
 #: services/speed_test_service.py:245 services/speed_test_service.py:257
 #: services/speed_test_service.py:271 services/speed_test_service.py:302
 msgid "United Kingdom"
-msgstr ""
+msgstr "Великобритания"
 
 #: services/speed_test_service.py:246 services/speed_test_service.py:258
 #: services/speed_test_service.py:269 services/speed_test_service.py:307
 msgid "Germany"
-msgstr ""
+msgstr "Германия"
 
 #: services/speed_test_service.py:247 services/speed_test_service.py:256
 #: services/speed_test_service.py:312
 msgid "France"
-msgstr ""
+msgstr "Франция"
 
 #: services/speed_test_service.py:248 services/speed_test_service.py:270
 #: services/speed_test_service.py:331
 msgid "Australia"
-msgstr ""
+msgstr "Австралия"
 
 #: services/speed_test_service.py:249 services/speed_test_service.py:260
 #: services/speed_test_service.py:268 services/speed_test_service.py:325
 msgid "Japan"
-msgstr ""
+msgstr "Япония"
 
 #: services/speed_test_service.py:250 services/speed_test_service.py:318
 msgid "Brazil"
-msgstr ""
+msgstr "Бразилия"
 
 #: services/speed_test_service.py:251 services/speed_test_service.py:316
 msgid "Spain"
-msgstr ""
+msgstr "Испания"
 
 #: services/speed_test_service.py:252 services/speed_test_service.py:317
 msgid "Italy"
-msgstr ""
+msgstr "Италия"
 
 #: services/speed_test_service.py:253 services/speed_test_service.py:263
 #: services/speed_test_service.py:264 services/speed_test_service.py:265
 #: services/speed_test_service.py:266 services/speed_test_service.py:319
 msgid "China"
-msgstr ""
+msgstr "Китай"
 
 #: services/speed_test_service.py:254
 msgid "Russia"
-msgstr ""
+msgstr "Россия"
 
 #: services/speed_test_service.py:255 services/speed_test_service.py:332
 msgid "Canada"
-msgstr ""
+msgstr "Канада"
 
 #: services/speed_test_service.py:259 services/speed_test_service.py:330
 msgid "Ireland"
-msgstr ""
+msgstr "Ирландия"
 
 #: services/speed_test_service.py:261 services/speed_test_service.py:329
 msgid "Netherlands"
-msgstr ""
+msgstr "Нидерланды"
 
 #: services/speed_test_service.py:262 services/speed_test_service.py:333
 msgid "Switzerland"
-msgstr ""
+msgstr "Швейцария"
 
 #: services/speed_test_service.py:285 services/speed_test_service.py:287
 #: ui/views/sources_generator_view.py:286
 msgid "Unknown"
-msgstr ""
+msgstr "Неизвестно"
 
 #: services/speed_test_service.py:292
 msgid "Global"
-msgstr ""
+msgstr "Глобально"
 
 #: services/repo_file_manager.py:56
 #, python-brace-format
 msgid "Read {count} repositories from {path}"
-msgstr ""
+msgstr "Прочитано {count} репозиториев из {path}"
 
 #: services/repo_file_manager.py:60
 #, python-brace-format
 msgid "Error reading file {path}"
-msgstr ""
+msgstr "Ошибка при чтении файла {path}"
 
 #: services/repo_file_manager.py:93
 #, python-brace-format
 msgid "Error writing file {path}"
-msgstr ""
+msgstr "Ошибка при записи файла {path}"
 
 #: services/repo_file_manager.py:398
 #, python-brace-format
 msgid "File written successfully: {path}"
-msgstr ""
+msgstr "Файл успешно записан: {path}"
 
 #: services/repo_file_manager.py:416
 #, python-brace-format
 msgid "pkexec failed: {stderr}"
-msgstr ""
+msgstr "pkexec завершился с ошибкой: {stderr}"
 
 #: services/repo_file_manager.py:482
 msgid "All files written successfully (direct move)"
-msgstr ""
+msgstr "Все файлы успешно записаны (прямое перемещение)"
 
 #: services/repo_file_manager.py:503
 msgid "pkexec grouped move failed"
-msgstr ""
+msgstr "Групповое перемещение через pkexec не удалось"
 
 #: services/repo_file_manager.py:523
 msgid "All files written successfully (grouped pkexec)"
-msgstr ""
+msgstr "Все файлы успешно записаны (pkexec сгруппировано)"
 
 #: services/repo_file_manager.py:535
 msgid "Error in grouped write"
-msgstr ""
+msgstr "Ошибка при групповой записи"
 
 #: services/gpg_manager.py:32
 #, python-brace-format
 msgid "Could not create {path}: {err}"
-msgstr ""
+msgstr "Не удалось создать {path}: {err}"
 
 #: services/gpg_manager.py:70
 #, python-brace-format
 msgid "Error getting key info needed for {path}: {err}"
-msgstr ""
+msgstr "Ошибка получения информации о ключе, необходимой для {path}: {err}"
 
 #: services/gpg_manager.py:108
 #, python-brace-format
 msgid "Error extracting key details for {path}: {err}"
-msgstr ""
+msgstr "Ошибка извлечения данных ключа для {path}: {err}"
 
 #: services/gpg_manager.py:118
 #, python-brace-format
 msgid "File {path} does not exist"
-msgstr ""
+msgstr "Файл {path} не существует"
 
 #: services/gpg_manager.py:151
 #, python-brace-format
 msgid "Error importing key: {err}"
-msgstr ""
+msgstr "Ошибка при импорте ключа: {err}"
 
 #: services/gpg_manager.py:163
 #, python-brace-format
 msgid "Source {path} does not exist"
-msgstr ""
+msgstr "Источник {path} не существует"
 
 #: services/gpg_manager.py:171
 #, python-brace-format
 msgid "Permission denied creating destination directory {dir}"
-msgstr ""
+msgstr "Нет прав для создания директории назначения {dir}"
 
 #: services/gpg_manager.py:180
 msgid "gpg --dearmor failed"
-msgstr ""
+msgstr "gpg --dearmor завершился с ошибкой"
 
 #: services/gpg_manager.py:186
 #, python-brace-format
 msgid "Permission denied writing to {path}"
-msgstr ""
+msgstr "Нет прав на запись в {path}"
 
 #: services/gpg_manager.py:191
 #, python-brace-format
 msgid "Error exporting key: {err}"
-msgstr ""
+msgstr "Ошибка при экспорте ключа: {err}"
 
 #: services/gpg_manager.py:202
 #, python-brace-format
 msgid "Key {path} does not exist"
-msgstr ""
+msgstr "Ключ {path} не существует"
 
 #: services/gpg_manager.py:220
 #, python-brace-format
 msgid "Key referenced in: {list}"
-msgstr ""
+msgstr "Ключ упоминается в: {list}"
 
 #: services/gpg_manager.py:225
 #, python-brace-format
 msgid "Deleted {path}"
-msgstr ""
+msgstr "Удалено {path}"
 
 #: services/gpg_manager.py:231
 #, python-brace-format
 msgid "Deleted {path} (via pkexec)"
-msgstr ""
+msgstr "Удалено {path} (через pkexec)"
 
 #: services/gpg_manager.py:233
 msgid "pkexec rm failed"
-msgstr ""
+msgstr "pkexec rm завершился с ошибкой"
 
 #: services/gpg_manager.py:237
 #, python-brace-format
 msgid "Key {path} not found"
-msgstr ""
+msgstr "Ключ {path} не найден"
 
 #: services/gpg_manager.py:241
 #, python-brace-format
 msgid "Error deleting key: {err}"
-msgstr ""
+msgstr "Ошибка при удалении ключа: {err}"
 
 #: ui/dialogs/repo_edit.py:15
 msgid "Edit Repository"
-msgstr ""
+msgstr "Редактировать репозиторий"
 
 #: ui/dialogs/repo_edit.py:15 ui/views/repo_view.py:40
 msgid "Add Repository"
-msgstr ""
+msgstr "Добавить репозиторий"
 
 #: ui/dialogs/repo_edit.py:18 ui/views/gpg_view.py:151 ui/views/gpg_view.py:192
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: ui/dialogs/repo_edit.py:19 ui/views/gpg_view.py:193
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: ui/dialogs/repo_edit.py:43
 msgid "Type:"
-msgstr ""
+msgstr "Тип:"
 
 #: ui/dialogs/repo_edit.py:45
 msgid "Binary (deb)"
-msgstr ""
+msgstr "Бинарный (deb)"
 
 #: ui/dialogs/repo_edit.py:46
 msgid "Source (deb-src)"
-msgstr ""
+msgstr "Исходники (deb-src)"
 
 #: ui/dialogs/repo_edit.py:53
 msgid "URI:"
-msgstr ""
+msgstr "URI:"
 
 #: ui/dialogs/repo_edit.py:59
 msgid "Distribution:"
-msgstr ""
+msgstr "Дистрибутив:"
 
 #: ui/dialogs/repo_edit.py:65
 msgid "Components:"
-msgstr ""
+msgstr "Компоненты:"
 
 #: ui/dialogs/repo_edit.py:71
 msgid "Signed By (Key):"
-msgstr ""
+msgstr "Подписано (ключ):"
 
 #: ui/dialogs/repo_edit.py:73
 msgid "Optional (key path or fingerprint)"
-msgstr ""
+msgstr "Необязательно (путь к ключу или отпечаток)"
 
 #: ui/dialogs/repo_edit.py:78
 msgid "Comment:"
-msgstr ""
+msgstr "Комментарий:"
 
 #: ui/main_window.py:141
 msgid "Welcome"
-msgstr ""
+msgstr "Добро пожаловать"
 
 #: ui/main_window.py:145
 msgid "Sources Generator"
-msgstr ""
+msgstr "Генератор источников"
 
 #: ui/main_window.py:149
 msgid "Repositories"
-msgstr ""
+msgstr "Репозитории"
 
 #: ui/main_window.py:153 ui/views/gpg_view.py:156
 msgid "GPG Keys"
-msgstr ""
+msgstr "GPG-ключи"
 
 #: ui/main_window.py:168 ui/main_window.py:290
 msgid "Ready"

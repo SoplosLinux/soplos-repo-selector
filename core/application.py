@@ -15,6 +15,7 @@ from gi.repository import Gtk, Gdk, GLib, Gio
 from .environment import get_environment_detector
 from .theme_manager import get_theme_manager, initialize_theming
 from .i18n_manager import get_i18n_manager, initialize_i18n, _
+from utils.logger import log_info, log_error, log_warning
 from config.constants import APP_ID, APP_NAME, APP_VERSION
 
 
@@ -54,7 +55,7 @@ class SoplosRepoSelectorApplication(Gtk.Application):
         
     def on_shutdown(self, app):
         """Called when the application shuts down."""
-        print("Shutting down Soplos Repo Selector...")
+        log_info(_("Shutting down Soplos Repo Selector..."))
         self._cleanup_garbage()
 
     def _cleanup_garbage(self):
@@ -72,11 +73,11 @@ class SoplosRepoSelectorApplication(Gtk.Application):
                     except Exception:
                         pass
         except Exception as e:
-            print(f"Cleanup warning: {e}")
+            log_warning(_("Cleanup warning: {err}").format(err=e))
     
     def on_startup(self, app):
         """Called when the application starts up."""
-        print(f"Starting {APP_NAME} v{APP_VERSION}...")
+        log_info(_("Starting {name} v{ver}...").format(name=APP_NAME, ver=APP_VERSION))
         
         # Initialize core systems
         self._initialize_environment()
@@ -84,7 +85,7 @@ class SoplosRepoSelectorApplication(Gtk.Application):
         self._initialize_theming()
         self._setup_application_properties()
         
-        print("Application initialization completed")
+        log_info(_("Application initialization completed"))
     
     def on_activate(self, app):
         """Called when the application is activated."""
@@ -108,20 +109,20 @@ class SoplosRepoSelectorApplication(Gtk.Application):
             self.environment_detector = get_environment_detector()
             env_info = self.environment_detector.detect_all()
             
-            print(f"Desktop Environment: {env_info['desktop_environment']}")
+            log_info(_("Desktop Environment: {env}").format(env=env_info['desktop_environment']))
             
             # Configure environment variables for optimal integration
             self.environment_detector.configure_environment_variables()
             
         except Exception as e:
-            print(f"Error initializing environment detection: {e}")
+            log_error(_("Error initializing environment detection: {err}").format(err=e))
     
     def _initialize_internationalization(self):
         """Initialize the internationalization system."""
         try:
             current_lang = initialize_i18n(str(self.locale_path))
             self.i18n_manager = get_i18n_manager()
-            print(f"Language initialized: {current_lang}")
+            log_info(_("Language initialized: {lang}").format(lang=current_lang))
             
             # Set up gettext
             import gettext
@@ -129,16 +130,16 @@ class SoplosRepoSelectorApplication(Gtk.Application):
             gettext.textdomain('soplos-repo-selector')
             
         except Exception as e:
-            print(f"Error initializing internationalization: {e}")
+            log_error(_("Error initializing internationalization: {err}").format(err=e))
     
     def _initialize_theming(self):
         """Initialize the theming system."""
         try:
             loaded_theme = initialize_theming(str(self.assets_path))
             self.theme_manager = get_theme_manager()
-            print(f"Theme loaded: {loaded_theme}")
+            log_info(_("Theme loaded: {theme}").format(theme=loaded_theme))
         except Exception as e:
-            print(f"Error initializing theming: {e}")
+            log_error(_("Error initializing theming: {err}").format(err=e))
     
     def _setup_application_properties(self):
         """Setup application-wide properties."""
@@ -155,7 +156,7 @@ class SoplosRepoSelectorApplication(Gtk.Application):
             try:
                 Gtk.Window.set_default_icon_from_file(str(icon_path))
             except Exception as e:
-                print(f"Error setting application icon: {e}")
+                log_warning(_("Error setting application icon: {err}").format(err=e))
 
         # Setup application menu for GNOME integration (if appropriate)
         try:
@@ -181,7 +182,7 @@ class SoplosRepoSelectorApplication(Gtk.Application):
             self.main_window.connect('destroy', self._on_window_destroy)
             
         except Exception as e:
-            print(f"Error creating main window: {e}")
+            log_error(_("Error creating main window: {err}").format(err=e))
             import traceback
             traceback.print_exc()
             self.quit()
@@ -212,7 +213,7 @@ class SoplosRepoSelectorApplication(Gtk.Application):
 
                 self.set_app_menu(menu)
         except Exception as e:
-            print(f"Error setting up application menu: {e}")
+            log_warning(_("Error setting up application menu: {err}").format(err=e))
     
     def _on_window_destroy(self, window):
         """Handle main window destruction."""
@@ -221,7 +222,7 @@ class SoplosRepoSelectorApplication(Gtk.Application):
     
     def _handle_signal(self, signum, frame):
         """Handle system signals for graceful shutdown."""
-        print(f"Received signal {signum}, shutting down...")
+        log_info(_("Received signal {num}, shutting down...").format(num=signum))
         GLib.idle_add(self.quit)
 
 
@@ -237,5 +238,5 @@ def run_application(argv: list = None) -> int:
     except KeyboardInterrupt:
         return 0
     except Exception as e:
-        print(f"Application error: {e}")
+        log_error(_("Application error: {err}").format(err=e))
         return 1

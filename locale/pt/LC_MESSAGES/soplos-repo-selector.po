@@ -1,404 +1,404 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Portuguese translations for PACKAGE package.
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Automatically generated, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-12 22:49+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-12-12 22:49+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/theme_manager.py:128
 #, python-brace-format
 msgid "Theme '{name}' not found at {path}"
-msgstr ""
+msgstr "Tema '{name}' não encontrado em {path}"
 
 #: core/theme_manager.py:141
 #, python-brace-format
 msgid "Successfully loaded theme: {name}"
-msgstr ""
+msgstr "Tema carregado com sucesso: {name}"
 
 #: core/theme_manager.py:144
 #, python-brace-format
 msgid "Error loading theme '{name}': {err}"
-msgstr ""
+msgstr "Erro ao carregar o tema '{name}': {err}"
 
 #: core/theme_manager.py:162
 #, python-brace-format
 msgid "Error adding custom CSS: {err}"
-msgstr ""
+msgstr "Erro ao adicionar CSS personalizado: {err}"
 
 #: core/application.py:58
 msgid "Shutting down Soplos Repo Selector..."
-msgstr ""
+msgstr "Encerrando Soplos Repo Selector..."
 
 #: core/application.py:76
 #, python-brace-format
 msgid "Cleanup warning: {err}"
-msgstr ""
+msgstr "Aviso de limpeza: {err}"
 
 #: core/application.py:80
 #, python-brace-format
 msgid "Starting {name} v{ver}..."
-msgstr ""
+msgstr "Iniciando {name} v{ver}..."
 
 #: core/application.py:88
 msgid "Application initialization completed"
-msgstr ""
+msgstr "Inicialização da aplicação concluída"
 
 #: core/application.py:112
 #, python-brace-format
 msgid "Desktop Environment: {env}"
-msgstr ""
+msgstr "Ambiente de trabalho: {env}"
 
 #: core/application.py:118
 #, python-brace-format
 msgid "Error initializing environment detection: {err}"
-msgstr ""
+msgstr "Erro ao inicializar a deteção do ambiente: {err}"
 
 #: core/application.py:125
 #, python-brace-format
 msgid "Language initialized: {lang}"
-msgstr ""
+msgstr "Idioma inicializado: {lang}"
 
 #: core/application.py:133
 #, python-brace-format
 msgid "Error initializing internationalization: {err}"
-msgstr ""
+msgstr "Erro ao inicializar a internacionalização: {err}"
 
 #: core/application.py:140
 #, python-brace-format
 msgid "Theme loaded: {theme}"
-msgstr ""
+msgstr "Tema carregado: {theme}"
 
 #: core/application.py:142
 #, python-brace-format
 msgid "Error initializing theming: {err}"
-msgstr ""
+msgstr "Erro ao inicializar o sistema de temas: {err}"
 
 #: core/application.py:159
 #, python-brace-format
 msgid "Error setting application icon: {err}"
-msgstr ""
+msgstr "Erro ao definir o ícone da aplicação: {err}"
 
 #: core/application.py:185
 #, python-brace-format
 msgid "Error creating main window: {err}"
-msgstr ""
+msgstr "Erro ao criar a janela principal: {err}"
 
 #: core/application.py:200
 msgid "Preferences"
-msgstr ""
+msgstr "Preferências"
 
 #: core/application.py:206
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 #: core/application.py:212
 msgid "Quit"
-msgstr ""
+msgstr "Sair"
 
 #: core/application.py:216
 #, python-brace-format
 msgid "Error setting up application menu: {err}"
-msgstr ""
+msgstr "Erro ao configurar o menu da aplicação: {err}"
 
 #: core/application.py:225
 #, python-brace-format
 msgid "Received signal {num}, shutting down..."
-msgstr ""
+msgstr "Sinal {num} recebido, encerrando..."
 
 #: core/application.py:241
 #, python-brace-format
 msgid "Application error: {err}"
-msgstr ""
+msgstr "Erro na aplicação: {err}"
 
 #: services/speed_test_service.py:240 services/speed_test_service.py:241
 #: services/speed_test_service.py:242
 msgid "Global CDN"
-msgstr ""
+msgstr "CDN global"
 
 #: services/speed_test_service.py:243
 msgid "Global Mirror"
-msgstr ""
+msgstr "Espelho global"
 
 #: services/speed_test_service.py:244 services/speed_test_service.py:267
 #: services/speed_test_service.py:298
 msgid "United States"
-msgstr ""
+msgstr "Estados Unidos"
 
 #: services/speed_test_service.py:245 services/speed_test_service.py:257
 #: services/speed_test_service.py:271 services/speed_test_service.py:302
 msgid "United Kingdom"
-msgstr ""
+msgstr "Reino Unido"
 
 #: services/speed_test_service.py:246 services/speed_test_service.py:258
 #: services/speed_test_service.py:269 services/speed_test_service.py:307
 msgid "Germany"
-msgstr ""
+msgstr "Alemanha"
 
 #: services/speed_test_service.py:247 services/speed_test_service.py:256
 #: services/speed_test_service.py:312
 msgid "France"
-msgstr ""
+msgstr "França"
 
 #: services/speed_test_service.py:248 services/speed_test_service.py:270
 #: services/speed_test_service.py:331
 msgid "Australia"
-msgstr ""
+msgstr "Austrália"
 
 #: services/speed_test_service.py:249 services/speed_test_service.py:260
 #: services/speed_test_service.py:268 services/speed_test_service.py:325
 msgid "Japan"
-msgstr ""
+msgstr "Japão"
 
 #: services/speed_test_service.py:250 services/speed_test_service.py:318
 msgid "Brazil"
-msgstr ""
+msgstr "Brasil"
 
 #: services/speed_test_service.py:251 services/speed_test_service.py:316
 msgid "Spain"
-msgstr ""
+msgstr "Espanha"
 
 #: services/speed_test_service.py:252 services/speed_test_service.py:317
 msgid "Italy"
-msgstr ""
+msgstr "Itália"
 
 #: services/speed_test_service.py:253 services/speed_test_service.py:263
 #: services/speed_test_service.py:264 services/speed_test_service.py:265
 #: services/speed_test_service.py:266 services/speed_test_service.py:319
 msgid "China"
-msgstr ""
+msgstr "China"
 
 #: services/speed_test_service.py:254
 msgid "Russia"
-msgstr ""
+msgstr "Rússia"
 
 #: services/speed_test_service.py:255 services/speed_test_service.py:332
 msgid "Canada"
-msgstr ""
+msgstr "Canadá"
 
 #: services/speed_test_service.py:259 services/speed_test_service.py:330
 msgid "Ireland"
-msgstr ""
+msgstr "Irlanda"
 
 #: services/speed_test_service.py:261 services/speed_test_service.py:329
 msgid "Netherlands"
-msgstr ""
+msgstr "Países Baixos"
 
 #: services/speed_test_service.py:262 services/speed_test_service.py:333
 msgid "Switzerland"
-msgstr ""
+msgstr "Suíça"
 
 #: services/speed_test_service.py:285 services/speed_test_service.py:287
 #: ui/views/sources_generator_view.py:286
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: services/speed_test_service.py:292
 msgid "Global"
-msgstr ""
+msgstr "Global"
 
 #: services/repo_file_manager.py:56
 #, python-brace-format
 msgid "Read {count} repositories from {path}"
-msgstr ""
+msgstr "Lidos {count} repositórios de {path}"
 
 #: services/repo_file_manager.py:60
 #, python-brace-format
 msgid "Error reading file {path}"
-msgstr ""
+msgstr "Erro ao ler o arquivo {path}"
 
 #: services/repo_file_manager.py:93
 #, python-brace-format
 msgid "Error writing file {path}"
-msgstr ""
+msgstr "Erro ao escrever o arquivo {path}"
 
 #: services/repo_file_manager.py:398
 #, python-brace-format
 msgid "File written successfully: {path}"
-msgstr ""
+msgstr "Arquivo escrito com sucesso: {path}"
 
 #: services/repo_file_manager.py:416
 #, python-brace-format
 msgid "pkexec failed: {stderr}"
-msgstr ""
+msgstr "pkexec falhou: {stderr}"
 
 #: services/repo_file_manager.py:482
 msgid "All files written successfully (direct move)"
-msgstr ""
+msgstr "Todos os arquivos escritos com sucesso (movimento direto)"
 
 #: services/repo_file_manager.py:503
 msgid "pkexec grouped move failed"
-msgstr ""
+msgstr "Falha ao mover agrupado com pkexec"
 
 #: services/repo_file_manager.py:523
 msgid "All files written successfully (grouped pkexec)"
-msgstr ""
+msgstr "Todos os arquivos escritos com sucesso (pkexec agrupado)"
 
 #: services/repo_file_manager.py:535
 msgid "Error in grouped write"
-msgstr ""
+msgstr "Erro na escrita agrupada"
 
 #: services/gpg_manager.py:32
 #, python-brace-format
 msgid "Could not create {path}: {err}"
-msgstr ""
+msgstr "Não foi possível criar {path}: {err}"
 
 #: services/gpg_manager.py:70
 #, python-brace-format
 msgid "Error getting key info needed for {path}: {err}"
-msgstr ""
+msgstr "Erro ao obter informação da chave necessária para {path}: {err}"
 
 #: services/gpg_manager.py:108
 #, python-brace-format
 msgid "Error extracting key details for {path}: {err}"
-msgstr ""
+msgstr "Erro ao extrair detalhes da chave para {path}: {err}"
 
 #: services/gpg_manager.py:118
 #, python-brace-format
 msgid "File {path} does not exist"
-msgstr ""
+msgstr "O arquivo {path} não existe"
 
 #: services/gpg_manager.py:151
 #, python-brace-format
 msgid "Error importing key: {err}"
-msgstr ""
+msgstr "Erro ao importar a chave: {err}"
 
 #: services/gpg_manager.py:163
 #, python-brace-format
 msgid "Source {path} does not exist"
-msgstr ""
+msgstr "A fonte {path} não existe"
 
 #: services/gpg_manager.py:171
 #, python-brace-format
 msgid "Permission denied creating destination directory {dir}"
-msgstr ""
+msgstr "Permissão negada ao criar o diretório de destino {dir}"
 
 #: services/gpg_manager.py:180
 msgid "gpg --dearmor failed"
-msgstr ""
+msgstr "gpg --dearmor falhou"
 
 #: services/gpg_manager.py:186
 #, python-brace-format
 msgid "Permission denied writing to {path}"
-msgstr ""
+msgstr "Permissão negada ao escrever em {path}"
 
 #: services/gpg_manager.py:191
 #, python-brace-format
 msgid "Error exporting key: {err}"
-msgstr ""
+msgstr "Erro ao exportar a chave: {err}"
 
 #: services/gpg_manager.py:202
 #, python-brace-format
 msgid "Key {path} does not exist"
-msgstr ""
+msgstr "A chave {path} não existe"
 
 #: services/gpg_manager.py:220
 #, python-brace-format
 msgid "Key referenced in: {list}"
-msgstr ""
+msgstr "Chave referenciada em: {list}"
 
 #: services/gpg_manager.py:225
 #, python-brace-format
 msgid "Deleted {path}"
-msgstr ""
+msgstr "Removido {path}"
 
 #: services/gpg_manager.py:231
 #, python-brace-format
 msgid "Deleted {path} (via pkexec)"
-msgstr ""
+msgstr "Removido {path} (via pkexec)"
 
 #: services/gpg_manager.py:233
 msgid "pkexec rm failed"
-msgstr ""
+msgstr "pkexec rm falhou"
 
 #: services/gpg_manager.py:237
 #, python-brace-format
 msgid "Key {path} not found"
-msgstr ""
+msgstr "Chave {path} não encontrada"
 
 #: services/gpg_manager.py:241
 #, python-brace-format
 msgid "Error deleting key: {err}"
-msgstr ""
+msgstr "Erro ao excluir a chave: {err}"
 
 #: ui/dialogs/repo_edit.py:15
 msgid "Edit Repository"
-msgstr ""
+msgstr "Editar repositório"
 
 #: ui/dialogs/repo_edit.py:15 ui/views/repo_view.py:40
 msgid "Add Repository"
-msgstr ""
+msgstr "Adicionar repositório"
 
 #: ui/dialogs/repo_edit.py:18 ui/views/gpg_view.py:151 ui/views/gpg_view.py:192
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: ui/dialogs/repo_edit.py:19 ui/views/gpg_view.py:193
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: ui/dialogs/repo_edit.py:43
 msgid "Type:"
-msgstr ""
+msgstr "Tipo:"
 
 #: ui/dialogs/repo_edit.py:45
 msgid "Binary (deb)"
-msgstr ""
+msgstr "Binário (deb)"
 
 #: ui/dialogs/repo_edit.py:46
 msgid "Source (deb-src)"
-msgstr ""
+msgstr "Origem (deb-src)"
 
 #: ui/dialogs/repo_edit.py:53
 msgid "URI:"
-msgstr ""
+msgstr "URI:"
 
 #: ui/dialogs/repo_edit.py:59
 msgid "Distribution:"
-msgstr ""
+msgstr "Distribuição:"
 
 #: ui/dialogs/repo_edit.py:65
 msgid "Components:"
-msgstr ""
+msgstr "Componentes:"
 
 #: ui/dialogs/repo_edit.py:71
 msgid "Signed By (Key):"
-msgstr ""
+msgstr "Assinado por (chave):"
 
 #: ui/dialogs/repo_edit.py:73
 msgid "Optional (key path or fingerprint)"
-msgstr ""
+msgstr "Opcional (caminho da chave ou impressão digital)"
 
 #: ui/dialogs/repo_edit.py:78
 msgid "Comment:"
-msgstr ""
+msgstr "Comentário:"
 
 #: ui/main_window.py:141
 msgid "Welcome"
-msgstr ""
+msgstr "Bem-vindo"
 
 #: ui/main_window.py:145
 msgid "Sources Generator"
-msgstr ""
+msgstr "Gerador de fontes"
 
 #: ui/main_window.py:149
 msgid "Repositories"
-msgstr ""
+msgstr "Repositórios"
 
 #: ui/main_window.py:153 ui/views/gpg_view.py:156
 msgid "GPG Keys"
-msgstr ""
+msgstr "Chaves GPG"
 
 #: ui/main_window.py:168 ui/main_window.py:290
 msgid "Ready"

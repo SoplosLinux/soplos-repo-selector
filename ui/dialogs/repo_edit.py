@@ -42,8 +42,8 @@ class RepoEditDialog(Gtk.Dialog):
         # Type
         grid.attach(Gtk.Label(label=_("Type:")), 0, 0, 1, 1)
         self.type_combo = Gtk.ComboBoxText()
-        self.type_combo.append("deb", "Binary (deb)")
-        self.type_combo.append("deb-src", "Source (deb-src)")
+        self.type_combo.append("deb", _("Binary (deb)"))
+        self.type_combo.append("deb-src", _("Source (deb-src)"))
         
         current_type = self.repo_data.get('type', 'deb')
         self.type_combo.set_active_id(current_type)

@@ -67,7 +67,18 @@ class GPGView(Gtk.Box):
         
         if not self.keys:
             # Show placeholder
-            pass
+            ph_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
+            ph_box.set_valign(Gtk.Align.CENTER)
+            ph_box.set_halign(Gtk.Align.CENTER)
+            icon = Gtk.Image.new_from_icon_name("application-certificate-symbolic", Gtk.IconSize.DIALOG)
+            icon.set_pixel_size(64)
+            ph_box.pack_start(icon, False, False, 0)
+            ph_label = Gtk.Label(label=_("No GPG keys found"))
+            ph_label.get_style_context().add_class('dim-label')
+            ph_box.pack_start(ph_label, False, False, 0)
+            self.list_box.add(ph_box)
+            self.list_box.show_all()
+            return
             
         for key in self.keys:
             row = Gtk.ListBoxRow()
@@ -113,11 +124,11 @@ class GPGView(Gtk.Box):
 
             # Actions column (Export / Delete)
             action_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-            export_btn = Gtk.Button(label=_("Exportar"))
+            export_btn = Gtk.Button(label=_("Export"))
             export_btn.connect('clicked', self._on_export_clicked, key)
             action_box.pack_start(export_btn, False, False, 0)
 
-            delete_btn = Gtk.Button(label=_("Borrar"))
+            delete_btn = Gtk.Button(label=_("Delete"))
             # attach a small state to manage confirm-once behavior
             delete_btn._confirm_state = False
             delete_btn.connect('clicked', self._on_delete_clicked, key, delete_btn)
@@ -142,7 +153,7 @@ class GPGView(Gtk.Box):
         )
         
         filter_gpg = Gtk.FileFilter()
-        filter_gpg.set_name("GPG Keys")
+        filter_gpg.set_name(_("GPG Keys"))
         filter_gpg.add_pattern("*.gpg")
         filter_gpg.add_pattern("*.asc")
         filter_gpg.add_pattern("*.pgp")
@@ -207,12 +218,12 @@ class GPGView(Gtk.Box):
     def _on_delete_clicked(self, btn, key, delete_btn):
         # Two-step inline confirmation: first click arms the button, second click deletes.
         if not getattr(delete_btn, '_confirm_state', False):
-            delete_btn.set_label(_('Confirmar borrar'))
+            delete_btn.set_label(_('Confirm Delete'))
             delete_btn._confirm_state = True
 
             def reset_label():
                 try:
-                    delete_btn.set_label(_('Borrar'))
+                    delete_btn.set_label(_('Delete'))
                     delete_btn._confirm_state = False
                 except Exception:
                     pass

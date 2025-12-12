@@ -12,6 +12,7 @@ from typing import List, Dict, Tuple, Optional
 from datetime import datetime
 
 from utils.logger import log_info, log_error, log_warning
+from core.i18n_manager import _
 
 class GPGManager:
     """Manager for GPG keys."""
@@ -28,7 +29,7 @@ class GPGManager:
                 subprocess.run(['pkexec', 'mkdir', '-p', self.etc_keyrings_dir], 
                                check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
-                log_warning(f"Could not create {self.etc_keyrings_dir}: {e}")
+                log_warning(_("Could not create {path}: {err}").format(path=self.etc_keyrings_dir, err=e))
 
     def get_all_keys(self) -> List[Dict[str, str]]:
         """Gets all available GPG keys."""
@@ -66,7 +67,7 @@ class GPGManager:
                         elif parts[0] == "pub" and len(parts) > 4:
                             info['description'] = f"ID: {parts[4]}"
         except Exception as e:
-            log_warning(f"Error getting key info needed for {key_path}: {e}")
+            log_warning(_("Error getting key info needed for {path}: {err}").format(path=key_path, err=e))
             
         return info
 
@@ -104,7 +105,7 @@ class GPGManager:
 
             return {'fingerprint': fingerprint, 'expiry': expiry, 'uid': uid}
         except Exception as e:
-            log_warning(f"Error extracting key details for {key_path}: {e}")
+            log_warning(_("Error extracting key details for {path}: {err}").format(path=key_path, err=e))
             return None
 
     def import_key_from_file(self, source_path: str, key_name: str = None) -> Tuple[bool, str]:
@@ -114,7 +115,7 @@ class GPGManager:
         """
         try:
             if not os.path.exists(source_path):
-                return False, f"File {source_path} does not exist"
+                return False, _("File {path} does not exist").format(path=source_path)
             
             if not key_name:
                 key_name = os.path.basename(source_path)
@@ -147,7 +148,7 @@ class GPGManager:
                 return False, result.stderr
                 
         except Exception as e:
-            log_error(f"Error importing key: {e}")
+            log_error(_("Error importing key: {err}").format(err=e))
             return False, str(e)
 
     def export_key(self, src_path: str, dst_path: str) -> Tuple[bool, str]:
@@ -159,7 +160,7 @@ class GPGManager:
         """
         try:
             if not os.path.exists(src_path):
-                return False, f"Source {src_path} does not exist"
+                return False, _("Source {path} does not exist").format(path=src_path)
 
             # If destination parent doesn't exist, try to create (may fail if needs root)
             dst_dir = os.path.dirname(dst_path) or '.'
@@ -167,7 +168,7 @@ class GPGManager:
                 try:
                     os.makedirs(dst_dir, exist_ok=True)
                 except PermissionError:
-                    return False, f"Permission denied creating destination directory {dst_dir}"
+                    return False, _("Permission denied creating destination directory {dir}").format(dir=dst_dir)
 
             if self._is_ascii_armored(src_path) and dst_path.endswith('.gpg'):
                 # dearmor ASCII to binary
@@ -176,18 +177,18 @@ class GPGManager:
                 if res.returncode == 0:
                     return True, dst_path
                 else:
-                    return False, res.stderr or 'gpg --dearmor failed'
+                    return False, res.stderr or _('gpg --dearmor failed')
             else:
                 try:
                     shutil.copyfile(src_path, dst_path)
                     return True, dst_path
                 except PermissionError:
-                    return False, f"Permission denied writing to {dst_path}"
+                    return False, _("Permission denied writing to {path}").format(path=dst_path)
                 except Exception as e:
                     return False, str(e)
 
         except Exception as e:
-            log_error(f"Error exporting key: {e}")
+            log_error(_("Error exporting key: {err}").format(err=e))
             return False, str(e)
 
     def delete_key(self, key_path: str, force: bool = False) -> Tuple[bool, str]:
@@ -198,7 +199,7 @@ class GPGManager:
         """
         try:
             if not os.path.exists(key_path):
-                return False, f"Key {key_path} does not exist"
+                return False, _("Key {path} does not exist").format(path=key_path)
 
             # Search for references in apt sources
             referenced_in = []
@@ -216,28 +217,28 @@ class GPGManager:
                     continue
 
             if referenced_in and not force:
-                return False, f"Key referenced in: {', '.join(referenced_in)}"
+                return False, _("Key referenced in: {list}").format(list=', '.join(referenced_in))
 
             # Attempt to remove file (may require root)
             try:
                 os.remove(key_path)
-                return True, f"Deleted {key_path}"
+                return True, _("Deleted {path}").format(path=key_path)
             except PermissionError:
                 # Fallback to pkexec rm
                 try:
                     res = subprocess.run(['pkexec', 'rm', '-f', key_path], capture_output=True, text=True)
                     if res.returncode == 0:
-                        return True, f"Deleted {key_path} (via pkexec)"
+                        return True, _("Deleted {path} (via pkexec)").format(path=key_path)
                     else:
-                        return False, res.stderr or 'pkexec rm failed'
+                        return False, res.stderr or _('pkexec rm failed')
                 except Exception as e:
                     return False, str(e)
             except FileNotFoundError:
-                return False, f"Key {key_path} not found"
+                return False, _("Key {path} not found").format(path=key_path)
             except Exception as e:
                 return False, str(e)
         except Exception as e:
-            log_error(f"Error deleting key: {e}")
+            log_error(_("Error deleting key: {err}").format(err=e))
             return False, str(e)
     def _is_ascii_armored(self, file_path: str) -> bool:
         try:
