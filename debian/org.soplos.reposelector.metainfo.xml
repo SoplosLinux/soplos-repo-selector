@@ -311,6 +311,64 @@
         <p xml:lang="ro">Versiunea 2.0.0: interfață reproiectată, îmbunătățiri de performanță și compatibilitate extinsă.</p>
       </description>
     </release>
+    <release version="2.0.0" date="2025-12-12">
+      <description>
+        <p xml:lang="es">Parche 2025-12-12: correcciones y mejoras menores.</p>
+        <p xml:lang="en">Patch 2025-12-12: minor fixes and improvements.</p>
+        <p xml:lang="fr">Correctif 2025-12-12 : corrections et améliorations mineures.</p>
+        <p xml:lang="pt">Patch 2025-12-12: correções e melhorias menores.</p>
+        <p xml:lang="de">Patch 2025-12-12: kleinere Fehlerbehebungen und Verbesserungen.</p>
+        <p xml:lang="it">Patch 2025-12-12: correzioni e miglioramenti minori.</p>
+        <p xml:lang="ru">Патч 2025-12-12: мелкие исправления и улучшения.</p>
+        <p xml:lang="ro">Patch 2025-12-12: corecții și îmbunătățiri minore.</p>
+        <ul>
+          <li xml:lang="en">Fixed Sources Generator to preserve DEB822 block grouping and respect selected mirror.</li>
+          <li xml:lang="es">Arreglado el Generador de Sources para preservar el agrupamiento DEB822 y respetar el mirror seleccionado.</li>
+          <li xml:lang="fr">Correction du Générateur de Sources pour préserver le groupement DEB822 et respecter le miroir sélectionné.</li>
+          <li xml:lang="pt">Corrigido o Gerador de Sources para preservar o agrupamento DEB822 e respeitar o espelho selecionado.</li>
+          <li xml:lang="de">Sources-Generator repariert, damit DEB822-Blöcke gruppiert bleiben und das gewählte Spiegel berücksichtigt wird.</li>
+          <li xml:lang="it">Corretto il Generatore di Sources per preservare il raggruppamento DEB822 e rispettare lo mirror selezionato.</li>
+          <li xml:lang="ru">Исправлен генератор Sources: сохранение группировки блоков DEB822 и учёт выбранного зеркала.</li>
+          <li xml:lang="ro">Corectat Generato­rul de Sources pentru a păstra gruparea blocurilor DEB822 și a respecta oglinda selectată.</li>
+
+          <li xml:lang="en">Integrated mirror speed test into the Sources Generator tab (no external windows required).</li>
+          <li xml:lang="es">Integrada la prueba de velocidad de mirrors en la pestaña Generador de Sources (sin ventanas externas).</li>
+          <li xml:lang="fr">Test de vitesse des miroirs intégré dans l'onglet Générateur de Sources (aucune fenêtre externe requise).</li>
+          <li xml:lang="pt">Teste de velocidade de espelhos integrado na aba Gerador de Sources (sem janelas externas).</li>
+          <li xml:lang="de">Spiegel-Geschwindigkeitstest in die Sources-Generator-Registerkarte integriert (keine externen Fenster erforderlich).</li>
+          <li xml:lang="it">Test di velocità mirror integrato nella scheda Generatore di Sources (nessuna finestra esterna richiesta).</li>
+          <li xml:lang="ru">Тест скорости зеркал интегрирован во вкладку генератора Sources (без внешних окон).</li>
+          <li xml:lang="ro">Testul de viteză al oglinzilor integrat în fila Generator Sources (fără ferestre externe).</li>
+
+          <li xml:lang="en">Fixed layout and selection bugs in the Repositories list tab.</li>
+          <li xml:lang="es">Corregidos errores de diseño y selección en la pestaña Lista de Repositorios.</li>
+          <li xml:lang="fr">Corrections des bugs d'affichage et de sélection dans l'onglet Liste des dépôts.</li>
+          <li xml:lang="pt">Corrigidos bugs de layout e seleção na aba Lista de Repositórios.</li>
+          <li xml:lang="de">Layout- und Auswahlfehler in der Registerkarte Repositories behoben.</li>
+          <li xml:lang="it">Correzioni per bug di layout e selezione nella scheda Elenco repository.</li>
+          <li xml:lang="ru">Исправлены ошибки макета и выбора во вкладке списка репозиториев.</li>
+          <li xml:lang="ro">Corectate erori de aspect și selecție în fila Lista depozitelor.</li>
+
+          <li xml:lang="en">Added GPG tab improvements: fingerprint and expiry display, export and delete actions with safe validation.</li>
+          <li xml:lang="es">Mejoras en la pestaña GPG: visualización de huella y caducidad, acciones de exportar y eliminar con validación segura.</li>
+          <li xml:lang="fr">Améliorations de l'onglet GPG : affichage de l'empreinte et de la date d'expiration, actions d'exportation et de suppression avec validation sécurisée.</li>
+          <li xml:lang="pt">Melhorias na aba GPG: exibição de fingerprint e validade, ações de exportar e excluir com validação segura.</li>
+          <li xml:lang="de">Verbesserungen im GPG-Tab: Anzeige von Fingerprint und Ablaufdatum, Export- und Löschaktionen mit sicherer Validierung.</li>
+          <li xml:lang="it">Migliorie nella scheda GPG: visualizzazione del fingerprint e della scadenza, azioni di esportazione e cancellazione con validazione sicura.</li>
+          <li xml:lang="ru">Улучшения вкладки GPG: отображение отпечатка и срока действия, экспорт и удаление с безопасной валидацией.</li>
+          <li xml:lang="ro">Îmbunătățiri în fila GPG: afișarea amprentei și a expirării, acțiuni de export și ștergere cu validare sigură.</li>
+
+          <li xml:lang="en">Replaced four screenshots (Welcome, Repositories, Sources Generator, GPG Keys) with updated captures.</li>
+          <li xml:lang="es">Reemplazadas cuatro capturas (Bienvenida, Repositorios, Generador de Sources, Claves GPG) por imágenes actualizadas.</li>
+          <li xml:lang="fr">Quatre captures remplacées (Accueil, Dépôts, Générateur de Sources, Clés GPG) par des images mises à jour.</li>
+          <li xml:lang="pt">Quatro capturas substituídas (Bem-vindo, Repositórios, Gerador de Sources, Chaves GPG) por imagens atualizadas.</li>
+          <li xml:lang="de">Vier Screenshots ersetzt (Begrüßung, Repositories, Sources-Generator, GPG-Schlüssel) durch aktualisierte Aufnahmen.</li>
+          <li xml:lang="it">Sostituite quattro schermate (Welcome, Repository, Generatore di Sources, Chiavi GPG) con acquisizioni aggiornate.</li>
+          <li xml:lang="ru">Заменены четыре скриншота (Welcome, Repositories, Sources Generator, GPG Keys) на обновлённые снимки.</li>
+          <li xml:lang="ro">Au fost înlocuite patru capturi (Welcome, Repositories, Sources Generator, GPG Keys) cu imagini actualizate.</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.7" date="2025-07-27">
       <description>
         <p>Nuevo icono de la aplicación.</p>
