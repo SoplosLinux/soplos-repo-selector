@@ -311,6 +311,28 @@
         <p xml:lang="ro">Versiunea 2.0.0: interfață reproiectată, îmbunătățiri de performanță și compatibilitate extinsă.</p>
       </description>
     </release>
+    <release version="2.0.0" date="2025-12-13">
+      <description>
+        <p xml:lang="es">Parche 2025-12-13: traducciones completadas y cabeceras estandarizadas.</p>
+        <p xml:lang="en">Patch 2025-12-13: completed translations and standardized headers.</p>
+        <p xml:lang="fr">Correctif 2025-12-13 : traductions terminées et en-têtes standardisés.</p>
+        <p xml:lang="pt">Patch 2025-12-13: traduções concluídas e cabeçalhos padronizados.</p>
+        <p xml:lang="de">Patch 2025-12-13: Übersetzungen abgeschlossen und Header standardisiert.</p>
+        <p xml:lang="it">Patch 2025-12-13: traduzioni completate e intestazioni standardizzate.</p>
+        <p xml:lang="ru">Патч 2025-12-13: завершены переводы и стандартизированы заголовки.</p>
+        <p xml:lang="ro">Patch 2025-12-13: traduceri finalizate și antete standardizate.</p>
+        <ul>
+          <li xml:lang="en">Completed and standardized translations for all languages.</li>
+          <li xml:lang="es">Traducciones completadas y estandarizadas para todos los idiomas.</li>
+          <li xml:lang="fr">Traductions complètes et standardisées pour toutes les langues.</li>
+          <li xml:lang="pt">Traduções completas e padronizadas para todos os idiomas.</li>
+          <li xml:lang="de">Vollständige und standardisierte Übersetzungen für alle Sprachen.</li>
+          <li xml:lang="it">Traduzioni complete e standardizzate per tutte le lingue.</li>
+          <li xml:lang="ru">Полные и стандартизированные переводы для всех языков.</li>
+          <li xml:lang="ro">Traduceri complete și standardizate pentru toate limbile.</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.0.0" date="2025-12-12">
       <description>
         <p xml:lang="es">Parche 2025-12-12: correcciones y mejoras menores.</p>

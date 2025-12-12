@@ -39,6 +39,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 - Enhanced key download functionality from URLs.
 - Better key verification and management.
 
+### Patch - 2025-12-13
+- **Internationalization**: Completed and standardized translations for all supported languages (French, Italian, Portuguese, Romanian, Russian).
+- **Localization**: Validated and compiled MO files for all 8 languages ensuring 100% coverage.
+
 ### Patch - 2025-12-12
 - Fixed `Sources Generator` to preserve DEB822 block grouping and respect selected mirror.
 - Integrated mirror speed test into the Sources Generator tab (no external windows).

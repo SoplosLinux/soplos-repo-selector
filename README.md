@@ -27,7 +27,11 @@ GPG Keys tab:
 
 ### 🆕 What's new in version 2.0.0
 - Release date: December 10, 2025
-- Patch: December 12, 2025 — maintenance update (see details below)
+- Patch: December 13, 2025 — translation finalization (see details below)
+
+#### Patch (2025-12-13)
+- Completed and standardized translations for all 8 supported languages.
+- Validated and compiled localization files for full consistency.
 
 #### Patch (2025-12-12)
 - Fixed `Sources Generator` tab to preserve per-distribution DEB822 blocks and respect the selected mirror.
