@@ -28,10 +28,25 @@ GPG Keys tab:
 ### 🆕 What's new in version 2.0.1
 - Release date: January 2, 2026
 
+#### Major Improvements
+- **Speed Test Service**: Complete rewrite with accurate, real-world measurements.
+  - Real TCP latency measurement using socket connections.
+  - Larger downloads (2-10MB) for accurate speed calculation.
+  - Increased parallelism from 3 to 6 workers for faster testing.
+  - Improved country detection from mirror URLs.
+
+#### UI Enhancements
+- **Dynamic Progress Bars**: Progress bars now animate in real-time during speed tests.
+  - Shows "Measuring latency..." during TCP connection test.
+  - Shows live download speed during bandwidth test.
+  - Final display shows relative speed comparison with fastest mirror.
+
 #### Bug Fixes
-- **Sources Generator**: Now detects real system state instead of using hardcoded defaults. Distributions, components, and backports checkboxes reflect actual system configuration.
+- **Sources Generator**: Now detects real system state instead of using hardcoded defaults.
 - **Sources Generator**: Properly removes `debian-backports.sources` file when backports is disabled.
 - **File Manager**: Fixed `UnboundLocalError` with translation function caused by variable shadowing.
+- Fixed speed test giving identical results regardless of geographic location.
+- Fixed progress bars not animating during mirror tests.
 
 #### Improvements
 - New system state detection method that reads active repos from `/etc/apt/sources.list.d/`.

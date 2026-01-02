@@ -259,7 +259,8 @@ class SourcesGeneratorView(Gtk.Box):
         try:
             results = self.tester.test_mirrors_parallel(callback=self._speed_result_callback)
             GLib.idle_add(self._on_speed_test_finished, results, trigger_button)
-        except Exception:
+        except Exception as e:
+            print(f"Speed test error: {e}")
             GLib.idle_add(self._on_speed_test_finished, [], trigger_button)
 
     def _speed_result_callback(self, result: dict):
@@ -267,115 +268,135 @@ class SourcesGeneratorView(Gtk.Box):
         GLib.idle_add(self._on_single_result, result)
 
     def _on_single_result(self, result: dict):
-        # Collect result, update footer and rebuild compact, ordered list
+        """Update UI for a single mirror result - with dynamic progress bars."""
         try:
-            # Replace existing result for same URL or append new
-            try:
-                url = result.get('url')
-                replaced = False
-                for idx, r in enumerate(self.speed_results):
-                    if r.get('url') == url:
-                        self.speed_results[idx] = result
-                        replaced = True
-                        break
-                if not replaced:
+            url = result.get('url', '')
+            status = result.get('status', '')
+            progress = result.get('progress', 0.0)
+            speed = float(result.get('speed_mbps', 0) or 0.0)
+            latency = float(result.get('latency_ms', 0) or 0.0)
+            country = result.get('country', _("Unknown"))
+            
+            # Update max speed seen
+            if speed > self.max_speed_seen:
+                self.max_speed_seen = speed
+            
+            # Check if row already exists for this URL
+            existing_row = self.row_widgets.get(url)
+            
+            if existing_row:
+                # Update existing row's progress bar and labels
+                widgets = existing_row
+                
+                # Update progress bar
+                if status in ['success', 'error', 'timeout', 'connection_failed', 'no_valid_files']:
+                    # Final state - show speed comparison
+                    if self.max_speed_seen > 0 and speed > 0:
+                        frac = min(1.0, speed / self.max_speed_seen)
+                    else:
+                        frac = 0.0
+                    widgets['progress'].set_fraction(frac)
+                    widgets['progress'].set_text(f"{speed:.2f} MB/s")
+                else:
+                    # In-progress - show download progress
+                    widgets['progress'].set_fraction(progress)
+                    if status == 'measuring_latency':
+                        widgets['progress'].set_text(_("Measuring latency..."))
+                    elif status == 'downloading':
+                        widgets['progress'].set_text(f"{speed:.1f} MB/s...")
+                    else:
+                        widgets['progress'].set_text(_("Starting..."))
+                
+                # Update info label
+                if status == 'success':
+                    info_text = f"{country} - {speed:.2f} MB/s ({int(latency)} ms)"
+                    widgets['info'].set_text(info_text)
+                    widgets['icon'].set_from_icon_name(
+                        "network-cellular-signal-excellent-symbolic" if speed > 5 else 
+                        "network-cellular-signal-good-symbolic" if speed > 1 else
+                        "network-cellular-signal-weak-symbolic",
+                        Gtk.IconSize.SMALL_TOOLBAR
+                    )
+                elif status in ['error', 'timeout', 'connection_failed', 'no_valid_files']:
+                    widgets['info'].set_text(f"{country} - {_('Failed')}")
+                    widgets['icon'].set_from_icon_name("network-cellular-signal-none-symbolic", Gtk.IconSize.SMALL_TOOLBAR)
+                else:
+                    widgets['info'].set_text(f"{country} - {_('Testing...')}")
+                
+                # Update stored result
+                self.speed_results = [r if r.get('url') != url else result for r in self.speed_results]
+                if not any(r.get('url') == url for r in self.speed_results):
                     self.speed_results.append(result)
-
-                # Update max seen speed
-                try:
-                    sv = float(result.get('speed_mbps', 0) or 0.0)
-                    if sv > self.max_speed_seen:
-                        self.max_speed_seen = sv
-                except Exception:
-                    pass
-
-                total = max(1, len(self.tester.mirrors))
-                # compute unique count by URL to avoid duplicates
-                unique_urls = {r.get('url') for r in self.speed_results if r.get('url')}
-                fraction = min(1.0, len(unique_urls) / float(total))
-                try:
-                    self.main_window.show_progress(_("Testing mirrors..."), fraction)
-                except Exception:
-                    pass
-
-            except Exception:
-                # Protect against unexpected errors updating/adding a single result
-                pass
-
-            # Order results: successful first, by speed desc
-            success = [r for r in self.speed_results if r.get('status') == 'success']
-            failed = [r for r in self.speed_results if r.get('status') != 'success']
-            success.sort(key=lambda x: float(x.get('speed_mbps', 0) or 0.0), reverse=True)
-            ordered = success + failed
-
-            # Rebuild compact list
-            for child in self.list_box.get_children():
-                self.list_box.remove(child)
-
-            for r in ordered:
-                s = float(r.get('speed_mbps', 0) or 0.0)
+                    
+            else:
+                # Create new row
                 row = Gtk.ListBoxRow()
-                row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-                row_box.set_margin_top(2)
-                row_box.set_margin_bottom(2)
-                row_box.set_margin_start(2)
-                row_box.set_margin_end(2)
-
-                # smaller icon
-                icon_name = "network-cellular-signal-good-symbolic"
-                if s > 10.0:
-                    icon_name = "network-cellular-signal-excellent-symbolic"
-                elif s < 1.0:
-                    icon_name = "network-cellular-signal-weak-symbolic"
-                icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR)
-                row_box.pack_start(icon, False, False, 4)
-
-                vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
-                url_label = Gtk.Label(label=r.get('url', ''))
+                row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+                row_box.set_margin_top(4)
+                row_box.set_margin_bottom(4)
+                row_box.set_margin_start(8)
+                row_box.set_margin_end(8)
+                
+                # Status icon
+                icon = Gtk.Image.new_from_icon_name("network-cellular-acquiring-symbolic", Gtk.IconSize.SMALL_TOOLBAR)
+                row_box.pack_start(icon, False, False, 0)
+                
+                # Info box (URL + details)
+                vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+                
+                url_label = Gtk.Label(label=url)
                 url_label.set_xalign(0)
+                url_label.set_ellipsize(2)  # PANGO_ELLIPSIZE_MIDDLE
                 url_label.get_style_context().add_class('bold')
-                country = r.get('country') or _("Unknown")
-                lat_ms = int(r.get('latency_ms', 0) or 0)
-                info = _("{} - {:.2f} MB/s ({} ms)").format(country, s, lat_ms)
-                info_label = Gtk.Label(label=info)
+                vbox.pack_start(url_label, False, False, 0)
+                
+                info_label = Gtk.Label(label=f"{country} - {_('Starting...')}")
                 info_label.set_xalign(0)
                 info_label.get_style_context().add_class('dim-label')
-                vbox.pack_start(url_label, False, False, 0)
                 vbox.pack_start(info_label, False, False, 0)
-                row_box.pack_start(vbox, True, True, 6)
-
-                progress = Gtk.ProgressBar()
-                try:
-                    frac = min(1.0, float(s) / float(self.max_speed_seen)) if self.max_speed_seen > 0 else 0.0
-                except Exception:
-                    frac = 0.0
-                progress.set_fraction(frac)
-                try:
-                    progress.set_show_text(True)
-                    progress.set_text(f"{s:.2f} MB/s")
-                except Exception:
-                    pass
-                row_box.pack_start(progress, False, False, 6)
-
+                
+                row_box.pack_start(vbox, True, True, 0)
+                
+                # Progress bar (shows download progress, then speed comparison)
+                progress_bar = Gtk.ProgressBar()
+                progress_bar.set_fraction(progress)
+                progress_bar.set_show_text(True)
+                progress_bar.set_text(_("Starting..."))
+                progress_bar.set_size_request(120, -1)
+                row_box.pack_start(progress_bar, False, False, 0)
+                
                 row.add(row_box)
                 self.list_box.add(row)
-
-            self.list_box.show_all()
-
-            if ordered:
-                best = ordered[0]
-                self.selected_mirror_url = best.get('url', self.selected_mirror_url)
-                try:
-                    self.mirror_label.set_text(_("Current: {url} ({country}, {speed:.2f} MB/s)").format(
-                        url=best.get('url',''), country=best.get('country',''), speed=float(best.get('speed_mbps',0) or 0)
-                    ))
-                except Exception:
-                    pass
-        except Exception:
-            pass
+                row.show_all()
+                
+                # Store widget references for updates
+                self.row_widgets[url] = {
+                    'row': row,
+                    'icon': icon,
+                    'url': url_label,
+                    'info': info_label,
+                    'progress': progress_bar
+                }
+                
+                # Add to results
+                self.speed_results.append(result)
+            
+            # Update main window progress
+            total = len(self.tester.mirrors)
+            completed = sum(1 for r in self.speed_results if r.get('status') in ['success', 'error', 'timeout', 'connection_failed', 'no_valid_files'])
+            try:
+                self.main_window.show_progress(
+                    _("Testing mirrors ({}/{})...").format(completed, total),
+                    completed / total if total > 0 else 0
+                )
+            except Exception:
+                pass
+                
+        except Exception as e:
+            print(f"Error updating result: {e}")
 
     def _on_speed_test_finished(self, results, trigger_button):
-        # Hide footer progress and re-enable trigger
+        """Finalize speed test - reorder rows by speed and update UI."""
         try:
             self.main_window.hide_progress()
         except Exception:
@@ -386,18 +407,100 @@ class SourcesGeneratorView(Gtk.Box):
         except Exception:
             pass
 
-        # Ensure results list is populated and select first
-        if results:
-            self.speed_results = results
+        # Sort results: successful first, by speed desc
+        success = [r for r in self.speed_results if r.get('status') == 'success']
+        failed = [r for r in self.speed_results if r.get('status') != 'success']
+        success.sort(key=lambda x: float(x.get('speed_mbps', 0) or 0.0), reverse=True)
+        ordered = success + failed
+        
+        # Rebuild the list in sorted order with final progress bars
+        for child in self.list_box.get_children():
+            self.list_box.remove(child)
+        self.row_widgets.clear()
+        
+        # Find max speed for relative comparison
+        max_speed = max((float(r.get('speed_mbps', 0) or 0) for r in ordered), default=0)
+        
+        for result in ordered:
+            url = result.get('url', '')
+            speed = float(result.get('speed_mbps', 0) or 0.0)
+            latency = int(result.get('latency_ms', 0) or 0)
+            country = result.get('country', _("Unknown"))
+            status = result.get('status', '')
+            
+            row = Gtk.ListBoxRow()
+            row_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+            row_box.set_margin_top(4)
+            row_box.set_margin_bottom(4)
+            row_box.set_margin_start(8)
+            row_box.set_margin_end(8)
+            
+            # Status icon based on speed
+            if status == 'success':
+                if speed > 5:
+                    icon_name = "network-cellular-signal-excellent-symbolic"
+                elif speed > 1:
+                    icon_name = "network-cellular-signal-good-symbolic"
+                else:
+                    icon_name = "network-cellular-signal-weak-symbolic"
+            else:
+                icon_name = "network-cellular-signal-none-symbolic"
+            
+            icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.SMALL_TOOLBAR)
+            row_box.pack_start(icon, False, False, 0)
+            
+            # Info box
+            vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+            
+            url_label = Gtk.Label(label=url)
+            url_label.set_xalign(0)
+            url_label.set_ellipsize(2)
+            url_label.get_style_context().add_class('bold')
+            vbox.pack_start(url_label, False, False, 0)
+            
+            if status == 'success':
+                info_text = f"{country} - {speed:.2f} MB/s ({latency} ms)"
+            else:
+                info_text = f"{country} - {_('Failed')}"
+            
+            info_label = Gtk.Label(label=info_text)
+            info_label.set_xalign(0)
+            info_label.get_style_context().add_class('dim-label')
+            vbox.pack_start(info_label, False, False, 0)
+            
+            row_box.pack_start(vbox, True, True, 0)
+            
+            # Progress bar showing relative speed
+            progress_bar = Gtk.ProgressBar()
+            if max_speed > 0 and speed > 0:
+                frac = min(1.0, speed / max_speed)
+            else:
+                frac = 0.0
+            progress_bar.set_fraction(frac)
+            progress_bar.set_show_text(True)
+            progress_bar.set_text(f"{speed:.2f} MB/s" if status == 'success' else _("Failed"))
+            progress_bar.set_size_request(120, -1)
+            row_box.pack_start(progress_bar, False, False, 0)
+            
+            row.add(row_box)
+            self.list_box.add(row)
+        
+        self.list_box.show_all()
+        self.speed_results = ordered
+        
+        # Select best mirror
+        if ordered:
             row = self.list_box.get_row_at_index(0)
             if row:
                 self.list_box.select_row(row)
-                best = results[0]
-                if best:
-                    self.selected_mirror_url = best.get('url', self.selected_mirror_url)
-                    self.mirror_label.set_text(_("Current: {url} ({country}, {speed:.2f} MB/s)").format(
-                        url=best.get('url',''), country=best.get('country',''), speed=float(best.get('speed_mbps',0) or 0)
-                    ))
+            best = ordered[0]
+            if best.get('status') == 'success':
+                self.selected_mirror_url = best.get('url', self.selected_mirror_url)
+                self.mirror_label.set_text(_("Current: {url} ({country}, {speed:.2f} MB/s)").format(
+                    url=best.get('url', ''),
+                    country=best.get('country', ''),
+                    speed=float(best.get('speed_mbps', 0) or 0)
+                ))
 
     def _on_result_selected(self, listbox, row):
         try:
@@ -420,10 +523,12 @@ class SourcesGeneratorView(Gtk.Box):
         except Exception:
             pass
 
-        # Clear previous results
+        # Clear previous results and row widget references
         for child in self.list_box.get_children():
             self.list_box.remove(child)
         self.speed_results = []
+        self.row_widgets = {}
+        self.max_speed_seen = 0.0
 
         # Run tests in background thread
         thread = threading.Thread(target=self._run_speed_test, args=(btn,))

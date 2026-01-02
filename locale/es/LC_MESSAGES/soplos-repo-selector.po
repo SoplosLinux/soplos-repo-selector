@@ -424,7 +424,11 @@ msgid ""
 "\n"
 "This application will help you get started configuring repositories and "
 "mirrors for your system."
-msgstr "Bienvenido al Administrador Avanzado de Repositorios de Soplos Linux.\n\nEsta aplicación te ayudará a empezar a configurar repositorios y espejos para tu sistema."
+msgstr ""
+"Bienvenido al Administrador Avanzado de Repositorios de Soplos Linux.\n"
+"\n"
+"Esta aplicación te ayudará a empezar a configurar repositorios y espejos "
+"para tu sistema."
 
 #: ui/views/welcome_view.py:77
 msgid "Use the tabs above to:"
@@ -507,7 +511,10 @@ msgid ""
 "Are you sure you want to delete this repository?\n"
 "\n"
 "{}"
-msgstr "¿Estás seguro de que quieres eliminar este repositorio?\n\n{}"
+msgstr ""
+"¿Estás seguro de que quieres eliminar este repositorio?\n"
+"\n"
+"{}"
 
 #: ui/views/repo_view.py:182
 msgid "Changes Applied"
@@ -523,7 +530,9 @@ msgstr "Error al guardar"
 
 #: ui/views/repo_view.py:195
 msgid "Could not save repositories. Check logs for details."
-msgstr "No se pudieron guardar los repositorios. Revisa los registros para más detalles."
+msgstr ""
+"No se pudieron guardar los repositorios. Revisa los registros para más "
+"detalles."
 
 #: ui/views/sources_generator_view.py:51
 msgid "1. Select Debian Distribution(s)"
@@ -634,4 +643,306 @@ msgstr "Error"
 
 #: ui/views/sources_generator_view.py:431
 msgid "Could not save sources files. Check permissions."
-msgstr "No se pudieron guardar los archivos de fuentes. Comprueba los permisos."
+msgstr ""
+"No se pudieron guardar los archivos de fuentes. Comprueba los permisos."
+
+# Speed Test UI - New strings v2.0.1
+#: ui/views/sources_generator_view.py:304
+msgid "Measuring latency..."
+msgstr "Midiendo latencia..."
+
+#: ui/views/sources_generator_view.py:308
+msgid "Starting..."
+msgstr "Iniciando..."
+
+#: ui/views/sources_generator_view.py:324
+msgid "Testing..."
+msgstr "Probando..."
+
+#: ui/views/sources_generator_view.py:321
+msgid "Failed"
+msgstr "Fallido"
+
+#: ui/views/sources_generator_view.py:388
+#, python-brace-format
+msgid "Testing mirrors ({}/{})..."
+msgstr "Probando espejos ({}/{})..."
+
+msgid "Global CDN (AWS)"
+msgstr "CDN Global (AWS)"
+
+msgid "Global CDN (CloudFront)"
+msgstr "CDN Global (CloudFront)"
+
+msgid "Mexico"
+msgstr "México"
+
+msgid "Portugal"
+msgstr "Portugal"
+
+msgid "Poland"
+msgstr "Polonia"
+
+msgid "Belgium"
+msgstr "Bélgica"
+
+msgid "Austria"
+msgstr "Austria"
+
+msgid "Sweden"
+msgstr "Suecia"
+
+msgid "Norway"
+msgstr "Noruega"
+
+msgid "Denmark"
+msgstr "Dinamarca"
+
+msgid "Finland"
+msgstr "Finlandia"
+
+msgid "South Korea"
+msgstr "Corea del Sur"
+
+msgid "India"
+msgstr "India"
+
+msgid "Singapore"
+msgstr "Singapur"
+
+msgid "Taiwan"
+msgstr "Taiwán"
+
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+msgid "Argentina"
+msgstr "Argentina"
+
+msgid "Chile"
+msgstr "Chile"
+
+msgid "Colombia"
+msgstr "Colombia"
+
+msgid "South Africa"
+msgstr "Sudáfrica"
+
+msgid "Israel"
+msgstr "Israel"
+
+msgid "Turkey"
+msgstr "Turquía"
+
+msgid "Greece"
+msgstr "Grecia"
+
+msgid "Czech Republic"
+msgstr "República Checa"
+
+msgid "Hungary"
+msgstr "Hungría"
+
+msgid "Romania"
+msgstr "Rumanía"
+
+msgid "Ukraine"
+msgstr "Ucrania"
+
+# New country names v2.0.1 - Extended mirrors
+msgid "Luxembourg"
+msgstr "Luxemburgo"
+
+msgid "Iceland"
+msgstr "Islandia"
+
+msgid "Estonia"
+msgstr "Estonia"
+
+msgid "Lithuania"
+msgstr "Lituania"
+
+msgid "Latvia"
+msgstr "Letonia"
+
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+msgid "Slovakia"
+msgstr "Eslovaquia"
+
+msgid "Slovenia"
+msgstr "Eslovenia"
+
+msgid "Croatia"
+msgstr "Croacia"
+
+msgid "Serbia"
+msgstr "Serbia"
+
+msgid "Belarus"
+msgstr "Bielorrusia"
+
+msgid "Moldova"
+msgstr "Moldavia"
+
+msgid "Cyprus"
+msgstr "Chipre"
+
+msgid "Kazakhstan"
+msgstr "Kazajistán"
+
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+msgid "El Salvador"
+msgstr "El Salvador"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+msgid "Cuba"
+msgstr "Cuba"
+
+msgid "Ecuador"
+msgstr "Ecuador"
+
+msgid "Peru"
+msgstr "Perú"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Bolivia"
+msgstr "Bolivia"
+
+msgid "Thailand"
+msgstr "Tailandia"
+
+msgid "Vietnam"
+msgstr "Vietnam"
+
+msgid "Indonesia"
+msgstr "Indonesia"
+
+msgid "Malaysia"
+msgstr "Malasia"
+
+msgid "Philippines"
+msgstr "Filipinas"
+
+msgid "Bangladesh"
+msgstr "Bangladés"
+
+msgid "Pakistan"
+msgstr "Pakistán"
+
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgid "Nepal"
+msgstr "Nepal"
+
+msgid "Iran"
+msgstr "Irán"
+
+msgid "New Zealand"
+msgstr "Nueva Zelanda"
+
+msgid "Egypt"
+msgstr "Egipto"
+
+msgid "Morocco"
+msgstr "Marruecos"
+
+msgid "Kenya"
+msgstr "Kenia"
+
+msgid "Nigeria"
+msgstr "Nigeria"
+
+msgid "Tunisia"
+msgstr "Túnez"
+
+msgid "USA (Kernel.org)"
+msgstr "EE.UU. (Kernel.org)"
+
+msgid "USA (Princeton)"
+msgstr "EE.UU. (Princeton)"
+
+msgid "USA (MIT)"
+msgstr "EE.UU. (MIT)"
+
+msgid "USA (RIT)"
+msgstr "EE.UU. (RIT)"
+
+msgid "Russia (Yandex)"
+msgstr "Rusia (Yandex)"
+
+msgid "China (USTC)"
+msgstr "China (USTC)"
+
+msgid "China (Tsinghua)"
+msgstr "China (Tsinghua)"
+
+# New country/region names v2.0.1 - Complete mirrors list
+msgid "Macedonia"
+msgstr "Macedonia"
+
+msgid "Georgia"
+msgstr "Georgia"
+
+msgid "Cambodia"
+msgstr "Camboya"
+
+msgid "Azerbaijan"
+msgstr "Azerbaiyán"
+
+msgid "Saudi Arabia"
+msgstr "Arabia Saudita"
+
+msgid "New Caledonia"
+msgstr "Nueva Caledonia"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Reunion"
+msgstr "Reunión"
+
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+# Region names for mirror selection
+msgid "Europe - Western"
+msgstr "Europa - Occidental"
+
+msgid "Europe - Northern"
+msgstr "Europa - Norte"
+
+msgid "Europe - Eastern"
+msgstr "Europa - Este"
+
+msgid "Americas - North"
+msgstr "América del Norte"
+
+msgid "Americas - Latin"
+msgstr "América Latina"
+
+msgid "Asia - East"
+msgstr "Asia - Este"
+
+msgid "Asia - Southeast"
+msgstr "Asia - Sudeste"
+
+msgid "Asia - South/West"
+msgstr "Asia - Sur/Oeste"
+
+msgid "Africa"
+msgstr "África"

@@ -635,3 +635,304 @@ msgstr "Fehler"
 #: ui/views/sources_generator_view.py:431
 msgid "Could not save sources files. Check permissions."
 msgstr "Konnte Quellendateien nicht speichern. Berechtigungen prüfen."
+
+# Speed Test UI - New strings v2.0.1
+#: ui/views/sources_generator_view.py:304
+msgid "Measuring latency..."
+msgstr "Latenz wird gemessen..."
+
+#: ui/views/sources_generator_view.py:308
+msgid "Starting..."
+msgstr "Starten..."
+
+#: ui/views/sources_generator_view.py:324
+msgid "Testing..."
+msgstr "Testen..."
+
+#: ui/views/sources_generator_view.py:321
+msgid "Failed"
+msgstr "Fehlgeschlagen"
+
+#: ui/views/sources_generator_view.py:388
+#, python-brace-format
+msgid "Testing mirrors ({}/{})..."
+msgstr "Spiegel werden getestet ({}/{})..."
+
+msgid "Global CDN (AWS)"
+msgstr "Globales CDN (AWS)"
+
+msgid "Global CDN (CloudFront)"
+msgstr "Globales CDN (CloudFront)"
+
+msgid "Mexico"
+msgstr "Mexiko"
+
+msgid "Portugal"
+msgstr "Portugal"
+
+msgid "Poland"
+msgstr "Polen"
+
+msgid "Belgium"
+msgstr "Belgien"
+
+msgid "Austria"
+msgstr "Österreich"
+
+msgid "Sweden"
+msgstr "Schweden"
+
+msgid "Norway"
+msgstr "Norwegen"
+
+msgid "Denmark"
+msgstr "Dänemark"
+
+msgid "Finland"
+msgstr "Finnland"
+
+msgid "South Korea"
+msgstr "Südkorea"
+
+msgid "India"
+msgstr "Indien"
+
+msgid "Singapore"
+msgstr "Singapur"
+
+msgid "Taiwan"
+msgstr "Taiwan"
+
+msgid "Hong Kong"
+msgstr "Hongkong"
+
+msgid "Argentina"
+msgstr "Argentinien"
+
+msgid "Chile"
+msgstr "Chile"
+
+msgid "Colombia"
+msgstr "Kolumbien"
+
+msgid "South Africa"
+msgstr "Südafrika"
+
+msgid "Israel"
+msgstr "Israel"
+
+msgid "Turkey"
+msgstr "Türkei"
+
+msgid "Greece"
+msgstr "Griechenland"
+
+msgid "Czech Republic"
+msgstr "Tschechische Republik"
+
+msgid "Hungary"
+msgstr "Ungarn"
+
+msgid "Romania"
+msgstr "Rumänien"
+
+msgid "Ukraine"
+msgstr "Ukraine"
+
+# New country names v2.0.1 - Extended mirrors
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+msgid "Iceland"
+msgstr "Island"
+
+msgid "Estonia"
+msgstr "Estland"
+
+msgid "Lithuania"
+msgstr "Litauen"
+
+msgid "Latvia"
+msgstr "Lettland"
+
+msgid "Bulgaria"
+msgstr "Bulgarien"
+
+msgid "Slovakia"
+msgstr "Slowakei"
+
+msgid "Slovenia"
+msgstr "Slowenien"
+
+msgid "Croatia"
+msgstr "Kroatien"
+
+msgid "Serbia"
+msgstr "Serbien"
+
+msgid "Belarus"
+msgstr "Belarus"
+
+msgid "Moldova"
+msgstr "Moldawien"
+
+msgid "Cyprus"
+msgstr "Zypern"
+
+msgid "Kazakhstan"
+msgstr "Kasachstan"
+
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+msgid "El Salvador"
+msgstr "El Salvador"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+msgid "Cuba"
+msgstr "Kuba"
+
+msgid "Ecuador"
+msgstr "Ecuador"
+
+msgid "Peru"
+msgstr "Peru"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Bolivia"
+msgstr "Bolivien"
+
+msgid "Thailand"
+msgstr "Thailand"
+
+msgid "Vietnam"
+msgstr "Vietnam"
+
+msgid "Indonesia"
+msgstr "Indonesien"
+
+msgid "Malaysia"
+msgstr "Malaysia"
+
+msgid "Philippines"
+msgstr "Philippinen"
+
+msgid "Bangladesh"
+msgstr "Bangladesch"
+
+msgid "Pakistan"
+msgstr "Pakistan"
+
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgid "Nepal"
+msgstr "Nepal"
+
+msgid "Iran"
+msgstr "Iran"
+
+msgid "New Zealand"
+msgstr "Neuseeland"
+
+msgid "Egypt"
+msgstr "Ägypten"
+
+msgid "Morocco"
+msgstr "Marokko"
+
+msgid "Kenya"
+msgstr "Kenia"
+
+msgid "Nigeria"
+msgstr "Nigeria"
+
+msgid "Tunisia"
+msgstr "Tunesien"
+
+msgid "USA (Kernel.org)"
+msgstr "USA (Kernel.org)"
+
+msgid "USA (Princeton)"
+msgstr "USA (Princeton)"
+
+msgid "USA (MIT)"
+msgstr "USA (MIT)"
+
+msgid "USA (RIT)"
+msgstr "USA (RIT)"
+
+msgid "Russia (Yandex)"
+msgstr "Russland (Yandex)"
+
+msgid "China (USTC)"
+msgstr "China (USTC)"
+
+msgid "China (Tsinghua)"
+msgstr "China (Tsinghua)"
+
+# New country/region names v2.0.1 - Complete mirrors list
+msgid "Macedonia"
+msgstr "Mazedonien"
+
+msgid "Georgia"
+msgstr "Georgien"
+
+msgid "Cambodia"
+msgstr "Kambodscha"
+
+msgid "Azerbaijan"
+msgstr "Aserbaidschan"
+
+msgid "Saudi Arabia"
+msgstr "Saudi-Arabien"
+
+msgid "New Caledonia"
+msgstr "Neukaledonien"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Reunion"
+msgstr "Réunion"
+
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+# Region names for mirror selection
+msgid "Europe - Western"
+msgstr "Europa - West"
+
+msgid "Europe - Northern"
+msgstr "Europa - Nord"
+
+msgid "Europe - Eastern"
+msgstr "Europa - Ost"
+
+msgid "Americas - North"
+msgstr "Nordamerika"
+
+msgid "Americas - Latin"
+msgstr "Lateinamerika"
+
+msgid "Asia - East"
+msgstr "Asien - Ost"
+
+msgid "Asia - Southeast"
+msgstr "Asien - Südost"
+
+msgid "Asia - South/West"
+msgstr "Asien - Süd/West"
+
+msgid "Africa"
+msgstr "Afrika"

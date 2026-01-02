@@ -7,12 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
 ## [2.0.1] - 2026-01-02
 
+### � Major Improvements
+- **Speed Test Service**: Complete rewrite with accurate, real-world measurements.
+  - Real TCP latency measurement using socket connections (no more simulated ICMP).
+  - Larger downloads (2-10MB) for accurate speed calculation over 3+ seconds.
+  - Dynamic download size selection based on test file availability.
+  - Increased parallelism from 3 to 6 workers for faster testing.
+  - Improved country detection from mirror URLs.
+
+### ✨ UI Enhancements
+- **Dynamic Progress Bars**: Progress bars now animate in real-time during speed tests.
+  - Shows "Measuring latency..." during TCP connection test.
+  - Shows live download speed during bandwidth test.
+  - Final display shows relative speed comparison with fastest mirror.
+- **Live Updates**: Individual mirror rows update without rebuilding entire list.
+- **Better Visual Feedback**: Status icons change based on connection quality.
+
 ### 🐛 Bug Fixes
 - **Sources Generator**: Now detects real system state instead of using hardcoded defaults.
   - Distributions, components, and backports checkboxes reflect actual system configuration.
   - Only considers active (non-disabled) Debian repositories for detection.
 - **Sources Generator**: Properly removes `debian-backports.sources` file when backports is disabled.
 - **File Manager**: Fixed `UnboundLocalError` with `_` translation function caused by variable shadowing in tuple unpacking.
+- Fixed speed test giving identical results regardless of geographic location.
+- Fixed progress bars not animating during mirror tests.
+- Improved error handling for unreachable mirrors.
 
 ### ✨ Improvements
 - **System State Detection**: New `_detect_system_state()` method reads active repos from `/etc/apt/sources.list.d/`.
