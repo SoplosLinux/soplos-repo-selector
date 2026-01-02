@@ -249,17 +249,30 @@ class MainWindow(Gtk.ApplicationWindow):
         desktop = env_info['desktop_environment']
         protocol = env_info['display_protocol']
         
-        # Map codes to friendly names
-        desktop_map = {
-            'gnome': 'GNOME',
-            'plasma': 'KDE Plasma',
-            'xfce': 'XFCE',
-            'cinnamon': 'Cinnamon'
-        }
-        name = desktop_map.get(desktop, desktop.upper())
-        proto = "Wayland" if str(protocol).endswith('WAYLAND') else "X11"
+        desktop_name = self._translate_desktop_name(desktop)
+        protocol_name = self._translate_protocol_name(protocol)
         
-        self.system_label.set_text(_("Running on {} ({})").format(name, proto))
+        self.system_label.set_text(_("Running on {} ({})").format(desktop_name, protocol_name))
+
+    def _translate_desktop_name(self, desktop_env):
+        """Translate desktop environment name."""
+        desktop_map = {
+            'gnome': _("GNOME"),
+            'kde': _("KDE Plasma"),
+            'plasma': _("KDE Plasma"),
+            'xfce': _("XFCE"),
+            'unknown': _("Unknown")
+        }
+        return desktop_map.get(desktop_env.lower(), _("Unknown"))
+    
+    def _translate_protocol_name(self, protocol):
+        """Translate display protocol name."""
+        protocol_map = {
+            'x11': _("X11"),
+            'wayland': _("Wayland"),
+            'unknown': _("Unknown")
+        }
+        return protocol_map.get(protocol.lower(), _("Unknown"))
 
     def show_progress(self, message, fraction=None):
         """
