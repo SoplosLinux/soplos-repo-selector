@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.1] - 2026-01-02
+
+### 🐛 Bug Fixes
+- **Sources Generator**: Now detects real system state instead of using hardcoded defaults.
+  - Distributions, components, and backports checkboxes reflect actual system configuration.
+  - Only considers active (non-disabled) Debian repositories for detection.
+- **Sources Generator**: Properly removes `debian-backports.sources` file when backports is disabled.
+- **File Manager**: Fixed `UnboundLocalError` with `_` translation function caused by variable shadowing in tuple unpacking.
+
+### ✨ Improvements
+- **System State Detection**: New `_detect_system_state()` method reads active repos from `/etc/apt/sources.list.d/`.
+- **Desktop Detection**: Improved `_translate_desktop_name()` and `_translate_protocol_name()` methods with i18n support.
+
 ## [2.0.0] - 2025-12-10
 
 ### 🏗️ Architecture Rewrite

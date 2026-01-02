@@ -299,6 +299,44 @@
   </provides>
 
   <releases>
+    <release version="2.0.1" date="2026-01-02">
+      <description>
+        <p xml:lang="es">Versión 2.0.1: correcciones de errores y mejoras en la detección del estado del sistema.</p>
+        <p xml:lang="en">Version 2.0.1: bug fixes and improvements in system state detection.</p>
+        <p xml:lang="fr">Version 2.0.1 : corrections de bugs et améliorations de la détection de l'état du système.</p>
+        <p xml:lang="pt">Versão 2.0.1: correções de bugs e melhorias na detecção do estado do sistema.</p>
+        <p xml:lang="de">Version 2.0.1: Fehlerbehebungen und Verbesserungen bei der Systemstatuserkennung.</p>
+        <p xml:lang="it">Versione 2.0.1: correzioni di bug e miglioramenti nel rilevamento dello stato del sistema.</p>
+        <p xml:lang="ru">Версия 2.0.1: исправление ошибок и улучшение определения состояния системы.</p>
+        <p xml:lang="ro">Versiunea 2.0.1: corecții de erori și îmbunătățiri în detectarea stării sistemului.</p>
+        <ul>
+          <li xml:lang="en">Sources Generator now detects real system state instead of hardcoded defaults.</li>
+          <li xml:lang="es">El Generador de Sources ahora detecta el estado real del sistema en lugar de valores predeterminados.</li>
+          <li xml:lang="fr">Le Générateur de Sources détecte maintenant l'état réel du système au lieu de valeurs par défaut.</li>
+          <li xml:lang="pt">O Gerador de Sources agora detecta o estado real do sistema em vez de padrões codificados.</li>
+          <li xml:lang="de">Der Sources Generator erkennt jetzt den tatsächlichen Systemstatus anstelle von Standardwerten.</li>
+          <li xml:lang="it">Il Generatore di Sources ora rileva lo stato reale del sistema invece dei valori predefiniti.</li>
+          <li xml:lang="ru">Генератор Sources теперь определяет реальное состояние системы вместо значений по умолчанию.</li>
+          <li xml:lang="ro">Generatorul de Sources detectează acum starea reală a sistemului în loc de valori implicite.</li>
+          <li xml:lang="en">Fixed backports file removal when disabled.</li>
+          <li xml:lang="es">Corregida la eliminación del archivo de backports cuando está desactivado.</li>
+          <li xml:lang="fr">Correction de la suppression du fichier backports lorsqu'il est désactivé.</li>
+          <li xml:lang="pt">Corrigida a remoção do arquivo de backports quando desativado.</li>
+          <li xml:lang="de">Behebung der Backports-Dateientfernung bei Deaktivierung.</li>
+          <li xml:lang="it">Corretta la rimozione del file backports quando disabilitato.</li>
+          <li xml:lang="ru">Исправлено удаление файла backports при отключении.</li>
+          <li xml:lang="ro">Corectată eliminarea fișierului backports când este dezactivat.</li>
+          <li xml:lang="en">Fixed translation function error in file manager.</li>
+          <li xml:lang="es">Corregido error de función de traducción en el gestor de archivos.</li>
+          <li xml:lang="fr">Correction de l'erreur de fonction de traduction dans le gestionnaire de fichiers.</li>
+          <li xml:lang="pt">Corrigido erro de função de tradução no gerenciador de arquivos.</li>
+          <li xml:lang="de">Übersetzungsfunktionsfehler im Dateimanager behoben.</li>
+          <li xml:lang="it">Corretto errore della funzione di traduzione nel gestore file.</li>
+          <li xml:lang="ru">Исправлена ошибка функции перевода в файловом менеджере.</li>
+          <li xml:lang="ro">Corectată eroarea funcției de traducere în managerul de fișiere.</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.0.0" date="2025-12-10">
       <description>
         <p xml:lang="es">Lanzamiento 2.0.0: rediseño de la interfaz, mejoras de rendimiento y mayor compatibilidad.</p>

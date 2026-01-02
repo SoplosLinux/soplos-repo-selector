@@ -471,13 +471,13 @@ class RepoFileManager:
                 temp_items.append((str(temp_path_obj), str(file_path_obj), mode))
 
             # Try to move directly where possible
-            all_parents = set(Path(dest).parent for _, dest, _ in temp_items)
+            all_parents = set(Path(dest).parent for _tmp, dest, _m in temp_items)
             parents_writable = all(os.access(str(p), os.W_OK) for p in all_parents)
 
             if parents_writable:
-                for temp_path, dest_path, _ in temp_items:
+                for temp_path, dest_path, _mode in temp_items:
                     shutil.move(temp_path, dest_path)
-                for _, dest, mode in temp_items:
+                for _tmp, dest, mode in temp_items:
                     Path(dest).chmod(mode)
                 log_info(_("All files written successfully (direct move)"))
                 return True
@@ -502,7 +502,7 @@ class RepoFileManager:
                 if result.returncode != 0:
                     log_error(_("pkexec grouped move failed"), result.stderr)
                     # Attempt cleanup of temps
-                    for temp_path, _, _ in temp_items:
+                    for temp_path, _dest, _mode in temp_items:
                         try:
                             if os.path.exists(temp_path):
                                 os.unlink(temp_path)
@@ -534,7 +534,7 @@ class RepoFileManager:
         except Exception as e:
             log_error(_('Error in grouped write'), e)
             # Cleanup any leftover temps
-            for temp_path, _, _ in temp_items:
+            for temp_path, _dest, _mode in temp_items:
                 try:
                     if os.path.exists(temp_path):
                         os.unlink(temp_path)

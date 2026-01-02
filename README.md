@@ -1,7 +1,7 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.1-green.svg)]()
 
 Soplos Repo Selector is a graphical APT repository manager designed specifically for Debian-based systems. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
@@ -24,6 +24,18 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.1
+- Release date: January 2, 2026
+
+#### Bug Fixes
+- **Sources Generator**: Now detects real system state instead of using hardcoded defaults. Distributions, components, and backports checkboxes reflect actual system configuration.
+- **Sources Generator**: Properly removes `debian-backports.sources` file when backports is disabled.
+- **File Manager**: Fixed `UnboundLocalError` with translation function caused by variable shadowing.
+
+#### Improvements
+- New system state detection method that reads active repos from `/etc/apt/sources.list.d/`.
+- Improved desktop/protocol detection with i18n support.
 
 ### 🆕 What's new in version 2.0.0
 - Release date: December 10, 2025

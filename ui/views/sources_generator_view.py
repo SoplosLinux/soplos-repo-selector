@@ -16,6 +16,11 @@ from services.repo_manager import get_repo_manager
 class SourcesGeneratorView(Gtk.Box):
     """View for generating main APT sources."""
     
+    # Known distributions to detect
+    KNOWN_DISTROS = ['trixie', 'forky', 'testing', 'sid', 'unstable', 'experimental']
+    # Known components to detect
+    KNOWN_COMPONENTS = ['main', 'contrib', 'non-free', 'non-free-firmware']
+    
     def __init__(self, main_window):
         # Reduce overall spacing to compact vertical gaps
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=12)
@@ -27,19 +32,65 @@ class SourcesGeneratorView(Gtk.Box):
         self.row_widgets = {}
         self.max_speed_seen = 1.0
         
-        # Defaults - Soplos Hybrid Mode (Trixie + Testing)
-        # Using a set for selected distros to handle multi-selection
-        self.selected_distros = {'trixie', 'testing'}
-        self.backports_enabled = True # User asked for Backports checkbox
-        
-        self.selected_components = {
-            "main": True,
-            "contrib": True,
-            "non-free": True,
-            "non-free-firmware": True
-        }
+        # Detect current system state instead of hardcoding defaults
+        self.selected_distros, self.backports_enabled, self.selected_components = self._detect_system_state()
         
         self._create_ui()
+    
+    def _detect_system_state(self):
+        """
+        Detect the current system state by reading active repositories.
+        Only considers MAIN repos (not -updates, -security, etc.) to determine
+        which distributions are actually enabled.
+        Returns: (selected_distros: set, backports_enabled: bool, selected_components: dict)
+        """
+        selected_distros = set()
+        backports_enabled = False
+        selected_components = {comp: False for comp in self.KNOWN_COMPONENTS}
+        
+        # Suffixes that indicate derivative repos (not main distro selection)
+        DERIVATIVE_SUFFIXES = ['-updates', '-security', '-proposed', '-backports']
+        
+        try:
+            # Get all repos from system (force fresh read, no cache)
+            repos = self.repo_manager.get_all_repos(use_cache=False)
+            
+            for repo in repos:
+                # Skip disabled repos
+                if repo.get('disabled', False):
+                    continue
+                
+                distribution = repo.get('distribution', '').lower()
+                components = repo.get('components', '').lower()
+                uri = repo.get('uri', '').lower()
+                
+                # Only consider Debian repos (skip third-party repos)
+                if not any(d in uri for d in ['debian.org', 'deb.debian.org', 'security.debian.org']):
+                    continue
+                
+                # Detect backports (just flag, don't add base distro from here)
+                if '-backports' in distribution:
+                    backports_enabled = True
+                    continue
+                
+                # Skip -updates, -security, -proposed (they follow main distro)
+                if any(suffix in distribution for suffix in DERIVATIVE_SUFFIXES):
+                    continue
+                
+                # Only detect MAIN distribution repos (exact match)
+                if distribution in self.KNOWN_DISTROS:
+                    selected_distros.add(distribution)
+                    
+                    # Only count components from main repos
+                    for comp in self.KNOWN_COMPONENTS:
+                        if comp in components:
+                            selected_components[comp] = True
+        
+        except Exception as e:
+            print(f"Error detecting system state: {e}")
+            # Return empty defaults on error - user starts fresh
+        
+        return selected_distros, backports_enabled, selected_components
     
     def _create_ui(self):
         self.set_margin_top(20)
@@ -421,6 +472,10 @@ class SourcesGeneratorView(Gtk.Box):
                 if self.backports_enabled:
                     repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, 'debian-backports.sources'))
 
+        # If backports is disabled, remove the backports file if it exists
+        if not self.backports_enabled:
+            self._remove_debian_file('debian-backports.sources')
+
         success = self.repo_manager.save_repos(repos)
         
         if success:
@@ -444,6 +499,33 @@ class SourcesGeneratorView(Gtk.Box):
             'file': f'/etc/apt/sources.list.d/{filename}',
             'format': 'deb822'
         }
+
+    def _remove_debian_file(self, filename):
+        """Remove a Debian sources file if it exists (requires pkexec for /etc)."""
+        import subprocess
+        import os
+        
+        file_path = f'/etc/apt/sources.list.d/{filename}'
+        if os.path.exists(file_path):
+            try:
+                # Try direct removal first (in case user has write access)
+                os.unlink(file_path)
+                print(f"Removed {file_path}")
+            except PermissionError:
+                # Use pkexec to remove
+                try:
+                    result = subprocess.run(
+                        ['pkexec', 'rm', '-f', file_path],
+                        capture_output=True, text=True
+                    )
+                    if result.returncode == 0:
+                        print(f"Removed {file_path} (via pkexec)")
+                    else:
+                        print(f"Failed to remove {file_path}: {result.stderr}")
+                except Exception as e:
+                    print(f"Error removing {file_path}: {e}")
+            except Exception as e:
+                print(f"Error removing {file_path}: {e}")
 
     def _show_msg(self, msg_type, title, text):
         dialog = Gtk.MessageDialog(
