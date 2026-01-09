@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.2] - 2026-01-09
+
+### 📚 Documentation
+- **Man Page**: Added complete manual page (`docs/soplos-repo-selector.1`) with standard sections (NAME, SYNOPSIS, DESCRIPTION, OPTIONS, FILES, AUTHOR, COPYRIGHT, SEE ALSO).
+- **Debian Copyright**: Added machine-readable copyright file (`debian/copyright`) following Debian 1.0 format with full GPL-3.0+ license block.
+- **Packager Integration**: Updated `soplos-packager` to automatically include documentation in generated `.deb` packages.
+
 ## [2.0.1] - 2026-01-02
 
 ### � Major Improvements

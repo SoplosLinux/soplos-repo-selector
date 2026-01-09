@@ -1,0 +1,56 @@
+.TH "SOPLOS-REPO-SELECTOR" "1" "2026-01-09" "Soplos Linux" "User Commands"
+.SH NAME
+soplos-repo-selector \- Graphical APT repository manager for Soplos Linux
+.SH SYNOPSIS
+.B soplos-repo-selector
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+.B soplos-repo-selector
+is a graphical utility designed for Soplos Linux to manage APT repositories easily.
+It allows users to:
+.IP \[bu] 2
+Select the best download mirror based on speed and location.
+.IP \[bu]
+Enable or disable specific repositories (Main, Contrib, Non-free).
+.IP \[bu]
+Manage PPA (Personal Package Archives).
+.IP \[bu]
+Handle GPG keys for signed repositories.
+.IP \[bu]
+Restore default repository configurations.
+.P
+The application integrates seamlessly with the Soplos desktop environment and provides immediate feedback on repository status.
+.SH OPTIONS
+Application Options:
+.TP
+.B \-h, \-\-help
+Show help options.
+.TP
+.B \-\-help-all
+Show all help options.
+.TP
+.B \-\-help-gtk
+Show GTK+ Options.
+.P
+GTK+ Options:
+.TP
+.B \-\-display=\fIDISPLAY\fR
+X display to use.
+.SH FILES
+.TP
+.I /etc/apt/sources.list
+The main APT sources configuration file.
+.TP
+.I /etc/apt/sources.list.d/
+Directory for additional repository configurations.
+.SH AUTHOR
+Written by Sergi Perich <info@soploslinux.com> for the Soplos Linux project.
+.SH COPYRIGHT
+Copyright \(co 2026 Sergi Perich.
+License: GPL-3.0-or-later <https://www.gnu.org/licenses/gpl-3.0.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH SEE ALSO
+.BR apt (8),
+.BR sources.list (5)

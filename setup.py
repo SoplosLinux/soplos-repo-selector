@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='soplos-repo-selector',
-    version='2.0.1',
+    version='2.0.2',
     description='Graphical manager for APT repositories on Debian-based systems',
     long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
