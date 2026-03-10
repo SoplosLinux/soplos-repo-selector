@@ -111,19 +111,22 @@ class RepoFileManager:
         for line_num, line in enumerate(lines, 1):
             line = line.strip()
             
-            # Skip empty lines and full comments
-            if not line or self.comment_pattern.match(line):
-                continue
-            
             # Check if line is disabled (commented out code)
             disabled = False
-            if line.startswith('# '):
-                uncommented = line[2:].strip()
-                if self.deb_line_pattern.match(uncommented):
-                    line = uncommented
+            if line.startswith('#'):
+                # Try to see if it's a commented-out deb line
+                # Standard format: '# deb ...' or '#deb ...'
+                content_after_comment = line[1:].strip()
+                if self.deb_line_pattern.match(content_after_comment):
+                    line = content_after_comment
                     disabled = True
                 else:
+                    # It's a real comment or empty after #
                     continue
+            
+            # Skip empty lines (already handled if it was a comment but check again for safety)
+            if not line:
+                continue
             
             # Parse repository line
             match = self.deb_line_pattern.match(line)
@@ -430,14 +433,16 @@ class RepoFileManager:
             log_error(f"Error writing file safely {file_path}", e)
             return False
 
-    def write_multiple_sources_files(self, repos_by_file: Dict[str, List[Dict[str, Any]]]) -> bool:
-        """Write multiple source files in a grouped operation.
+    def write_multiple_sources_files(self, repos_by_file: Dict[str, List[Dict[str, Any]]], files_to_delete: List[str] = None) -> bool:
+        """Write multiple source files and optionally delete others in a grouped operation.
 
         This creates temporary files in the system temp directory for each
-        destination and then either moves them directly (if writable) or
-        generates a single shell script that moves all temp files into place
-        and runs it via `pkexec` once to avoid multiple password prompts.
+        destination and then generates a single shell script that moves all 
+        temp files into place and deletes specified files via `pkexec` once.
         """
+        if files_to_delete is None:
+            files_to_delete = []
+            
         temp_items = []  # tuples of (temp_path, dest_path, mode)
         try:
             # Generate all contents and write temps
@@ -495,6 +500,9 @@ class RepoFileManager:
                         script.write(f"mkdir -p '{dest_dir}'\n")
                         script.write(f"mv '{temp_path}' '{dest_path}'\n")
                         script.write(f"chmod {perm_str} '{dest_path}'\n")
+                    
+                    for file_to_del in files_to_delete:
+                        script.write(f"rm -f '{file_to_del}'\n")
 
                 os.chmod(script_path, 0o700)
 

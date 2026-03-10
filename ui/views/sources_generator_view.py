@@ -56,16 +56,20 @@ class SourcesGeneratorView(Gtk.Box):
             repos = self.repo_manager.get_all_repos(use_cache=False)
             
             for repo in repos:
-                # Skip disabled repos
-                if repo.get('disabled', False):
-                    continue
+                # IMPORTANT: We now consider disabled repos too so the UI reflects 
+                # what's configured even if it's currently turned off.
                 
                 distribution = repo.get('distribution', '').lower()
                 components = repo.get('components', '').lower()
                 uri = repo.get('uri', '').lower()
                 
-                # Only consider Debian repos (skip third-party repos)
-                if not any(d in uri for d in ['debian.org', 'deb.debian.org', 'security.debian.org']):
+                # Detect Debian repos (more flexible: any that look like standard Debian paths)
+                is_debian = any(d in uri for d in ['debian.org', 'deb.debian.org', 'security.debian.org'])
+                # If not official domain, check if it ends in /debian or /debian-security (common for mirrors)
+                if not is_debian:
+                    is_debian = uri.rstrip('/').endswith(('/debian', '/debian-security'))
+                
+                if not is_debian:
                     continue
                 
                 # Detect backports (just flag, don't add base distro from here)
@@ -577,11 +581,12 @@ class SourcesGeneratorView(Gtk.Box):
                 if self.backports_enabled:
                     repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, 'debian-backports.sources'))
 
-        # If backports is disabled, remove the backports file if it exists
+        # If backports is disabled, add to deletion list instead of immediate removal
+        files_to_delete = []
         if not self.backports_enabled:
-            self._remove_debian_file('debian-backports.sources')
+            files_to_delete.append('/etc/apt/sources.list.d/debian-backports.sources')
 
-        success = self.repo_manager.save_repos(repos)
+        success = self.repo_manager.save_repos(repos, files_to_delete=files_to_delete)
         
         if success:
              self._show_msg(Gtk.MessageType.INFO, _("Sources Generated"), 

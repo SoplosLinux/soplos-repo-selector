@@ -52,12 +52,13 @@ class RepoManager:
         self.cache_valid = True
         return repos
     
-    def save_repos(self, repos: List[Dict[str, Any]]) -> bool:
+    def save_repos(self, repos: List[Dict[str, Any]], files_to_delete: List[str] = None) -> bool:
         """
         Saves changes to repositories file(s).
         
         Args:
             repos: List of all repositories (modified)
+            files_to_delete: Optional list of file paths to remove
             
         Returns:
             True if all writes were successful
@@ -78,14 +79,9 @@ class RepoManager:
                 repos_by_file[file_path] = []
             repos_by_file[file_path].append(repo)
         
-        # Handle files that had repos but now don't (deleted repos)
-        # We need to know which files we originally had
-        # (This logic implies we should track original state, but for now 
-        # we can just iterate over the keys we found)
-        
         # Attempt to write all files in a single grouped operation so we can
         # perform privilege escalation only once when needed.
-        success = self.file_manager.write_multiple_sources_files(repos_by_file)
+        success = self.file_manager.write_multiple_sources_files(repos_by_file, files_to_delete)
         if not success:
             for file_path in repos_by_file.keys():
                 log_error(f"Failed to save {file_path}")

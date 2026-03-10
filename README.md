@@ -1,7 +1,7 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--1-green.svg)]()
 
 Soplos Repo Selector is a graphical APT repository manager designed specifically for Debian-based systems. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
@@ -24,6 +24,12 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.2-1
+- Release date: March 10, 2026
+- **Repository Detection**: Improved detection of mirrors and regional repositories.
+- **Parser Fix**: Fixed detection of commented-out repositories in legacy format.
+- **Performance**: Optimized `pkexec` calls to reduce password prompts.
 
 ### 🆕 What's new in version 2.0.2
 - Release date: January 9, 2026
@@ -130,7 +136,7 @@ GPG Keys tab:
 
 ### From DEB package (recommended)
 ```bash
-sudo dpkg -i soplos-repo-selector_2.0.0_all.deb
+sudo dpkg -i soplos-repo-selector_2.0.2-1_all.deb
 sudo apt-get install -f  # Resolve dependencies if necessary
 ```
 
