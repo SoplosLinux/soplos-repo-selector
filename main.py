@@ -60,7 +60,8 @@ def main():
         
     finally:
         cleanup_pycache()
-        return exit_code
+    
+    return exit_code
 
 if __name__ == '__main__':
     sys.exit(main())

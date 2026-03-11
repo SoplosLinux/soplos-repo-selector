@@ -234,7 +234,7 @@ class MainWindow(Gtk.ApplicationWindow):
         status_box.pack_start(self.system_label, False, False, 0)
         
         # Right: App Version
-        version_text = f"{APP_NAME} v{APP_VERSION}"
+        version_text = f"v{APP_VERSION}"
         version_label = Gtk.Label(label=version_text)
         version_label.set_halign(Gtk.Align.END)
         version_label.get_style_context().add_class('dim-label')
