@@ -281,6 +281,7 @@ class RepoFileManager:
                 types = []
                 suites = []
                 components = []
+                components_seen = set()
                 signed_by = ''
 
                 for r in group:
@@ -290,9 +291,11 @@ class RepoFileManager:
                         types.append(r['type'])
                     if r['distribution'] not in suites:
                         suites.append(r['distribution'])
-                    comp = r.get('components', '')
-                    if comp and comp not in components:
-                        components.append(comp)
+                    # Deduplicate at word level to avoid repeating components
+                    for word in r.get('components', '').split():
+                        if word and word not in components_seen:
+                            components_seen.add(word)
+                            components.append(word)
                     if not signed_by and r.get('signed_by'):
                         signed_by = r.get('signed_by')
 
@@ -320,7 +323,15 @@ class RepoFileManager:
             uris = sorted(list(set(r['uri'] for r in group)))
             types = sorted(list(set(r['type'] for r in group)))
             suites = sorted(list(set(r['distribution'] for r in group)))
-            components = sorted(list(set(r['components'] for r in group if r['components'])))
+            # Deduplicate components at word level to avoid repetition
+            comp_seen = set()
+            comp_ordered = []
+            for r in group:
+                for word in r.get('components', '').split():
+                    if word and word not in comp_seen:
+                        comp_seen.add(word)
+                        comp_ordered.append(word)
+            components = comp_ordered
             signed_by = next((r['signed_by'] for r in group if r.get('signed_by')), '')
 
             # TODO: Handle multiple comments?

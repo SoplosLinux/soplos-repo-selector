@@ -53,6 +53,7 @@ class RepoRow(Gtk.ListBoxRow):
         details_text = f"{self.repo_data.get('type', '')} {self.repo_data.get('distribution', '')} {self.repo_data.get('components', '')}"
         details_label = Gtk.Label(label=details_text)
         details_label.set_xalign(0)
+        details_label.set_ellipsize(Pango.EllipsizeMode.END)
         details_label.get_style_context().add_class('dim-label')
         details_label.set_attributes(Pango.AttrList.from_string("scale=0.9"))
         info_box.pack_start(details_label, True, True, 0)
