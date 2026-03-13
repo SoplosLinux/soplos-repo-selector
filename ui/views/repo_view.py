@@ -56,6 +56,13 @@ class RepoView(Gtk.Box):
         # Spacer
         action_bar.pack_start(Gtk.Label(), True, True, 0)
         
+        # Search Entry
+        self.search_entry = Gtk.SearchEntry()
+        self.search_entry.set_placeholder_text(_("Search repositories..."))
+        self.search_entry.set_size_request(250, -1)
+        self.search_entry.connect("search-changed", self._on_search_changed)
+        action_bar.pack_start(self.search_entry, False, False, 0)
+        
         # Apply button (initially insensitive)
         self.apply_btn = Gtk.Button(label=_("Apply Changes"))
         self.apply_btn.get_style_context().add_class('suggested-action')
@@ -76,6 +83,7 @@ class RepoView(Gtk.Box):
         
         self.list_box = Gtk.ListBox()
         self.list_box.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.list_box.set_filter_func(self._filter_func)
         
         self.list_box.set_placeholder(self._create_placeholder())
         
@@ -111,7 +119,8 @@ class RepoView(Gtk.Box):
                 repo,
                 on_toggle=self._on_repo_changed,
                 on_edit=self._on_edit_repo,
-                on_delete=self._on_delete_repo
+                on_delete=self._on_delete_repo,
+                on_modernize=self._on_modernize_repo
             )
             self.list_box.add(row)
         
@@ -154,6 +163,52 @@ class RepoView(Gtk.Box):
             self.repos.remove(repo_data)
             self.refresh_ui_from_data()
             self._on_repo_changed(None)
+            
+    def _on_modernize_repo(self, repo_data):
+        """Handle modernization request."""
+        dialog = Gtk.MessageDialog(
+            transient_for=self.main_window,
+            flags=0,
+            message_type=Gtk.MessageType.QUESTION,
+            buttons=Gtk.ButtonsType.OK_CANCEL,
+            text=_("Modernize Repository?")
+        )
+        dialog.format_secondary_text(
+            _("This will convert the repository to the modern .sources format.\n"
+              "A backup of the original .list file will be created.\n\n"
+              "Target: {}").format(repo_data['uri'])
+        )
+        response = dialog.run()
+        dialog.destroy()
+        
+        if response == Gtk.ResponseType.OK:
+            self.main_window.show_progress(_("Converting format..."))
+            if self.repo_manager.modernize_repo(repo_data):
+                self.main_window.hide_progress()
+                self.refresh_repos()
+                
+                info = Gtk.MessageDialog(
+                    transient_for=self.main_window,
+                    flags=0,
+                    message_type=Gtk.MessageType.INFO,
+                    buttons=Gtk.ButtonsType.OK,
+                    text=_("Modernization Complete")
+                )
+                info.format_secondary_text(_("The repository has been successfully converted to DEB822 format."))
+                info.run()
+                info.destroy()
+            else:
+                self.main_window.hide_progress()
+                err = Gtk.MessageDialog(
+                    transient_for=self.main_window,
+                    flags=0,
+                    message_type=Gtk.MessageType.ERROR,
+                    buttons=Gtk.ButtonsType.OK,
+                    text=_("Modernization Failed")
+                )
+                err.format_secondary_text(_("Failed to convert format. Please check logs."))
+                err.run()
+                err.destroy()
     
     def _on_add_clicked(self, btn):
         dialog = RepoEditDialog(self.main_window)
@@ -196,6 +251,32 @@ class RepoView(Gtk.Box):
             dialog.run()
             dialog.destroy()
             self.apply_btn.set_sensitive(True)
+
+    def _on_search_changed(self, entry):
+        """Handle search entry change."""
+        self.list_box.invalidate_filter()
+
+    def _filter_func(self, row):
+        """Filter function for the list box."""
+        search_text = self.search_entry.get_text().lower()
+        if not search_text:
+            return True
+            
+        repo_data = row.repo_data
+        
+        # Search in URI, Distribution, Components and Comment
+        fields = [
+            repo_data.get('uri', ''),
+            repo_data.get('distribution', ''),
+            repo_data.get('components', ''),
+            repo_data.get('comment', '')
+        ]
+        
+        for field in fields:
+            if search_text in str(field).lower():
+                return True
+                
+        return False
 
     def _start_autorefresh(self):
         """Start a periodic watcher that detects external changes and refreshes UI."""
@@ -245,6 +326,12 @@ class RepoView(Gtk.Box):
             self.list_box.remove(row)
         
         for repo in self.repos:
-            row = RepoRow(repo, self._on_repo_changed, self._on_edit_repo, self._on_delete_repo)
+            row = RepoRow(
+                repo, 
+                self._on_repo_changed, 
+                self._on_edit_repo, 
+                self._on_delete_repo,
+                self._on_modernize_repo
+            )
             self.list_box.add(row)
         self.list_box.show_all()

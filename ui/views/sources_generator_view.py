@@ -5,6 +5,8 @@ Tab 1: Select Distribution, Components, and Mirror to generate sources.
 
 import gi
 import threading
+import os
+import glob
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
 
@@ -538,62 +540,99 @@ class SourcesGeneratorView(Gtk.Box):
         thread = threading.Thread(target=self._run_speed_test, args=(btn,))
         thread.daemon = True
         thread.start()
-            
+
     def _on_generate_clicked(self, btn):
         if not self.selected_distros:
             self._show_msg(Gtk.MessageType.WARNING, _("Warning"), _("Please select at least one distribution."))
             return
 
-        comps_list = [k for k, v in self.selected_components.items() if v]
-        comps_str = " ".join(comps_list)
+        btn.set_sensitive(False)
+        self.main_window.show_progress(_("Preparing atomic update..."), 0)
         
-        repos = []
-        keyring = '/usr/share/keyrings/debian-archive-keyring.gpg'
-        
-        # Generate entries for each selected distro
-        for distro in self.selected_distros:
-            # Main Repo
-            repos.append(self._make_repo(distro, comps_str, keyring, 'debian.sources'))
-            
-            # Skip Updates/Security for Unstable/Sid/Experimental?
-            # Generally:
-            # Sid/Unstable/Experimental DO NOT have -updates or -security (in the traditional sense)
-            # Trixie/Testing/Forky DO have them.
-            
-            is_unstable_type = distro in ['sid', 'unstable', 'experimental']
-            
-            if not is_unstable_type:
-                # -updates
-                repos.append(self._make_repo(f"{distro}-updates", comps_str, keyring, 'debian.sources'))
-                
-                # -proposed-updates (Often useful for Testing, maybe not default? Let's include if it's Testing)
-                if distro == 'testing':
-                     repos.append(self._make_repo(f"{distro}-proposed-updates", comps_str, keyring, 'debian.sources'))
-                
-                # Security
-                sec_uri = 'https://security.debian.org/debian-security/'
-                # Note: Testing uses 'testing-security' (or stable-security format).
-                # Trixie uses 'trixie-security'.
-                sec_distro = f"{distro}-security"
-                repos.append(self._make_repo(sec_distro, comps_str, keyring, 'debian-security.sources', sec_uri))
-                
-                # Backports (If enabled globally)
-                if self.backports_enabled:
-                    repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, 'debian-backports.sources'))
+        # Run execution in background thread to keep UI responsive
+        thread = threading.Thread(target=self._execute_generation_batch, args=(btn,))
+        thread.daemon = True
+        thread.start()
 
-        # If backports is disabled, add to deletion list instead of immediate removal
-        files_to_delete = []
-        if not self.backports_enabled:
-            files_to_delete.append('/etc/apt/sources.list.d/debian-backports.sources')
+    def _execute_generation_batch(self, btn):
+        """Orchestrate the atomic batch operation in a background thread."""
+        try:
+            comps_list = [k for k, v in self.selected_components.items() if v]
+            comps_str = " ".join(comps_list)
+            
+            repos = []
+            keyring = '/usr/share/keyrings/debian-archive-keyring.gpg'
+            
+            # 1. Generate new repo configurations (Official Debian)
+            for distro in self.selected_distros:
+                repos.append(self._make_repo(distro, comps_str, keyring, 'debian.sources'))
+                
+                is_unstable_type = distro in ['sid', 'unstable', 'experimental']
+                if not is_unstable_type:
+                    repos.append(self._make_repo(f"{distro}-updates", comps_str, keyring, 'debian.sources'))
+                    if distro == 'testing':
+                        repos.append(self._make_repo(f"{distro}-proposed-updates", comps_str, keyring, 'debian.sources'))
+                    
+                    sec_uri = 'https://security.debian.org/debian-security/'
+                    repos.append(self._make_repo(f"{distro}-security", comps_str, keyring, 'debian-security.sources', sec_uri))
+                    
+                    if self.backports_enabled:
+                        repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, 'debian-backports.sources'))
 
-        success = self.repo_manager.save_repos(repos, files_to_delete=files_to_delete)
+            # 2. Build Batch Tasks
+            tasks = []
+            
+            # WRITE_FILE tasks
+            repos_by_file = {}
+            for r in repos:
+                repos_by_file.setdefault(r['file'], []).append(r)
+                
+            for file_path, file_repos in repos_by_file.items():
+                content = self.repo_manager.file_manager._generate_deb822_content(file_repos)
+                tasks.append({
+                    'type': 'WRITE_FILE',
+                    'path': file_path,
+                    'content': content
+                })
+
+            # DELETE_FILE tasks (STRICTLY Official Debian managed files only)
+            current_generated = set(repos_by_file.keys())
+            if not self.backports_enabled:
+                current_generated.add('/etc/apt/sources.list.d/debian-backports.sources')
+
+            # Find only debian*.sources to remove obsoletes. 
+            # This EXPLICITLY ignores any third-party .list or .sources files.
+            for f in glob.glob('/etc/apt/sources.list.d/debian*.sources'):
+                if f not in current_generated:
+                    tasks.append({'type': 'DELETE_FILE', 'path': f})
+            
+            # 3. APT Maintenance tasks
+            tasks.append({'type': 'RUN_COMMAND', 'command': 'apt-get clean'})
+            tasks.append({'type': 'RUN_COMMAND', 'command': 'apt-get autoclean'})
+            tasks.append({'type': 'RUN_COMMAND', 'command': 'apt-get update'})
+
+            # 4. Execute Batch
+            GLib.idle_add(self.main_window.show_progress, _("Executing atomic batch... (Password required)"), 0.3)
+            
+            success = self.repo_manager.apply_batch(tasks)
+            
+            GLib.idle_add(self._on_generation_finished, success, btn)
+
+        except Exception as e:
+            GLib.idle_add(self._on_generation_finished, False, btn, str(e))
+
+    def _on_generation_finished(self, success, btn, error_msg=None):
+        btn.set_sensitive(True)
+        self.main_window.hide_progress()
         
         if success:
-             self._show_msg(Gtk.MessageType.INFO, _("Sources Generated"), 
-                            _("Your sources have been updated successfully."))
+            self._show_msg(Gtk.MessageType.INFO, _("Sources Generated"), 
+                           _("Your sources have been updated successfully and APT cache refreshed."))
         else:
-             self._show_msg(Gtk.MessageType.ERROR, _("Error"), 
-                            _("Could not save sources files. Check permissions."))
+            msg = _("Could not save sources files or execute APT update.")
+            if error_msg:
+                msg += f"\n\n{error_msg}"
+            self._show_msg(Gtk.MessageType.ERROR, _("Error"), msg)
 
     def _make_repo(self, suite, components, signed_by, filename, uri=None):
         """Helper to create repo dict."""

@@ -92,6 +92,13 @@ class RepoManager:
             
         return success
     
+    def apply_batch(self, tasks: List[Dict[str, Any]]) -> bool:
+        """Executes a batch of operations through the file manager."""
+        success = self.file_manager.run_batch_operation(tasks)
+        if success:
+            self.invalidate_cache()
+        return success
+    
     def _determine_file_for_repo(self, repo: Dict[str, Any]) -> str:
         """Determines the appropriate file path for a new repository."""
         # Clean specific characters from URI or suite to make a filename
@@ -115,6 +122,65 @@ class RepoManager:
         """Invalidates the repository cache."""
         self.cache_valid = False
         self.repo_cache = None
+
+    def modernize_repo(self, repo_data: Dict[str, Any]) -> bool:
+        """
+        Convert a legacy (.list) repository to modern (.sources) format.
+        Creates a backup of the original file.
+        
+        Args:
+           repo_data: The repository dictionary to modernize
+           
+        Returns:
+            True if modernization succeeded
+        """
+        original_file = repo_data.get('file')
+        if not original_file or not original_file.endswith('.list'):
+            return False
+            
+        # 1. Prepare new data
+        path_obj = Path(original_file)
+        new_file = str(path_obj.with_suffix('.sources'))
+        
+        # Deep copy to avoid modifying original until success
+        new_repo = repo_data.copy()
+        new_repo['format'] = 'deb822'
+        new_repo['file'] = new_file
+        
+        # 2. Build tasks for atomic operation
+        tasks = []
+        
+        # Backup task (we'll do this via RUN_COMMAND for simplicity in the batch)
+        backup_file = f"{original_file}.bak"
+        tasks.append({
+            'type': 'RUN_COMMAND',
+            'command': f"cp '{original_file}' '{backup_file}'"
+        })
+        
+        # WRITE_FILE task for the new format
+        # We need to generate the content. We can use the file_manager for this.
+        content = self.file_manager._generate_deb822_content([new_repo])
+        tasks.append({
+            'type': 'WRITE_FILE',
+            'path': new_file,
+            'content': content
+        })
+        
+        # DELETE_FILE task for the old file
+        tasks.append({
+            'type': 'DELETE_FILE',
+            'path': original_file
+        })
+        
+        # 3. Execute
+        log_info(f"Modernizing {original_file} -> {new_file}")
+        success = self.apply_batch(tasks)
+        
+        if success:
+            # Update the original dict object if it's still in use
+            repo_data.update(new_repo)
+            
+        return success
 
 
 # Global instance

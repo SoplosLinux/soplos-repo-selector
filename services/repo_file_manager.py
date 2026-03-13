@@ -445,118 +445,116 @@ class RepoFileManager:
             return False
 
     def write_multiple_sources_files(self, repos_by_file: Dict[str, List[Dict[str, Any]]], files_to_delete: List[str] = None) -> bool:
-        """Write multiple source files and optionally delete others in a grouped operation.
+        """Write multiple source files and optionally delete others in a grouped operation."""
+        tasks = []
+        
+        # Prepare WRITE_FILE tasks
+        for file_path, file_repos in repos_by_file.items():
+            file_path_obj = Path(file_path)
+            use_deb822 = (file_path_obj.suffix == '.sources' or
+                         any(r.get('format') == 'deb822' for r in file_repos))
 
-        This creates temporary files in the system temp directory for each
-        destination and then generates a single shell script that moves all 
-        temp files into place and deletes specified files via `pkexec` once.
-        """
-        if files_to_delete is None:
-            files_to_delete = []
+            content = self._generate_deb822_content(file_repos) if use_deb822 else self._generate_legacy_content(file_repos)
             
-        temp_items = []  # tuples of (temp_path, dest_path, mode)
-        try:
-            # Generate all contents and write temps
-            for file_path, file_repos in repos_by_file.items():
-                file_path_obj = Path(file_path)
-                use_deb822 = (file_path_obj.suffix == '.sources' or
-                             any(r.get('format') == 'deb822' for r in file_repos))
-
-                if use_deb822:
-                    content = self._generate_deb822_content(file_repos)
-                else:
-                    content = self._generate_legacy_content(file_repos)
-
-                fd, temp_path = tempfile.mkstemp(suffix='.tmp', text=True)
+            # Determine mode
+            mode = 0o644
+            if file_path_obj.exists():
                 try:
-                    with open(fd, 'w', encoding='utf-8') as f:
-                        f.write(content)
-                except Exception:
-                    try:
-                        os.unlink(temp_path)
-                    except:
-                        pass
-                    raise
-
-                temp_path_obj = Path(temp_path)
-                if file_path_obj.exists():
                     mode = file_path_obj.stat().st_mode
-                else:
-                    mode = 0o644
-                temp_path_obj.chmod(mode)
-                temp_items.append((str(temp_path_obj), str(file_path_obj), mode))
+                except:
+                    pass
+            
+            tasks.append({
+                'type': 'WRITE_FILE',
+                'path': file_path,
+                'content': content,
+                'mode': mode
+            })
+            
+        # Prepare DELETE_FILE tasks
+        if files_to_delete:
+            for f in files_to_delete:
+                tasks.append({'type': 'DELETE_FILE', 'path': f})
+                
+        return self.run_batch_operation(tasks)
 
-            # Try to move directly where possible
-            all_parents = set(Path(dest).parent for _tmp, dest, _m in temp_items)
-            parents_writable = all(os.access(str(p), os.W_OK) for p in all_parents)
-
-            if parents_writable:
-                for temp_path, dest_path, _mode in temp_items:
-                    shutil.move(temp_path, dest_path)
-                for _tmp, dest, mode in temp_items:
-                    Path(dest).chmod(mode)
-                log_info(_("All files written successfully (direct move)"))
-                return True
-
-            # Need escalation: create a single script that moves all files
+    def run_batch_operation(self, tasks: List[Dict[str, Any]]) -> bool:
+        """
+        Executes a batch of operations (WRITE, DELETE, COMMAND) in a single pkexec session.
+        
+        Args:
+            tasks: List of task dictionaries. Supported types:
+                - {'type': 'WRITE_FILE', 'path': str, 'content': str, 'mode': int}
+                - {'type': 'DELETE_FILE', 'path': str}
+                - {'type': 'RUN_COMMAND', 'command': str}
+                
+        Returns:
+            True if all operations succeeded
+        """
+        if not tasks:
+            return True
+            
+        temp_files = []
+        script_path = None
+        
+        try:
+            # Create shell script
             script_fd, script_path = tempfile.mkstemp(suffix='.sh', text=True)
-            try:
-                with os.fdopen(script_fd, 'w', encoding='utf-8') as script:
-                    script.write('#!/bin/sh\nset -e\n')
-                    for temp_path, dest_path, mode in temp_items:
-                        dest_dir = os.path.dirname(dest_path)
-                        # Ensure we pass only permission bits (e.g. 0o644), not file type bits
-                        perm = mode & 0o777
-                        perm_str = oct(perm)[2:]
-                        script.write(f"mkdir -p '{dest_dir}'\n")
-                        script.write(f"mv '{temp_path}' '{dest_path}'\n")
-                        script.write(f"chmod {perm_str} '{dest_path}'\n")
+            with os.fdopen(script_fd, 'w', encoding='utf-8') as script:
+                script.write('#!/bin/sh\nset -e\n')
+                
+                for task in tasks:
+                    task_type = task.get('type')
                     
-                    for file_to_del in files_to_delete:
-                        script.write(f"rm -f '{file_to_del}'\n")
-
-                os.chmod(script_path, 0o700)
-
-                result = subprocess.run(['pkexec', 'sh', script_path], capture_output=True, text=True)
-                if result.returncode != 0:
-                    log_error(_("pkexec grouped move failed"), result.stderr)
-                    # Attempt cleanup of temps
-                    for temp_path, _dest, _mode in temp_items:
-                        try:
-                            if os.path.exists(temp_path):
-                                os.unlink(temp_path)
-                        except:
-                            pass
-                    try:
-                        os.unlink(script_path)
-                    except:
-                        pass
-                    return False
-
-                # Success; cleanup script
-                try:
-                    os.unlink(script_path)
-                except:
-                    pass
-
-                log_info(_('All files written successfully (grouped pkexec)'))
-                return True
-
-            except Exception as e:
-                # Cleanup
-                try:
-                    os.unlink(script_path)
-                except:
-                    pass
-                raise e
-
+                    if task_type == 'WRITE_FILE':
+                        path = task['path']
+                        content = task['content']
+                        mode = task.get('mode', 0o644) & 0o777
+                        
+                        # Create temp file for content
+                        fd, tpath = tempfile.mkstemp(suffix='.tmp', text=True)
+                        temp_files.append(tpath)
+                        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                            f.write(content)
+                        os.chmod(tpath, 0o644)
+                        
+                        dest_dir = os.path.dirname(path)
+                        script.write(f"mkdir -p '{dest_dir}'\n")
+                        script.write(f"mv '{tpath}' '{path}'\n")
+                        script.write(f"chmod {oct(mode)[2:]} '{path}'\n")
+                        
+                    elif task_type == 'DELETE_FILE':
+                        path = task['path']
+                        script.write(f"rm -f '{path}'\n")
+                        
+                    elif task_type == 'RUN_COMMAND':
+                        cmd = task['command']
+                        # Wrap command for safety
+                        script.write(f"{cmd}\n")
+            
+            os.chmod(script_path, 0o700)
+            
+            # Execute script via pkexec
+            log_info(_("Executing atomic batch with {count} tasks").format(count=len(tasks)))
+            result = subprocess.run(['pkexec', 'sh', script_path], capture_output=True, text=True)
+            
+            if result.returncode != 0:
+                log_error(_("Atomic batch execution failed"), result.stderr)
+                return False
+                
+            log_info(_("Atomic batch executed successfully"))
+            return True
+            
         except Exception as e:
-            log_error(_('Error in grouped write'), e)
-            # Cleanup any leftover temps
-            for temp_path, _dest, _mode in temp_items:
-                try:
-                    if os.path.exists(temp_path):
-                        os.unlink(temp_path)
-                except:
-                    pass
+            log_error(_("Error during atomic batch execution"), e)
             return False
+            
+        finally:
+            # Cleanup
+            if script_path and os.path.exists(script_path):
+                try: os.unlink(script_path)
+                except: pass
+            for tpath in temp_files:
+                if os.path.exists(tpath):
+                    try: os.unlink(tpath)
+                    except: pass

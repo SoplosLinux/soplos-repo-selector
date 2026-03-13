@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: soplos-repo-selector 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-12 22:49+0100\n"
+"POT-Creation-Date: 2026-03-13 15:30+0100\n"
 "PO-Revision-Date: 2025-12-12 22:49+0100\n"
 "Last-Translator: Sergi Perich <info@soploslinux.com>\n"
 "Language-Team: Russian <info@soploslinux.com>\n"
@@ -13,27 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-#: core/theme_manager.py:128
-#, python-brace-format
-msgid "Theme '{name}' not found at {path}"
-msgstr "Тема '{name}' не найдена по пути {path}"
-
-#: core/theme_manager.py:141
-#, python-brace-format
-msgid "Successfully loaded theme: {name}"
-msgstr "Тема успешно загружена: {name}"
-
-#: core/theme_manager.py:144
-#, python-brace-format
-msgid "Error loading theme '{name}': {err}"
-msgstr "Ошибка при загрузке темы '{name}': {err}"
-
-#: core/theme_manager.py:162
-#, python-brace-format
-msgid "Error adding custom CSS: {err}"
-msgstr "Ошибка при добавлении пользовательского CSS: {err}"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: core/application.py:58
 msgid "Shutting down Soplos Repo Selector..."
@@ -120,132 +101,25 @@ msgstr "Получен сигнал {num}, завершение..."
 msgid "Application error: {err}"
 msgstr "Ошибка приложения: {err}"
 
-#: services/speed_test_service.py:240 services/speed_test_service.py:241
-#: services/speed_test_service.py:242
-msgid "Global CDN"
-msgstr "Глобальный CDN"
-
-#: services/speed_test_service.py:243
-msgid "Global Mirror"
-msgstr "Глобальный зеркальный сервер"
-
-#: services/speed_test_service.py:244 services/speed_test_service.py:267
-#: services/speed_test_service.py:298
-msgid "United States"
-msgstr "США"
-
-#: services/speed_test_service.py:245 services/speed_test_service.py:257
-#: services/speed_test_service.py:271 services/speed_test_service.py:302
-msgid "United Kingdom"
-msgstr "Великобритания"
-
-#: services/speed_test_service.py:246 services/speed_test_service.py:258
-#: services/speed_test_service.py:269 services/speed_test_service.py:307
-msgid "Germany"
-msgstr "Германия"
-
-#: services/speed_test_service.py:247 services/speed_test_service.py:256
-#: services/speed_test_service.py:312
-msgid "France"
-msgstr "Франция"
-
-#: services/speed_test_service.py:248 services/speed_test_service.py:270
-#: services/speed_test_service.py:331
-msgid "Australia"
-msgstr "Австралия"
-
-#: services/speed_test_service.py:249 services/speed_test_service.py:260
-#: services/speed_test_service.py:268 services/speed_test_service.py:325
-msgid "Japan"
-msgstr "Япония"
-
-#: services/speed_test_service.py:250 services/speed_test_service.py:318
-msgid "Brazil"
-msgstr "Бразилия"
-
-#: services/speed_test_service.py:251 services/speed_test_service.py:316
-msgid "Spain"
-msgstr "Испания"
-
-#: services/speed_test_service.py:252 services/speed_test_service.py:317
-msgid "Italy"
-msgstr "Италия"
-
-#: services/speed_test_service.py:253 services/speed_test_service.py:263
-#: services/speed_test_service.py:264 services/speed_test_service.py:265
-#: services/speed_test_service.py:266 services/speed_test_service.py:319
-msgid "China"
-msgstr "Китай"
-
-#: services/speed_test_service.py:254
-msgid "Russia"
-msgstr "Россия"
-
-#: services/speed_test_service.py:255 services/speed_test_service.py:332
-msgid "Canada"
-msgstr "Канада"
-
-#: services/speed_test_service.py:259 services/speed_test_service.py:330
-msgid "Ireland"
-msgstr "Ирландия"
-
-#: services/speed_test_service.py:261 services/speed_test_service.py:329
-msgid "Netherlands"
-msgstr "Нидерланды"
-
-#: services/speed_test_service.py:262 services/speed_test_service.py:333
-msgid "Switzerland"
-msgstr "Швейцария"
-
-#: services/speed_test_service.py:285 services/speed_test_service.py:287
-#: ui/views/sources_generator_view.py:286
-msgid "Unknown"
-msgstr "Неизвестно"
-
-#: services/speed_test_service.py:292
-msgid "Global"
-msgstr "Глобально"
-
-#: services/repo_file_manager.py:56
+#: core/theme_manager.py:128
 #, python-brace-format
-msgid "Read {count} repositories from {path}"
-msgstr "Прочитано {count} репозиториев из {path}"
+msgid "Theme '{name}' not found at {path}"
+msgstr "Тема '{name}' не найдена по пути {path}"
 
-#: services/repo_file_manager.py:60
+#: core/theme_manager.py:141
 #, python-brace-format
-msgid "Error reading file {path}"
-msgstr "Ошибка при чтении файла {path}"
+msgid "Successfully loaded theme: {name}"
+msgstr "Тема успешно загружена: {name}"
 
-#: services/repo_file_manager.py:93
+#: core/theme_manager.py:144
 #, python-brace-format
-msgid "Error writing file {path}"
-msgstr "Ошибка при записи файла {path}"
+msgid "Error loading theme '{name}': {err}"
+msgstr "Ошибка при загрузке темы '{name}': {err}"
 
-#: services/repo_file_manager.py:398
+#: core/theme_manager.py:162
 #, python-brace-format
-msgid "File written successfully: {path}"
-msgstr "Файл успешно записан: {path}"
-
-#: services/repo_file_manager.py:416
-#, python-brace-format
-msgid "pkexec failed: {stderr}"
-msgstr "pkexec завершился с ошибкой: {stderr}"
-
-#: services/repo_file_manager.py:482
-msgid "All files written successfully (direct move)"
-msgstr "Все файлы успешно записаны (прямое перемещение)"
-
-#: services/repo_file_manager.py:503
-msgid "pkexec grouped move failed"
-msgstr "Групповое перемещение через pkexec не удалось"
-
-#: services/repo_file_manager.py:523
-msgid "All files written successfully (grouped pkexec)"
-msgstr "Все файлы успешно записаны (pkexec сгруппировано)"
-
-#: services/repo_file_manager.py:535
-msgid "Error in grouped write"
-msgstr "Ошибка при групповой записи"
+msgid "Error adding custom CSS: {err}"
+msgstr "Ошибка при добавлении пользовательского CSS: {err}"
 
 #: services/gpg_manager.py:32
 #, python-brace-format
@@ -330,21 +204,870 @@ msgstr "Ключ {path} не найден"
 msgid "Error deleting key: {err}"
 msgstr "Ошибка при удалении ключа: {err}"
 
-#: ui/dialogs/repo_edit.py:15
-msgid "Edit Repository"
-msgstr "Редактировать репозиторий"
+#: services/repo_file_manager.py:56
+#, python-brace-format
+msgid "Read {count} repositories from {path}"
+msgstr "Прочитано {count} репозиториев из {path}"
 
-#: ui/dialogs/repo_edit.py:15 ui/views/repo_view.py:40
-msgid "Add Repository"
-msgstr "Добавить репозиторий"
+#: services/repo_file_manager.py:60
+#, python-brace-format
+msgid "Error reading file {path}"
+msgstr "Ошибка при чтении файла {path}"
 
-#: ui/dialogs/repo_edit.py:18 ui/views/gpg_view.py:151 ui/views/gpg_view.py:192
+#: services/repo_file_manager.py:93
+#, python-brace-format
+msgid "Error writing file {path}"
+msgstr "Ошибка при записи файла {path}"
+
+#: services/repo_file_manager.py:412
+#, python-brace-format
+msgid "File written successfully: {path}"
+msgstr "Файл успешно записан: {path}"
+
+#: services/repo_file_manager.py:430
+#, python-brace-format
+msgid "pkexec failed: {stderr}"
+msgstr "pkexec завершился с ошибкой: {stderr}"
+
+#: services/repo_file_manager.py:538
+#, python-brace-format
+msgid "Executing atomic batch with {count} tasks"
+msgstr ""
+
+#: services/repo_file_manager.py:542
+msgid "Atomic batch execution failed"
+msgstr ""
+
+#: services/repo_file_manager.py:545
+#, fuzzy
+msgid "Atomic batch executed successfully"
+msgstr "Репозитории успешно обновлены."
+
+#: services/repo_file_manager.py:549
+msgid "Error during atomic batch execution"
+msgstr ""
+
+#: services/speed_test_service.py:816 services/speed_test_service.py:1308
+msgid "Global CDN"
+msgstr "Глобальный CDN"
+
+#: services/speed_test_service.py:817
+msgid "Global CDN (AWS)"
+msgstr "Глобальная CDN (AWS)"
+
+#: services/speed_test_service.py:820 services/speed_test_service.py:821
+#: services/speed_test_service.py:822 services/speed_test_service.py:823
+#: services/speed_test_service.py:824 services/speed_test_service.py:825
+#: services/speed_test_service.py:826 services/speed_test_service.py:827
+#: services/speed_test_service.py:828 services/speed_test_service.py:829
+#: services/speed_test_service.py:830 services/speed_test_service.py:831
+#: services/speed_test_service.py:832 services/speed_test_service.py:833
+#: services/speed_test_service.py:834 services/speed_test_service.py:835
+#: services/speed_test_service.py:836 services/speed_test_service.py:837
+#: services/speed_test_service.py:838 services/speed_test_service.py:839
+#: services/speed_test_service.py:840 services/speed_test_service.py:841
+#: services/speed_test_service.py:842 services/speed_test_service.py:843
+#: services/speed_test_service.py:844 services/speed_test_service.py:845
+#: services/speed_test_service.py:846 services/speed_test_service.py:847
+#: services/speed_test_service.py:848 services/speed_test_service.py:1266
+msgid "Germany"
+msgstr "Германия"
+
+#: services/speed_test_service.py:851 services/speed_test_service.py:852
+#: services/speed_test_service.py:853 services/speed_test_service.py:854
+#: services/speed_test_service.py:855 services/speed_test_service.py:856
+#: services/speed_test_service.py:857 services/speed_test_service.py:858
+#: services/speed_test_service.py:859 services/speed_test_service.py:860
+#: services/speed_test_service.py:861 services/speed_test_service.py:862
+#: services/speed_test_service.py:863 services/speed_test_service.py:864
+#: services/speed_test_service.py:1266
+msgid "France"
+msgstr "Франция"
+
+#: services/speed_test_service.py:865 services/speed_test_service.py:866
+msgid "Reunion"
+msgstr "Реюньон"
+
+#: services/speed_test_service.py:869 services/speed_test_service.py:870
+#: services/speed_test_service.py:871 services/speed_test_service.py:872
+#: services/speed_test_service.py:873 services/speed_test_service.py:874
+#: services/speed_test_service.py:875 services/speed_test_service.py:876
+#: services/speed_test_service.py:877 services/speed_test_service.py:878
+#: services/speed_test_service.py:879 services/speed_test_service.py:880
+#: services/speed_test_service.py:881 services/speed_test_service.py:1267
+msgid "United Kingdom"
+msgstr "Великобритания"
+
+#: services/speed_test_service.py:884 services/speed_test_service.py:885
+#: services/speed_test_service.py:886 services/speed_test_service.py:887
+#: services/speed_test_service.py:888 services/speed_test_service.py:889
+#: services/speed_test_service.py:890 services/speed_test_service.py:891
+#: services/speed_test_service.py:892 services/speed_test_service.py:893
+#: services/speed_test_service.py:894 services/speed_test_service.py:1266
+msgid "Spain"
+msgstr "Испания"
+
+#: services/speed_test_service.py:897 services/speed_test_service.py:898
+#: services/speed_test_service.py:899 services/speed_test_service.py:900
+#: services/speed_test_service.py:901 services/speed_test_service.py:902
+#: services/speed_test_service.py:1267
+msgid "Italy"
+msgstr "Италия"
+
+#: services/speed_test_service.py:905 services/speed_test_service.py:906
+#: services/speed_test_service.py:907 services/speed_test_service.py:908
+#: services/speed_test_service.py:909 services/speed_test_service.py:910
+#: services/speed_test_service.py:911 services/speed_test_service.py:912
+#: services/speed_test_service.py:913 services/speed_test_service.py:914
+#: services/speed_test_service.py:915 services/speed_test_service.py:916
+#: services/speed_test_service.py:1267
+msgid "Netherlands"
+msgstr "Нидерланды"
+
+#: services/speed_test_service.py:919 services/speed_test_service.py:920
+#: services/speed_test_service.py:921 services/speed_test_service.py:922
+#: services/speed_test_service.py:923 services/speed_test_service.py:924
+#: services/speed_test_service.py:925 services/speed_test_service.py:926
+#: services/speed_test_service.py:927 services/speed_test_service.py:928
+#: services/speed_test_service.py:1269
+msgid "Switzerland"
+msgstr "Швейцария"
+
+#: services/speed_test_service.py:931 services/speed_test_service.py:932
+#: services/speed_test_service.py:933 services/speed_test_service.py:934
+#: services/speed_test_service.py:935 services/speed_test_service.py:1268
+msgid "Austria"
+msgstr "Австрия"
+
+#: services/speed_test_service.py:938 services/speed_test_service.py:939
+#: services/speed_test_service.py:940 services/speed_test_service.py:941
+#: services/speed_test_service.py:1268
+msgid "Belgium"
+msgstr "Бельгия"
+
+#: services/speed_test_service.py:944 services/speed_test_service.py:945
+#: services/speed_test_service.py:946 services/speed_test_service.py:947
+#: services/speed_test_service.py:1268
+msgid "Portugal"
+msgstr "Португалия"
+
+#: services/speed_test_service.py:950 services/speed_test_service.py:951
+#: services/speed_test_service.py:952 services/speed_test_service.py:953
+#: services/speed_test_service.py:1269
+msgid "Sweden"
+msgstr "Швеция"
+
+#: services/speed_test_service.py:956 services/speed_test_service.py:957
+#: services/speed_test_service.py:958 services/speed_test_service.py:959
+#: services/speed_test_service.py:1271
+msgid "Poland"
+msgstr "Польша"
+
+#: services/speed_test_service.py:962 services/speed_test_service.py:963
+#: services/speed_test_service.py:964 services/speed_test_service.py:965
+#: services/speed_test_service.py:966 services/speed_test_service.py:967
+#: services/speed_test_service.py:968 services/speed_test_service.py:969
+#: services/speed_test_service.py:970 services/speed_test_service.py:1271
+msgid "Czech Republic"
+msgstr "Чехия"
+
+#: services/speed_test_service.py:973 services/speed_test_service.py:974
+#: services/speed_test_service.py:1270
+msgid "Denmark"
+msgstr "Дания"
+
+#: services/speed_test_service.py:977 services/speed_test_service.py:1269
+msgid "Norway"
+msgstr "Норвегия"
+
+#: services/speed_test_service.py:980 services/speed_test_service.py:981
+#: services/speed_test_service.py:982 services/speed_test_service.py:1270
+msgid "Finland"
+msgstr "Финляндия"
+
+#: services/speed_test_service.py:985 services/speed_test_service.py:1270
+msgid "Iceland"
+msgstr "Исландия"
+
+#: services/speed_test_service.py:988 services/speed_test_service.py:989
+#: services/speed_test_service.py:990 services/speed_test_service.py:1271
+msgid "Lithuania"
+msgstr "Литва"
+
+#: services/speed_test_service.py:993 services/speed_test_service.py:994
+#: services/speed_test_service.py:995 services/speed_test_service.py:996
+#: services/speed_test_service.py:997 services/speed_test_service.py:998
+#: services/speed_test_service.py:999 services/speed_test_service.py:1272
+msgid "Bulgaria"
+msgstr "Болгария"
+
+#: services/speed_test_service.py:1002 services/speed_test_service.py:1003
+#: services/speed_test_service.py:1004 services/speed_test_service.py:1272
+msgid "Slovakia"
+msgstr "Словакия"
+
+#: services/speed_test_service.py:1007 services/speed_test_service.py:1008
+#: services/speed_test_service.py:1273
+msgid "Croatia"
+msgstr "Хорватия"
+
+#: services/speed_test_service.py:1011 services/speed_test_service.py:1012
+msgid "Hungary"
+msgstr "Венгрия"
+
+#: services/speed_test_service.py:1015 services/speed_test_service.py:1016
+#: services/speed_test_service.py:1017 services/speed_test_service.py:1018
+#: services/speed_test_service.py:1019 services/speed_test_service.py:1020
+#: services/speed_test_service.py:1021
+msgid "Romania"
+msgstr "Румыния"
+
+#: services/speed_test_service.py:1024 services/speed_test_service.py:1025
+#: services/speed_test_service.py:1026 services/speed_test_service.py:1027
+msgid "Latvia"
+msgstr "Латвия"
+
+#: services/speed_test_service.py:1030
+msgid "Estonia"
+msgstr "Эстония"
+
+#: services/speed_test_service.py:1033
+msgid "Greece"
+msgstr "Греция"
+
+#: services/speed_test_service.py:1036
+msgid "Georgia"
+msgstr "Грузия"
+
+# New country names v2.0.1 - Extended mirrors
+#: services/speed_test_service.py:1039
+msgid "Luxembourg"
+msgstr "Люксембург"
+
+#: services/speed_test_service.py:1042
+msgid "Serbia"
+msgstr "Сербия"
+
+# New country/region names v2.0.1 - Complete mirrors list
+#: services/speed_test_service.py:1045 services/speed_test_service.py:1046
+msgid "Macedonia"
+msgstr "Македония"
+
+#: services/speed_test_service.py:1049 services/speed_test_service.py:1050
+#: services/speed_test_service.py:1051 services/speed_test_service.py:1052
+#: services/speed_test_service.py:1053 services/speed_test_service.py:1054
+#: services/speed_test_service.py:1055 services/speed_test_service.py:1056
+#: services/speed_test_service.py:1057 services/speed_test_service.py:1273
+msgid "Russia"
+msgstr "Россия"
+
+#: services/speed_test_service.py:1060
+msgid "Belarus"
+msgstr "Беларусь"
+
+#: services/speed_test_service.py:1063 services/speed_test_service.py:1064
+msgid "Kazakhstan"
+msgstr "Казахстан"
+
+#: services/speed_test_service.py:1067 services/speed_test_service.py:1068
+#: services/speed_test_service.py:1069 services/speed_test_service.py:1070
+msgid "Ukraine"
+msgstr "Украина"
+
+#: services/speed_test_service.py:1073 services/speed_test_service.py:1074
+#: services/speed_test_service.py:1075 services/speed_test_service.py:1076
+#: services/speed_test_service.py:1077 services/speed_test_service.py:1078
+#: services/speed_test_service.py:1079 services/speed_test_service.py:1080
+#: services/speed_test_service.py:1081 services/speed_test_service.py:1082
+#: services/speed_test_service.py:1083 services/speed_test_service.py:1084
+#: services/speed_test_service.py:1085 services/speed_test_service.py:1086
+#: services/speed_test_service.py:1087 services/speed_test_service.py:1088
+#: services/speed_test_service.py:1089 services/speed_test_service.py:1090
+#: services/speed_test_service.py:1091 services/speed_test_service.py:1092
+#: services/speed_test_service.py:1093 services/speed_test_service.py:1094
+#: services/speed_test_service.py:1095 services/speed_test_service.py:1096
+#: services/speed_test_service.py:1097 services/speed_test_service.py:1098
+#: services/speed_test_service.py:1275
+msgid "United States"
+msgstr "США"
+
+#: services/speed_test_service.py:1101 services/speed_test_service.py:1102
+#: services/speed_test_service.py:1103 services/speed_test_service.py:1104
+#: services/speed_test_service.py:1105 services/speed_test_service.py:1106
+#: services/speed_test_service.py:1107 services/speed_test_service.py:1275
+msgid "Canada"
+msgstr "Канада"
+
+#: services/speed_test_service.py:1110 services/speed_test_service.py:1111
+msgid "Mexico"
+msgstr "Мексика"
+
+#: services/speed_test_service.py:1114 services/speed_test_service.py:1115
+#: services/speed_test_service.py:1116 services/speed_test_service.py:1117
+#: services/speed_test_service.py:1118 services/speed_test_service.py:1119
+#: services/speed_test_service.py:1276
+msgid "Brazil"
+msgstr "Бразилия"
+
+#: services/speed_test_service.py:1122 services/speed_test_service.py:1123
+#: services/speed_test_service.py:1124 services/speed_test_service.py:1276
+msgid "Chile"
+msgstr "Чили"
+
+#: services/speed_test_service.py:1127 services/speed_test_service.py:1128
+msgid "Argentina"
+msgstr "Аргентина"
+
+#: services/speed_test_service.py:1131
+msgid "Costa Rica"
+msgstr "Коста-Рика"
+
+#: services/speed_test_service.py:1134
+msgid "Uruguay"
+msgstr "Уругвай"
+
+#: services/speed_test_service.py:1137
+msgid "Puerto Rico"
+msgstr "Пуэрто-Рико"
+
+#: services/speed_test_service.py:1140 services/speed_test_service.py:1141
+#: services/speed_test_service.py:1142 services/speed_test_service.py:1143
+#: services/speed_test_service.py:1144 services/speed_test_service.py:1145
+#: services/speed_test_service.py:1146 services/speed_test_service.py:1278
+msgid "Japan"
+msgstr "Япония"
+
+#: services/speed_test_service.py:1149 services/speed_test_service.py:1150
+#: services/speed_test_service.py:1151 services/speed_test_service.py:1152
+#: services/speed_test_service.py:1153 services/speed_test_service.py:1278
+msgid "South Korea"
+msgstr "Южная Корея"
+
+#: services/speed_test_service.py:1156 services/speed_test_service.py:1157
+#: services/speed_test_service.py:1158 services/speed_test_service.py:1159
+#: services/speed_test_service.py:1160 services/speed_test_service.py:1161
+#: services/speed_test_service.py:1162 services/speed_test_service.py:1163
+#: services/speed_test_service.py:1164 services/speed_test_service.py:1165
+#: services/speed_test_service.py:1278
+msgid "China"
+msgstr "Китай"
+
+#: services/speed_test_service.py:1168 services/speed_test_service.py:1169
+#: services/speed_test_service.py:1170 services/speed_test_service.py:1171
+#: services/speed_test_service.py:1172 services/speed_test_service.py:1173
+#: services/speed_test_service.py:1174 services/speed_test_service.py:1279
+msgid "Taiwan"
+msgstr "Тайвань"
+
+#: services/speed_test_service.py:1177 services/speed_test_service.py:1279
+msgid "Hong Kong"
+msgstr "Гонконг"
+
+#: services/speed_test_service.py:1180 services/speed_test_service.py:1181
+#: services/speed_test_service.py:1182
+msgid "Thailand"
+msgstr "Таиланд"
+
+#: services/speed_test_service.py:1185 services/speed_test_service.py:1186
+msgid "Singapore"
+msgstr "Сингапур"
+
+#: services/speed_test_service.py:1189 services/speed_test_service.py:1190
+#: services/speed_test_service.py:1191 services/speed_test_service.py:1192
+msgid "Indonesia"
+msgstr "Индонезия"
+
+#: services/speed_test_service.py:1195 services/speed_test_service.py:1196
+msgid "Vietnam"
+msgstr "Вьетнам"
+
+#: services/speed_test_service.py:1199
+msgid "India"
+msgstr "Индия"
+
+#: services/speed_test_service.py:1202 services/speed_test_service.py:1203
+msgid "Bangladesh"
+msgstr "Бангладеш"
+
+#: services/speed_test_service.py:1206 services/speed_test_service.py:1207
+#: services/speed_test_service.py:1208
+msgid "Iran"
+msgstr "Иран"
+
+#: services/speed_test_service.py:1211
+msgid "Israel"
+msgstr "Израиль"
+
+#: services/speed_test_service.py:1214
+msgid "Cambodia"
+msgstr "Камбоджа"
+
+#: services/speed_test_service.py:1217
+msgid "Nepal"
+msgstr "Непал"
+
+#: services/speed_test_service.py:1220
+msgid "Azerbaijan"
+msgstr "Азербайджан"
+
+#: services/speed_test_service.py:1223
+msgid "Saudi Arabia"
+msgstr "Саудовская Аравия"
+
+#: services/speed_test_service.py:1226 services/speed_test_service.py:1227
+#: services/speed_test_service.py:1228 services/speed_test_service.py:1229
+#: services/speed_test_service.py:1230 services/speed_test_service.py:1231
+#: services/speed_test_service.py:1232 services/speed_test_service.py:1233
+#: services/speed_test_service.py:1281
+msgid "Australia"
+msgstr "Австралия"
+
+#: services/speed_test_service.py:1236 services/speed_test_service.py:1237
+#: services/speed_test_service.py:1281
+msgid "New Zealand"
+msgstr "Новая Зеландия"
+
+#: services/speed_test_service.py:1240 services/speed_test_service.py:1241
+#: services/speed_test_service.py:1281
+msgid "New Caledonia"
+msgstr "Новая Каледония"
+
+#: services/speed_test_service.py:1244 services/speed_test_service.py:1245
+#: services/speed_test_service.py:1246
+msgid "South Africa"
+msgstr "Южная Африка"
+
+#: services/speed_test_service.py:1249 services/speed_test_service.py:1250
+msgid "Kenya"
+msgstr "Кения"
+
+#: services/speed_test_service.py:1253
+msgid "Morocco"
+msgstr "Марокко"
+
+#: services/speed_test_service.py:1256
+msgid "Burkina Faso"
+msgstr "Буркина-Фасо"
+
+#: services/speed_test_service.py:1272
+msgid "Slovenia"
+msgstr "Словения"
+
+#: services/speed_test_service.py:1294 services/speed_test_service.py:1297
+#: ui/main_window.py:264 ui/main_window.py:266 ui/main_window.py:273
+#: ui/main_window.py:275 ui/views/sources_generator_view.py:284
+#: ui/views/sources_generator_view.py:434
+msgid "Unknown"
+msgstr "Неизвестно"
+
+# Region names for mirror selection
+#: services/speed_test_service.py:1312
+msgid "Europe - Western"
+msgstr "Европа - Западная"
+
+#: services/speed_test_service.py:1324
+msgid "Europe - Northern"
+msgstr "Европа - Северная"
+
+#: services/speed_test_service.py:1332
+msgid "Europe - Eastern"
+msgstr "Европа - Восточная"
+
+#: services/speed_test_service.py:1341
+msgid "Americas - North"
+msgstr "Северная Америка"
+
+#: services/speed_test_service.py:1347
+msgid "Americas - Latin"
+msgstr "Латинская Америка"
+
+#: services/speed_test_service.py:1354
+msgid "Asia - East"
+msgstr "Азия - Восток"
+
+#: services/speed_test_service.py:1363
+msgid "Asia - Southeast"
+msgstr "Азия - Юго-Восток"
+
+#: services/speed_test_service.py:1369
+msgid "Asia - South/West"
+msgstr "Азия - Юг/Запад"
+
+#: services/speed_test_service.py:1376
+msgid "Oceania"
+msgstr ""
+
+#: services/speed_test_service.py:1382
+msgid "Africa"
+msgstr "Африка"
+
+#: ui/main_window.py:141
+msgid "Welcome"
+msgstr "Добро пожаловать"
+
+#: ui/main_window.py:145
+msgid "Sources Generator"
+msgstr "Генератор источников"
+
+#: ui/main_window.py:149
+msgid "Repositories"
+msgstr "Репозитории"
+
+#: ui/main_window.py:153 ui/views/gpg_view.py:156
+msgid "GPG Keys"
+msgstr "GPG-ключи"
+
+#: ui/main_window.py:168 ui/main_window.py:303
+msgid "Ready"
+msgstr "Готово"
+
+#: ui/main_window.py:255
+msgid "Running on {} ({})"
+msgstr "Запущено на {} ({})"
+
+#: ui/main_window.py:260
+msgid "GNOME"
+msgstr ""
+
+#: ui/main_window.py:261 ui/main_window.py:262
+msgid "KDE Plasma"
+msgstr ""
+
+#: ui/main_window.py:263
+msgid "XFCE"
+msgstr ""
+
+#: ui/main_window.py:271
+msgid "X11"
+msgstr ""
+
+#: ui/main_window.py:272
+#, fuzzy
+msgid "Wayland"
+msgstr "Таиланд"
+
+#: ui/main_window.py:292
+msgid "Working..."
+msgstr "Работаю..."
+
+#: ui/views/gpg_view.py:35
+msgid "Import Key"
+msgstr "Импорт ключа"
+
+#: ui/views/gpg_view.py:42 ui/views/repo_view.py:47
+msgid "Refresh"
+msgstr "Обновить"
+
+#: ui/views/gpg_view.py:76
+msgid "No GPG keys found"
+msgstr "GPG-ключи не найдены"
+
+#: ui/views/gpg_view.py:127
+msgid "Export"
+msgstr "Экспорт"
+
+#: ui/views/gpg_view.py:131 ui/views/gpg_view.py:226 ui/widgets/repo_row.py:92
+msgid "Delete"
+msgstr "Удалить"
+
+#: ui/views/gpg_view.py:146
+msgid "Import GPG Key"
+msgstr "Импорт GPG-ключа"
+
+#: ui/views/gpg_view.py:151 ui/views/gpg_view.py:192 ui/dialogs/repo_edit.py:18
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ui/dialogs/repo_edit.py:19 ui/views/gpg_view.py:193
+#: ui/views/gpg_view.py:152
+msgid "Import"
+msgstr "Импорт"
+
+#: ui/views/gpg_view.py:177
+msgid "Import Error"
+msgstr "Ошибка импорта"
+
+#: ui/views/gpg_view.py:187
+msgid "Export Key"
+msgstr "Экспорт ключа"
+
+#: ui/views/gpg_view.py:193 ui/dialogs/repo_edit.py:19
 msgid "Save"
 msgstr "Сохранить"
+
+#: ui/views/gpg_view.py:210
+msgid "Export Error"
+msgstr "Ошибка экспорта"
+
+#: ui/views/gpg_view.py:221
+msgid "Confirm Delete"
+msgstr "Подтвердите удаление"
+
+#: ui/views/gpg_view.py:246
+msgid "Delete Error"
+msgstr "Ошибка удаления"
+
+#: ui/views/repo_view.py:40 ui/dialogs/repo_edit.py:15
+msgid "Add Repository"
+msgstr "Добавить репозиторий"
+
+#: ui/views/repo_view.py:61
+msgid "Search repositories..."
+msgstr "Поиск репозиториев..."
+
+#: ui/views/repo_view.py:67
+msgid "Apply Changes"
+msgstr "Применить изменения"
+
+#: ui/views/repo_view.py:103
+msgid "No repositories found"
+msgstr "Репозитории не найдены"
+
+#: ui/views/repo_view.py:154
+msgid "Delete Repository?"
+msgstr "Удалить репозиторий?"
+
+#: ui/views/repo_view.py:157
+msgid ""
+"Are you sure you want to delete this repository?\n"
+"\n"
+"{}"
+msgstr ""
+"Вы уверены, что хотите удалить этот репозиторий?\n"
+"\n"
+"{}"
+
+#: ui/views/repo_view.py:174
+msgid "Modernize Repository?"
+msgstr "Модернизировать репозиторий?"
+
+#: ui/views/repo_view.py:177
+msgid ""
+"This will convert the repository to the modern .sources format.\n"
+"A backup of the original .list file will be created.\n"
+"\n"
+"Target: {}"
+msgstr ""
+"Это преобразует репозиторий в современный формат .sources.\n"
+"Будет создана резервная копия исходного файла .list.\n"
+"\n"
+"Цель: {}"
+
+#: ui/views/repo_view.py:185
+msgid "Converting format..."
+msgstr "Преобразование формата..."
+
+#: ui/views/repo_view.py:195
+msgid "Modernization Complete"
+msgstr "Модернизация завершена"
+
+#: ui/views/repo_view.py:197
+msgid "The repository has been successfully converted to DEB822 format."
+msgstr "Репозиторий был успешно преобразован в формат DEB822."
+
+#: ui/views/repo_view.py:207
+msgid "Modernization Failed"
+msgstr "Ошибка модернизации"
+
+#: ui/views/repo_view.py:209
+msgid "Failed to convert format. Please check logs."
+msgstr "Не удалось преобразовать формат. Пожалуйста, проверьте логи."
+
+#: ui/views/repo_view.py:237
+msgid "Changes Applied"
+msgstr "Изменения применены"
+
+#: ui/views/repo_view.py:239
+msgid "Repositories have been updated successfully."
+msgstr "Репозитории успешно обновлены."
+
+#: ui/views/repo_view.py:248
+msgid "Error Saving"
+msgstr "Ошибка сохранения"
+
+#: ui/views/repo_view.py:250
+msgid "Could not save repositories. Check logs for details."
+msgstr "Не удалось сохранить репозитории. Проверьте журналы для подробностей."
+
+#: ui/views/sources_generator_view.py:108
+msgid "1. Select Debian Distribution(s)"
+msgstr "1. Выберите дистрибутив(ы) Debian"
+
+#: ui/views/sources_generator_view.py:120
+msgid "Debian 13 (Trixie)"
+msgstr "Debian 13 (Trixie)"
+
+#: ui/views/sources_generator_view.py:121
+msgid "Debian 14 (Forky)"
+msgstr "Debian 14 (Forky)"
+
+#: ui/views/sources_generator_view.py:122
+msgid "Testing"
+msgstr "Testing"
+
+#: ui/views/sources_generator_view.py:123
+msgid "Sid"
+msgstr "Sid"
+
+#: ui/views/sources_generator_view.py:124
+msgid "Unstable"
+msgstr "Unstable"
+
+#: ui/views/sources_generator_view.py:125
+msgid "Experimental"
+msgstr "Experimental"
+
+#: ui/views/sources_generator_view.py:139
+msgid "Include Backports"
+msgstr "Включить Backports"
+
+#: ui/views/sources_generator_view.py:147
+msgid "2. Select Components"
+msgstr "2. Выберите компоненты"
+
+#: ui/views/sources_generator_view.py:156
+msgid "Main (Free Software)"
+msgstr "Main (Свободное ПО)"
+
+#: ui/views/sources_generator_view.py:157
+msgid "Contrib (Drivers/Packages relying on non-free)"
+msgstr "Contrib (Драйверы/Пакеты, зависящие от несвободного ПО)"
+
+#: ui/views/sources_generator_view.py:158
+msgid "Non-Free (Proprietary software)"
+msgstr "Non-Free (Проприетарное ПО)"
+
+#: ui/views/sources_generator_view.py:159
+msgid "Non-Free Firmware (Hardware support)"
+msgstr "Non-Free Firmware (Поддержка оборудования)"
+
+#: ui/views/sources_generator_view.py:188
+msgid "3. Select Mirror"
+msgstr "3. Выберите зеркало"
+
+#: ui/views/sources_generator_view.py:203
+msgid "Current: {} (Global CDN)"
+msgstr "Текущее: {} (Глобальный CDN)"
+
+#: ui/views/sources_generator_view.py:238
+msgid "Find Fastest Mirror"
+msgstr "Найти самое быстрое зеркало"
+
+#: ui/views/sources_generator_view.py:244
+msgid "Generate Source List"
+msgstr "Сгенерировать список источников"
+
+# Speed Test UI - New strings v2.0.1
+#: ui/views/sources_generator_view.py:310
+msgid "Measuring latency..."
+msgstr "Измерение задержки..."
+
+#: ui/views/sources_generator_view.py:314
+#: ui/views/sources_generator_view.py:359
+#: ui/views/sources_generator_view.py:370
+msgid "Starting..."
+msgstr "Запуск..."
+
+#: ui/views/sources_generator_view.py:327
+#: ui/views/sources_generator_view.py:470
+#: ui/views/sources_generator_view.py:487
+msgid "Failed"
+msgstr "Ошибка"
+
+#: ui/views/sources_generator_view.py:330
+msgid "Testing..."
+msgstr "Тестирование..."
+
+#: ui/views/sources_generator_view.py:395
+msgid "Testing mirrors ({}/{})..."
+msgstr "Тестирование зеркал ({}/{})..."
+
+#: ui/views/sources_generator_view.py:505
+#: ui/views/sources_generator_view.py:517
+#, python-brace-format
+msgid "Current: {url} ({country}, {speed:.2f} MB/s)"
+msgstr "Текущее: {url} ({country}, {speed:.2f} МБ/с)"
+
+#: ui/views/sources_generator_view.py:528
+msgid "Testing mirrors... This may take a moment."
+msgstr "Тестирование зеркал... Это может занять некоторое время."
+
+#: ui/views/sources_generator_view.py:546
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: ui/views/sources_generator_view.py:546
+msgid "Please select at least one distribution."
+msgstr "Пожалуйста, выберите хотя бы один дистрибутив."
+
+#: ui/views/sources_generator_view.py:550
+msgid "Preparing atomic update..."
+msgstr "Подготовка атомарного обновления..."
+
+#: ui/views/sources_generator_view.py:615
+msgid "Executing atomic batch... (Password required)"
+msgstr "Выполнение атомарного пакета... (Требуется пароль)"
+
+#: ui/views/sources_generator_view.py:629
+msgid "Sources Generated"
+msgstr "Источники сгенерированы"
+
+#: ui/views/sources_generator_view.py:630
+#: ui/views/sources_generator_view.py:630
+msgid "Your sources have been updated successfully and APT cache refreshed."
+msgstr "Ваши источники были успешно обновлены, а кэш APT обновлен."
+
+#: ui/views/sources_generator_view.py:632
+#: ui/views/sources_generator_view.py:632
+msgid "Could not save sources files or execute APT update."
+msgstr "Не удалось сохранить файлы источников или выполнить обновление APT."
+
+#: ui/views/sources_generator_view.py:635
+msgid "Error"
+msgstr "Ошибка"
+
+#: ui/views/welcome_view.py:64
+msgid ""
+"Welcome to the Advanced Repository Manager for Soplos Linux.\n"
+"\n"
+"This application will help you get started configuring repositories and "
+"mirrors for your system."
+msgstr ""
+"Добро пожаловать в Расширенный менеджер репозиториев для Soplos Linux.\n"
+"\n"
+"Это приложение поможет вам начать настройку репозиториев и зеркал для вашей "
+"системы."
+
+#: ui/views/welcome_view.py:77
+msgid "Use the tabs above to:"
+msgstr "Используйте вкладки выше для:"
+
+#: ui/views/welcome_view.py:96
+msgid "• Generate optimized repository sources"
+msgstr "• Создание оптимизированных источников репозиториев"
+
+#: ui/views/welcome_view.py:97
+msgid "• Find fastest download mirrors"
+msgstr "• Поиск самых быстрых зеркал загрузки"
+
+#: ui/views/welcome_view.py:98
+msgid "• Manage repositories and GPG keys"
+msgstr "• Управление репозиториями и GPG-ключами"
+
+#: ui/views/welcome_view.py:99
+msgid "• Customize free / non-free components"
+msgstr "• Настройка свободных / несвободных компонентов"
+
+#: ui/widgets/repo_row.py:78
+msgid "Modernize to .sources (DEB822)"
+msgstr "Модернизировать до .sources (DEB822)"
+
+#: ui/widgets/repo_row.py:85
+msgid "Edit"
+msgstr "Изменить"
+
+#: ui/dialogs/repo_edit.py:15
+msgid "Edit Repository"
+msgstr "Редактировать репозиторий"
 
 #: ui/dialogs/repo_edit.py:43
 msgid "Type:"
@@ -382,557 +1105,110 @@ msgstr "Необязательно (путь к ключу или отпечат
 msgid "Comment:"
 msgstr "Комментарий:"
 
-#: ui/main_window.py:141
-msgid "Welcome"
-msgstr "Добро пожаловать"
-
-#: ui/main_window.py:145
-msgid "Sources Generator"
-msgstr "Генератор источников"
-
-#: ui/main_window.py:149
-msgid "Repositories"
-msgstr "Репозитории"
-
-#: ui/main_window.py:153 ui/views/gpg_view.py:156
-msgid "GPG Keys"
-msgstr "GPG-ключи"
-
-#: ui/main_window.py:168 ui/main_window.py:290
-msgid "Ready"
-msgstr "Готово"
-
-#: ui/main_window.py:262
-msgid "Running on {} ({})"
-msgstr "Запущено на {} ({})"
-
-#: ui/main_window.py:279
-msgid "Working..."
-msgstr "Работаю..."
-
-#: ui/widgets/repo_row.py:75
-msgid "Edit"
-msgstr "Изменить"
-
-#: ui/widgets/repo_row.py:82 ui/views/gpg_view.py:131 ui/views/gpg_view.py:226
-msgid "Delete"
-msgstr "Удалить"
-
-#: ui/views/welcome_view.py:64
-msgid ""
-"Welcome to the Advanced Repository Manager for Soplos Linux.\n"
-"\n"
-"This application will help you get started configuring repositories and "
-"mirrors for your system."
-msgstr "Добро пожаловать в Расширенный менеджер репозиториев для Soplos Linux.\n\nЭто приложение поможет вам начать настройку репозиториев и зеркал для вашей системы."
-
-#: ui/views/welcome_view.py:77
-msgid "Use the tabs above to:"
-msgstr "Используйте вкладки выше для:"
-
-#: ui/views/welcome_view.py:96
-msgid "• Generate optimized repository sources"
-msgstr "• Создание оптимизированных источников репозиториев"
-
-#: ui/views/welcome_view.py:97
-msgid "• Find fastest download mirrors"
-msgstr "• Поиск самых быстрых зеркал загрузки"
-
-#: ui/views/welcome_view.py:98
-msgid "• Manage repositories and GPG keys"
-msgstr "• Управление репозиториями и GPG-ключами"
-
-#: ui/views/welcome_view.py:99
-msgid "• Customize free / non-free components"
-msgstr "• Настройка свободных / несвободных компонентов"
-
-#: ui/views/gpg_view.py:35
-msgid "Import Key"
-msgstr "Импорт ключа"
-
-#: ui/views/gpg_view.py:42 ui/views/repo_view.py:47
-msgid "Refresh"
-msgstr "Обновить"
-
-#: ui/views/gpg_view.py:76
-msgid "No GPG keys found"
-msgstr "GPG-ключи не найдены"
-
-#: ui/views/gpg_view.py:127
-msgid "Export"
-msgstr "Экспорт"
-
-#: ui/views/gpg_view.py:146
-msgid "Import GPG Key"
-msgstr "Импорт GPG-ключа"
-
-#: ui/views/gpg_view.py:152
-msgid "Import"
-msgstr "Импорт"
-
-#: ui/views/gpg_view.py:177
-msgid "Import Error"
-msgstr "Ошибка импорта"
-
-#: ui/views/gpg_view.py:187
-msgid "Export Key"
-msgstr "Экспорт ключа"
-
-#: ui/views/gpg_view.py:210
-msgid "Export Error"
-msgstr "Ошибка экспорта"
-
-#: ui/views/gpg_view.py:221
-msgid "Confirm Delete"
-msgstr "Подтвердите удаление"
-
-#: ui/views/gpg_view.py:246
-msgid "Delete Error"
-msgstr "Ошибка удаления"
-
-#: ui/views/repo_view.py:60
-msgid "Apply Changes"
-msgstr "Применить изменения"
-
-#: ui/views/repo_view.py:95
-msgid "No repositories found"
-msgstr "Репозитории не найдены"
-
-#: ui/views/repo_view.py:145
-msgid "Delete Repository?"
-msgstr "Удалить репозиторий?"
-
-#: ui/views/repo_view.py:148
-msgid ""
-"Are you sure you want to delete this repository?\n"
-"\n"
-"{}"
-msgstr "Вы уверены, что хотите удалить этот репозиторий?\n\n{}"
-
-#: ui/views/repo_view.py:182
-msgid "Changes Applied"
-msgstr "Изменения применены"
-
-#: ui/views/repo_view.py:184
-msgid "Repositories have been updated successfully."
-msgstr "Репозитории успешно обновлены."
-
-#: ui/views/repo_view.py:193
-msgid "Error Saving"
-msgstr "Ошибка сохранения"
-
-#: ui/views/repo_view.py:195
-msgid "Could not save repositories. Check logs for details."
-msgstr "Не удалось сохранить репозитории. Проверьте журналы для подробностей."
-
-#: ui/views/sources_generator_view.py:51
-msgid "1. Select Debian Distribution(s)"
-msgstr "1. Выберите дистрибутив(ы) Debian"
-
-#: ui/views/sources_generator_view.py:63
-msgid "Debian 13 (Trixie)"
-msgstr "Debian 13 (Trixie)"
-
-#: ui/views/sources_generator_view.py:64
-msgid "Debian 14 (Forky)"
-msgstr "Debian 14 (Forky)"
-
-#: ui/views/sources_generator_view.py:65
-msgid "Testing"
-msgstr "Testing"
-
-#: ui/views/sources_generator_view.py:66
-msgid "Sid"
-msgstr "Sid"
-
-#: ui/views/sources_generator_view.py:67
-msgid "Unstable"
-msgstr "Unstable"
-
-#: ui/views/sources_generator_view.py:68
-msgid "Experimental"
-msgstr "Experimental"
-
-#: ui/views/sources_generator_view.py:82
-msgid "Include Backports"
-msgstr "Включить Backports"
-
-#: ui/views/sources_generator_view.py:90
-msgid "2. Select Components"
-msgstr "2. Выберите компоненты"
-
-#: ui/views/sources_generator_view.py:99
-msgid "Main (Free Software)"
-msgstr "Main (Свободное ПО)"
-
-#: ui/views/sources_generator_view.py:100
-msgid "Contrib (Drivers/Packages relying on non-free)"
-msgstr "Contrib (Драйверы/Пакеты, зависящие от несвободного ПО)"
-
-#: ui/views/sources_generator_view.py:101
-msgid "Non-Free (Proprietary software)"
-msgstr "Non-Free (Проприетарное ПО)"
-
-#: ui/views/sources_generator_view.py:102
-msgid "Non-Free Firmware (Hardware support)"
-msgstr "Non-Free Firmware (Поддержка оборудования)"
-
-#: ui/views/sources_generator_view.py:131
-msgid "3. Select Mirror"
-msgstr "3. Выберите зеркало"
-
-#: ui/views/sources_generator_view.py:146
-msgid "Current: {} (Global CDN)"
-msgstr "Текущее: {} (Глобальный CDN)"
-
-#: ui/views/sources_generator_view.py:181
-msgid "Find Fastest Mirror"
-msgstr "Найти самое быстрое зеркало"
+#~ msgid "Global Mirror"
+#~ msgstr "Глобальный зеркальный сервер"
 
-#: ui/views/sources_generator_view.py:187
-msgid "Generate Source List"
-msgstr "Сгенерировать список источников"
+#~ msgid "Ireland"
+#~ msgstr "Ирландия"
 
-#: ui/views/sources_generator_view.py:246
-msgid "Testing mirrors..."
-msgstr "Тестирование зеркал..."
+#~ msgid "Global"
+#~ msgstr "Глобально"
 
-#: ui/views/sources_generator_view.py:288
-msgid "{} - {:.2f} MB/s ({} ms)"
-msgstr "{} - {:.2f} МБ/с ({} мс)"
+#~ msgid "All files written successfully (direct move)"
+#~ msgstr "Все файлы успешно записаны (прямое перемещение)"
 
-#: ui/views/sources_generator_view.py:318
-#: ui/views/sources_generator_view.py:347
-#: ui/views/sources_generator_view.py:357
-#, python-brace-format
-msgid "Current: {url} ({country}, {speed:.2f} MB/s)"
-msgstr "Текущее: {url} ({country}, {speed:.2f} МБ/с)"
+#~ msgid "pkexec grouped move failed"
+#~ msgstr "Групповое перемещение через pkexec не удалось"
 
-#: ui/views/sources_generator_view.py:368
-msgid "Testing mirrors... This may take a moment."
-msgstr "Тестирование зеркал... Это может занять некоторое время."
+#~ msgid "All files written successfully (grouped pkexec)"
+#~ msgstr "Все файлы успешно записаны (pkexec сгруппировано)"
 
-#: ui/views/sources_generator_view.py:384
-msgid "Warning"
-msgstr "Предупреждение"
+#~ msgid "Error in grouped write"
+#~ msgstr "Ошибка при групповой записи"
 
-#: ui/views/sources_generator_view.py:384
-msgid "Please select at least one distribution."
-msgstr "Пожалуйста, выберите хотя бы один дистрибутив."
+#~ msgid "Testing mirrors..."
+#~ msgstr "Тестирование зеркал..."
 
-#: ui/views/sources_generator_view.py:427
-msgid "Sources Generated"
-msgstr "Источники сгенерированы"
+#~ msgid "{} - {:.2f} MB/s ({} ms)"
+#~ msgstr "{} - {:.2f} МБ/с ({} мс)"
 
-#: ui/views/sources_generator_view.py:428
-msgid "Your sources have been updated successfully."
-msgstr "Ваши источники были успешно обновлены."
+#~ msgid "Global CDN (CloudFront)"
+#~ msgstr "Глобальная CDN (CloudFront)"
 
-#: ui/views/sources_generator_view.py:430
-msgid "Error"
-msgstr "Ошибка"
+#~ msgid "Colombia"
+#~ msgstr "Колумбия"
 
-#: ui/views/sources_generator_view.py:431
-msgid "Could not save sources files. Check permissions."
-msgstr "Не удалось сохранить файлы источников. Проверьте права доступа."
+#~ msgid "Turkey"
+#~ msgstr "Турция"
 
-# Speed Test UI - New strings v2.0.1
-#: ui/views/sources_generator_view.py:304
-msgid "Measuring latency..."
-msgstr "Измерение задержки..."
+#~ msgid "Moldova"
+#~ msgstr "Молдова"
 
-#: ui/views/sources_generator_view.py:308
-msgid "Starting..."
-msgstr "Запуск..."
+#~ msgid "Cyprus"
+#~ msgstr "Кипр"
 
-#: ui/views/sources_generator_view.py:324
-msgid "Testing..."
-msgstr "Тестирование..."
+#~ msgid "El Salvador"
+#~ msgstr "Сальвадор"
 
-#: ui/views/sources_generator_view.py:321
-msgid "Failed"
-msgstr "Ошибка"
+#~ msgid "Guatemala"
+#~ msgstr "Гватемала"
 
-#: ui/views/sources_generator_view.py:388
-#, python-brace-format
-msgid "Testing mirrors ({}/{})..."
-msgstr "Тестирование зеркал ({}/{})..."
+#~ msgid "Nicaragua"
+#~ msgstr "Никарагуа"
 
-msgid "Global CDN (AWS)"
-msgstr "Глобальная CDN (AWS)"
+#~ msgid "Cuba"
+#~ msgstr "Куба"
 
-msgid "Global CDN (CloudFront)"
-msgstr "Глобальная CDN (CloudFront)"
+#~ msgid "Ecuador"
+#~ msgstr "Эквадор"
 
-msgid "Mexico"
-msgstr "Мексика"
+#~ msgid "Peru"
+#~ msgstr "Перу"
 
-msgid "Portugal"
-msgstr "Португалия"
+#~ msgid "Venezuela"
+#~ msgstr "Венесуэла"
 
-msgid "Poland"
-msgstr "Польша"
+#~ msgid "Bolivia"
+#~ msgstr "Боливия"
 
-msgid "Belgium"
-msgstr "Бельгия"
+#~ msgid "Malaysia"
+#~ msgstr "Малайзия"
 
-msgid "Austria"
-msgstr "Австрия"
+#~ msgid "Philippines"
+#~ msgstr "Филиппины"
 
-msgid "Sweden"
-msgstr "Швеция"
+#~ msgid "Pakistan"
+#~ msgstr "Пакистан"
 
-msgid "Norway"
-msgstr "Норвегия"
+#~ msgid "Sri Lanka"
+#~ msgstr "Шри-Ланка"
 
-msgid "Denmark"
-msgstr "Дания"
+#~ msgid "Egypt"
+#~ msgstr "Египет"
 
-msgid "Finland"
-msgstr "Финляндия"
+#~ msgid "Nigeria"
+#~ msgstr "Нигерия"
 
-msgid "South Korea"
-msgstr "Южная Корея"
+#~ msgid "Tunisia"
+#~ msgstr "Тунис"
 
-msgid "India"
-msgstr "Индия"
+#~ msgid "USA (Kernel.org)"
+#~ msgstr "США (Kernel.org)"
 
-msgid "Singapore"
-msgstr "Сингапур"
+#~ msgid "USA (Princeton)"
+#~ msgstr "США (Princeton)"
 
-msgid "Taiwan"
-msgstr "Тайвань"
+#~ msgid "USA (MIT)"
+#~ msgstr "США (MIT)"
 
-msgid "Hong Kong"
-msgstr "Гонконг"
+#~ msgid "USA (RIT)"
+#~ msgstr "США (RIT)"
 
-msgid "Argentina"
-msgstr "Аргентина"
+#~ msgid "Russia (Yandex)"
+#~ msgstr "Россия (Яндекс)"
 
-msgid "Chile"
-msgstr "Чили"
+#~ msgid "China (USTC)"
+#~ msgstr "Китай (USTC)"
 
-msgid "Colombia"
-msgstr "Колумбия"
-
-msgid "South Africa"
-msgstr "Южная Африка"
-
-msgid "Israel"
-msgstr "Израиль"
-
-msgid "Turkey"
-msgstr "Турция"
-
-msgid "Greece"
-msgstr "Греция"
-
-msgid "Czech Republic"
-msgstr "Чехия"
-
-msgid "Hungary"
-msgstr "Венгрия"
-
-msgid "Romania"
-msgstr "Румыния"
-
-msgid "Ukraine"
-msgstr "Украина"
-
-# New country names v2.0.1 - Extended mirrors
-msgid "Luxembourg"
-msgstr "Люксембург"
-
-msgid "Iceland"
-msgstr "Исландия"
-
-msgid "Estonia"
-msgstr "Эстония"
-
-msgid "Lithuania"
-msgstr "Литва"
-
-msgid "Latvia"
-msgstr "Латвия"
-
-msgid "Bulgaria"
-msgstr "Болгария"
-
-msgid "Slovakia"
-msgstr "Словакия"
-
-msgid "Slovenia"
-msgstr "Словения"
-
-msgid "Croatia"
-msgstr "Хорватия"
-
-msgid "Serbia"
-msgstr "Сербия"
-
-msgid "Belarus"
-msgstr "Беларусь"
-
-msgid "Moldova"
-msgstr "Молдова"
-
-msgid "Cyprus"
-msgstr "Кипр"
-
-msgid "Kazakhstan"
-msgstr "Казахстан"
-
-msgid "Costa Rica"
-msgstr "Коста-Рика"
-
-msgid "El Salvador"
-msgstr "Сальвадор"
-
-msgid "Guatemala"
-msgstr "Гватемала"
-
-msgid "Nicaragua"
-msgstr "Никарагуа"
-
-msgid "Cuba"
-msgstr "Куба"
-
-msgid "Ecuador"
-msgstr "Эквадор"
-
-msgid "Peru"
-msgstr "Перу"
-
-msgid "Uruguay"
-msgstr "Уругвай"
-
-msgid "Venezuela"
-msgstr "Венесуэла"
-
-msgid "Bolivia"
-msgstr "Боливия"
-
-msgid "Thailand"
-msgstr "Таиланд"
-
-msgid "Vietnam"
-msgstr "Вьетнам"
-
-msgid "Indonesia"
-msgstr "Индонезия"
-
-msgid "Malaysia"
-msgstr "Малайзия"
-
-msgid "Philippines"
-msgstr "Филиппины"
-
-msgid "Bangladesh"
-msgstr "Бангладеш"
-
-msgid "Pakistan"
-msgstr "Пакистан"
-
-msgid "Sri Lanka"
-msgstr "Шри-Ланка"
-
-msgid "Nepal"
-msgstr "Непал"
-
-msgid "Iran"
-msgstr "Иран"
-
-msgid "New Zealand"
-msgstr "Новая Зеландия"
-
-msgid "Egypt"
-msgstr "Египет"
-
-msgid "Morocco"
-msgstr "Марокко"
-
-msgid "Kenya"
-msgstr "Кения"
-
-msgid "Nigeria"
-msgstr "Нигерия"
-
-msgid "Tunisia"
-msgstr "Тунис"
-
-msgid "USA (Kernel.org)"
-msgstr "США (Kernel.org)"
-
-msgid "USA (Princeton)"
-msgstr "США (Princeton)"
-
-msgid "USA (MIT)"
-msgstr "США (MIT)"
-
-msgid "USA (RIT)"
-msgstr "США (RIT)"
-
-msgid "Russia (Yandex)"
-msgstr "Россия (Яндекс)"
-
-msgid "China (USTC)"
-msgstr "Китай (USTC)"
-
-msgid "China (Tsinghua)"
-msgstr "Китай (Tsinghua)"
-
-# New country/region names v2.0.1 - Complete mirrors list
-msgid "Macedonia"
-msgstr "Македония"
-
-msgid "Georgia"
-msgstr "Грузия"
-
-msgid "Cambodia"
-msgstr "Камбоджа"
-
-msgid "Azerbaijan"
-msgstr "Азербайджан"
-
-msgid "Saudi Arabia"
-msgstr "Саудовская Аравия"
-
-msgid "New Caledonia"
-msgstr "Новая Каледония"
-
-msgid "Burkina Faso"
-msgstr "Буркина-Фасо"
-
-msgid "Reunion"
-msgstr "Реюньон"
-
-msgid "Puerto Rico"
-msgstr "Пуэрто-Рико"
-
-# Region names for mirror selection
-msgid "Europe - Western"
-msgstr "Европа - Западная"
-
-msgid "Europe - Northern"
-msgstr "Европа - Северная"
-
-msgid "Europe - Eastern"
-msgstr "Европа - Восточная"
-
-msgid "Americas - North"
-msgstr "Северная Америка"
-
-msgid "Americas - Latin"
-msgstr "Латинская Америка"
-
-msgid "Asia - East"
-msgstr "Азия - Восток"
-
-msgid "Asia - Southeast"
-msgstr "Азия - Юго-Восток"
-
-msgid "Asia - South/West"
-msgstr "Азия - Юг/Запад"
-
-msgid "Africa"
-msgstr "Африка"
+#~ msgid "China (Tsinghua)"
+#~ msgstr "Китай (Tsinghua)"

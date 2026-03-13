@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.2-3] - 2026-03-13
+
+### ✨ New Features
+- **Repository Search**: Integrated a new real-time search bar in the Repositories tab for quick filtering by name, URL, or components.
+- **Repository Modernizer**: Added a tool to convert legacy `.list` repositories to the modern DEB822 (`.sources`) format.
+- **Automatic Backups**: The system now automatically creates a `.bak` backup of the original `.list` file before any conversion to ensure data safety.
+- **APT Maintenance Feedback**: Integrated real-time progress reporting and detailed status messages during APT operations (update, clean, autoclean).
+
+### 🛠️ Technical Improvements & Security
+- **Atomic Operations**: Refactored the internal engine to group all privileged actions (file writing, deletions, APT tasks) into a single batch, requiring only **one pkexec password prompt**.
+- **Safe Path Handling**: Migrated repository file operations to use `pathlib` for robust and error-free path manipulation, preventing directory duplication bugs.
+- **System State Detection**: Improved overall system state detection by reading directly from `/etc/apt/sources.list.d/`, ensuring the UI accurately reflects active repositories.
+- **Third-Party Protection**: Implemented guards to prevent the accidental deletion of third-party repositories and their corresponding GPG keys.
+
+### 🌍 Internationalization
+- **Full i18n Support**: Manually translated all new strings (search, modernization, progress messages) into all 8 supported languages: Spanish, English, French, German, Portuguese, Italian, Romanian, and Russian.
+- **Manual Integrity**: All `.po` files were hand-edited to ensure zero formatting errors and high translation quality; all corresponding binay `.mo` files have been generated.
+
 ## [2.0.2-2] - 2026-03-12
 
 ### 🐛 Bug Fixes

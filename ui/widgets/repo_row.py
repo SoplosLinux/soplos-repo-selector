@@ -12,12 +12,13 @@ from core.i18n_manager import _
 class RepoRow(Gtk.ListBoxRow):
     """Row widget representing a single repository."""
     
-    def __init__(self, repo_data, on_toggle=None, on_edit=None, on_delete=None):
+    def __init__(self, repo_data, on_toggle=None, on_edit=None, on_delete=None, on_modernize=None):
         super().__init__()
         self.repo_data = repo_data
         self.on_toggle = on_toggle
         self.on_edit = on_edit
         self.on_delete = on_delete
+        self.on_modernize = on_modernize
         
         self.set_activatable(False)
         self.set_selectable(False)
@@ -70,6 +71,14 @@ class RepoRow(Gtk.ListBoxRow):
         
         # Buttons Box
         buttons_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        
+        # Modernize Button (only for legacy format)
+        if self.repo_data.get('format') == 'legacy':
+            modernize_btn = Gtk.Button.new_from_icon_name("system-upgrade-symbolic", Gtk.IconSize.BUTTON)
+            modernize_btn.set_tooltip_text(_("Modernize to .sources (DEB822)"))
+            modernize_btn.get_style_context().add_class('flat')
+            modernize_btn.connect('clicked', lambda b: self.on_modernize(self.repo_data) if self.on_modernize else None)
+            buttons_box.pack_start(modernize_btn, False, False, 0)
         
         # Edit Button
         edit_btn = Gtk.Button.new_from_icon_name("document-edit-symbolic", Gtk.IconSize.BUTTON)
