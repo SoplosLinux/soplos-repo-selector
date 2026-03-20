@@ -42,8 +42,7 @@ messagedialog>box {
 }
 
 .dialog-action-area {
-    background-color: @soplos_darker_bg;
-    border-top: 1px solid @soplos_border;
+    background-color: @soplos_dark_bg;
 }
 
 .dialog-content-area {
@@ -123,6 +122,28 @@ headerbar button.titlebutton:hover {
 headerbar button.titlebutton.close:hover {
     background-color: @soplos_error;
     color: white;
+}
+
+/* StackSwitcher — About dialog "Acerca de / Créditos" buttons
+   Higher specificity (0,0,2) beats base.css button {} (0,0,1) regardless of load order */
+stackswitcher button {
+    border-radius: 100px;
+    background-color: @soplos_dark_bg;
+    background-image: none;
+    border: 1px solid @soplos_border;
+    font-weight: normal;
+    padding: 4px 16px;
+    box-shadow: none;
+    color: @soplos_light_text;
+}
+
+stackswitcher button:hover {
+    background-color: #444444;
+    border-color: @soplos_orange;
+}
+
+stackswitcher button:checked {
+    background-color: #444444;
 }
 
 /* Notebook (Tabs) Styling - Aggressive Overrides */

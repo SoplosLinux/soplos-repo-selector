@@ -1105,6 +1105,10 @@ msgstr "Optional (key path or fingerprint)"
 msgid "Comment:"
 msgstr "Comment:"
 
+
+msgid "Advanced APT repository manager for Soplos Linux."
+msgstr "Advanced APT repository manager for Soplos Linux."
+
 #~ msgid "Global Mirror"
 #~ msgstr "Global Mirror"
 

@@ -1106,6 +1106,10 @@ msgstr "Opcional (ruta de la clave o huella)"
 msgid "Comment:"
 msgstr "Comentario:"
 
+
+msgid "Advanced APT repository manager for Soplos Linux."
+msgstr "Gestor avanzado de repositorios APT para Soplos Linux."
+
 #~ msgid "Global Mirror"
 #~ msgstr "Espejo global"
 

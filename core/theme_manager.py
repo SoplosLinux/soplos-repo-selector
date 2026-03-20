@@ -131,13 +131,7 @@ class ThemeManager:
         try:
             self.css_provider.load_from_path(str(theme_path))
             self.current_theme = theme_name
-            
-            # Force GTK to use dark variant if we are loading a dark theme
-            settings = Gtk.Settings.get_default()
-            if settings:
-                is_dark = 'dark' in theme_name or theme_name == 'base' # base is dark by default
-                settings.set_property("gtk-application-prefer-dark-theme", is_dark)
-            
+
             log_info(_("Successfully loaded theme: {name}").format(name=theme_name))
             return True
         except Exception as e:

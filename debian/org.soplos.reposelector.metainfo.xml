@@ -299,6 +299,18 @@
   </provides>
 
   <releases>
+    <release version="2.0.2-5" date="2026-03-20">
+      <description>
+        <p xml:lang="en">Standardized the About dialog across XFCE, GNOME, and KDE: dark background, button heights, and pill button styling are now identical to all other Soplos apps. App icon standardized to 48×48 pixels. Removed gtk-application-prefer-dark-theme setting that caused subtle color differences.</p>
+        <p xml:lang="es">Estandarizado el diálogo Acerca de en XFCE, GNOME y KDE: fondo oscuro, alturas de botones y estilo de botones píldora son ahora idénticos a las demás aplicaciones Soplos. Icono de la aplicación estandarizado a 48×48 píxeles. Eliminado el parámetro gtk-application-prefer-dark-theme que causaba diferencias de color sutiles.</p>
+        <p xml:lang="fr">Standardisation du dialogue À propos sous XFCE, GNOME et KDE : fond sombre, hauteurs des boutons et style des boutons pilule sont désormais identiques aux autres applications Soplos. Icône standardisée à 48×48 pixels. Suppression du paramètre gtk-application-prefer-dark-theme qui causait de légères différences de couleur.</p>
+        <p xml:lang="pt">Padronizado o diálogo Sobre no XFCE, GNOME e KDE: fundo escuro, alturas de botões e estilo de botões pílula são agora idênticos às demais aplicações Soplos. Ícone padronizado para 48×48 pixels. Removida a configuração gtk-application-prefer-dark-theme que causava diferenças de cor sutis.</p>
+        <p xml:lang="de">Standardisierter Über-Dialog unter XFCE, GNOME und KDE: dunkler Hintergrund, Schaltflächenhöhen und Pill-Button-Stil sind jetzt identisch mit anderen Soplos-Apps. App-Symbol auf 48×48 Pixel standardisiert. Einstellung gtk-application-prefer-dark-theme entfernt, die subtile Farbunterschiede verursachte.</p>
+        <p xml:lang="it">Finestra Info standardizzata su XFCE, GNOME e KDE: sfondo scuro, altezze dei pulsanti e stile dei pulsanti pill sono ora identici alle altre app Soplos. Icona standardizzata a 48×48 pixel. Rimossa l'impostazione gtk-application-prefer-dark-theme che causava differenze di colore.</p>
+        <p xml:lang="ru">Диалог «О программе» стандартизирован в XFCE, GNOME и KDE: тёмный фон, высота кнопок и стиль кнопок-таблеток теперь идентичны другим приложениям Soplos. Значок стандартизирован до 48×48 пикселей. Удалена настройка gtk-application-prefer-dark-theme, вызывавшая незначительные различия цветов.</p>
+        <p xml:lang="ro">Dialogul Despre standardizat în XFCE, GNOME și KDE: fundal întunecat, înălțimi ale butoanelor și stilul butoanelor pill sunt acum identice cu alte aplicații Soplos. Pictogramă standardizată la 48×48 pixeli. Eliminată setarea gtk-application-prefer-dark-theme care cauza diferențe de culoare.</p>
+      </description>
+    </release>
     <release version="2.0.2-4" date="2026-03-20">
       <description>
         <p xml:lang="en">Added Ctrl+Shift+Tab reverse tab navigation, F1 About dialog, GNOME application menu About action, and GPG key search across all standard directories. Fixed HeaderBar CSS on GNOME, double repository reads on startup, bare except clauses, and removed dead code.</p>

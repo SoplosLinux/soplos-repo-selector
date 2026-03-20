@@ -1105,6 +1105,10 @@ msgstr "Opțional (calea cheii sau amprenta)"
 msgid "Comment:"
 msgstr "Comentariu:"
 
+
+msgid "Advanced APT repository manager for Soplos Linux."
+msgstr "Manager avansat de depozite APT pentru Soplos Linux."
+
 #~ msgid "Global Mirror"
 #~ msgstr "Mirror global"
 

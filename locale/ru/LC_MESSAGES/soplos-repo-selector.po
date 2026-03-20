@@ -1105,6 +1105,10 @@ msgstr "Необязательно (путь к ключу или отпечат
 msgid "Comment:"
 msgstr "Комментарий:"
 
+
+msgid "Advanced APT repository manager for Soplos Linux."
+msgstr "Продвинутый менеджер APT-репозиториев для Soplos Linux."
+
 #~ msgid "Global Mirror"
 #~ msgstr "Глобальный зеркальный сервер"
 

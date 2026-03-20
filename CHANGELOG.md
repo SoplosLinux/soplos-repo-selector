@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.2-5] - 2026-03-20
+
+### 🐛 Fixed
+- About dialog standardized across XFCE, GNOME, and KDE: dark background, button heights, and pill button styling are now identical to Sys Cleaner and Plymouth Manager in all desktop environments.
+- About dialog app icon standardized to 48×48 pixels across all three Soplos apps.
+- Removed `gtk-application-prefer-dark-theme` setting from ThemeManager that caused subtle color differences in some environments.
+
+---
+
 ## [2.0.2-4] - 2026-03-20
 
 ### ✨ Added

@@ -1,7 +1,7 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2--4-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--5-green.svg)]()
 
 Soplos Repo Selector is a graphical APT repository manager designed specifically for Soplos Linux. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
@@ -24,6 +24,12 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.2-5
+- Release date: March 20, 2026
+- About dialog standardized across XFCE, GNOME, and KDE: dark background, button heights, and pill button styling are now identical to Sys Cleaner and Plymouth Manager in all desktop environments.
+- About dialog app icon standardized to 48×48 pixels across all three Soplos apps.
+- Removed `gtk-application-prefer-dark-theme` setting that caused subtle color differences in some environments.
 
 ### 🆕 What's new in version 2.0.2-4
 - Release date: March 20, 2026
