@@ -6,7 +6,8 @@ Strict Soplos Welcome style: Header + Content (Tabs) + Footer.
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GLib, Pango
+from gi.repository import Gtk, Gdk, GLib, Pango, GdkPixbuf
+from pathlib import Path
 
 from core.i18n_manager import _
 from config.constants import APP_NAME, APP_VERSION, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
@@ -58,8 +59,6 @@ class MainWindow(Gtk.ApplicationWindow):
         # Connect signals
         self.connect('delete-event', self._on_delete_event)
         self.connect('key-press-event', self._on_key_press)
-        
-        print("Main window created successfully")
 
     def _create_header_bar_with_fallback(self):
         """Create HeaderBar exactly like Welcome Live - CLEAN without custom buttons.
@@ -79,25 +78,15 @@ class MainWindow(Gtk.ApplicationWindow):
         except Exception:
             pass
 
-        print(f"[DEBUG] Desktop detected: {desktop_env}")
-
         # If XFCE/KDE, use native decorations (SSD)
         if desktop_env in ['xfce', 'kde', 'plasma']:
-            print("Using native window decorations (SSD) for compatibility")
             return
 
         # If GNOME or others, use CSD (CLEAN - no custom buttons like Welcome Live)
-        print("Creating Client-Side Decorations (CSD)")
         header = Gtk.HeaderBar()
         header.set_show_close_button(True)
         header.set_title(_(APP_NAME))
         
-        try:
-            header.set_has_subtitle(True)
-            header.set_subtitle(f"v{APP_VERSION}")
-        except Exception:
-            pass
-
         # Force layout to match Welcome Live exactly
         header.set_decoration_layout("menu:minimize,maximize,close")
         header.get_style_context().add_class('titlebar')
@@ -308,7 +297,6 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def _on_delete_event(self, widget, event):
         """Handle window close event."""
-        print("Main window closing...")
         return False  # Allow window to close
 
     def _on_key_press(self, widget, event):
@@ -322,12 +310,36 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.close()
                 return True
             
-            # Ctrl+Tab to switch tabs
-            elif keyval == Gdk.KEY_Tab:
+            # Ctrl+Tab / Ctrl+Shift+Tab to switch tabs
+            elif keyval in (Gdk.KEY_Tab, Gdk.KEY_ISO_Left_Tab):
                 current_page = self.notebook.get_current_page()
                 total_pages = self.notebook.get_n_pages()
-                next_page = (current_page + 1) % total_pages
-                self.notebook.set_current_page(next_page)
+                if state & Gdk.ModifierType.SHIFT_MASK:
+                    self.notebook.set_current_page((current_page - 1) % total_pages)
+                else:
+                    self.notebook.set_current_page((current_page + 1) % total_pages)
                 return True
-        
+
+        # F1 — About dialog
+        if keyval == Gdk.KEY_F1:
+            self._show_about()
+            return True
+
         return False
+
+    def _show_about(self):
+        dialog = Gtk.AboutDialog()
+        dialog.set_transient_for(self)
+        dialog.set_modal(True)
+        dialog.set_program_name(_(APP_NAME))
+        dialog.set_version(APP_VERSION)
+        dialog.set_comments(_("Advanced APT repository manager for Soplos Linux."))
+        dialog.set_website("https://soplos.org")
+        dialog.set_website_label("soplos.org")
+        dialog.set_authors(["Sergi Perich <info@soploslinux.com>"])
+        dialog.set_license_type(Gtk.License.GPL_3_0)
+        icon_path = Path(__file__).parent.parent / 'assets' / 'icons' / '64x64' / 'org.soplos.reposelector.png'
+        if icon_path.exists():
+            dialog.set_logo(GdkPixbuf.Pixbuf.new_from_file(str(icon_path)))
+        dialog.run()
+        dialog.destroy()

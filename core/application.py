@@ -201,7 +201,7 @@ class SoplosRepoSelectorApplication(Gtk.Application):
 
                 # About action
                 about_action = Gio.SimpleAction.new('about', None)
-                about_action.connect('activate', lambda a, b: None)
+                about_action.connect('activate', lambda a, b: self.main_window._show_about() if self.main_window else None)
                 self.add_action(about_action)
                 menu.append(_('About'), 'app.about')
 

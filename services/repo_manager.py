@@ -113,7 +113,7 @@ class RepoManager:
         try:
             domain = uri.split('://')[-1].split('/')[0]
             name = f"{domain}-{suite}".replace('.', '_').replace('/', '-')
-        except:
+        except Exception:
             pass
             
         return os.path.join(self.sources_parts, f"{name}.list")
@@ -122,6 +122,64 @@ class RepoManager:
         """Invalidates the repository cache."""
         self.cache_valid = False
         self.repo_cache = None
+
+    def _find_gpg_key(self, signed_by: str, uri: str = '') -> str:
+        """
+        Resolve a GPG key path, searching standard directories if the path
+        doesn't exist or is empty.
+
+        Returns the resolved path string, or the original value unchanged.
+        """
+        GPG_DIRS = [
+            '/usr/share/keyrings',
+            '/etc/apt/keyrings',
+            '/etc/apt/trusted.gpg.d',
+        ]
+
+        # If path already points to an existing file, use it as-is
+        if signed_by and os.path.exists(signed_by):
+            return signed_by
+
+        # Try to find a key by basename in all GPG dirs
+        if signed_by:
+            basename = os.path.basename(signed_by)
+            for gpg_dir in GPG_DIRS:
+                candidate = os.path.join(gpg_dir, basename)
+                if os.path.exists(candidate):
+                    log_info(f"GPG key resolved: {signed_by} -> {candidate}")
+                    return candidate
+
+        # No explicit path — scan GPG dirs for a file whose name contains a keyword
+        # derived from the URI (handles e.g. dl.google.com/linux/chrome → google-chrome.gpg)
+        if uri:
+            try:
+                # Extract keywords: domain parts + path segments, skip generic words
+                _GENERIC = {'www', 'dl', 'download', 'apt', 'deb', 'linux',
+                            'stable', 'main', 'archive', 'repo', 'release',
+                            'com', 'org', 'net', 'io'}
+                after_scheme = uri.split('://')[-1]
+                raw_parts = after_scheme.replace('/', '.').split('.')
+                keywords = [p.lower() for p in raw_parts
+                            if p and p.lower() not in _GENERIC and len(p) > 2]
+            except Exception:
+                keywords = []
+
+            if keywords:
+                for gpg_dir in GPG_DIRS:
+                    try:
+                        entries = os.listdir(gpg_dir)
+                    except Exception:
+                        continue
+                    for entry in entries:
+                        entry_lower = entry.lower()
+                        if not entry_lower.endswith(('.gpg', '.asc')):
+                            continue
+                        if any(kw in entry_lower for kw in keywords):
+                            candidate = os.path.join(gpg_dir, entry)
+                            log_info(f"GPG key discovered by URI keyword: {candidate}")
+                            return candidate
+
+        return signed_by
 
     def modernize_repo(self, repo_data: Dict[str, Any]) -> bool:
         """
@@ -146,6 +204,14 @@ class RepoManager:
         new_repo = repo_data.copy()
         new_repo['format'] = 'deb822'
         new_repo['file'] = new_file
+
+        # Resolve GPG key — look in all standard directories if path is missing/broken
+        resolved_key = self._find_gpg_key(
+            new_repo.get('signed_by', ''),
+            new_repo.get('uri', '')
+        )
+        if resolved_key:
+            new_repo['signed_by'] = resolved_key
         
         # 2. Build tasks for atomic operation
         tasks = []

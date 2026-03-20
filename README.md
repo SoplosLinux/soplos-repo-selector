@@ -1,9 +1,9 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2--3-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--4-green.svg)]()
 
-Soplos Repo Selector is a graphical APT repository manager designed specifically for Debian-based systems. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
+Soplos Repo Selector is a graphical APT repository manager designed specifically for Soplos Linux. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
 ## Screenshots
 
@@ -24,6 +24,17 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.2-4
+- Release date: March 20, 2026
+- **Ctrl+Shift+Tab**: Added reverse tab navigation shortcut.
+- **F1 — About dialog**: Press F1 to open the About dialog with version, author, license and website.
+- **GNOME menu**: About action in application menu now opens the actual dialog.
+- **GPG multi-directory search**: Modernizing repositories (e.g. Google Chrome) now correctly finds the GPG key across all standard directories.
+- **HeaderBar fix**: CSD window controls no longer affected by the global button CSS rule on GNOME.
+- **Performance**: Repositories are now loaded only once on startup and once after each operation (cache was being bypassed twice).
+- Fixed: email address corrected to `info@soploslinux.com` in setup.py.
+- Removed unused dead code and debug print statements.
 
 ### 🆕 What's new in version 2.0.2-3
 - Release date: March 13, 2026
@@ -143,21 +154,12 @@ GPG Keys tab:
 - **GPG key management**: Import, download and manage verification keys
 - **Predefined repositories**: Quick access to popular repositories (Chrome, VSCode, Docker, OBS)
 - **Wayland/X11 compatibility**: Works perfectly in both environments
-- **Distribution templates**: Pre-configured settings for Debian Stable, Testing, Sid and Soplos
+- **Distribution templates**: Pre-configured settings for Soplos Linux
 
 ## Installation
 
-### From DEB package (recommended)
 ```bash
-sudo dpkg -i soplos-repo-selector_2.0.2-3_all.deb
-sudo apt-get install -f  # Resolve dependencies if necessary
-```
-
-### From source code
-```bash
-git clone https://github.com/SoplosLinux/soplos-repo-selector
-cd soplos-repo-selector
-sudo python3 setup.py install
+sudo apt install soplos-repo-selector
 ```
 
 ## Dependencies

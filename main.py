@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Soplos Repo Selector 2.0.0 - Advanced Repository Manager
+Soplos Repo Selector 2.0.2 - Advanced Repository Manager
 
 Main application entry point.
 """

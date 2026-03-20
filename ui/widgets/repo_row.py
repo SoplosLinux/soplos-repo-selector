@@ -105,7 +105,4 @@ class RepoRow(Gtk.ListBoxRow):
         self.repo_data['disabled'] = not state
         if self.on_toggle:
             self.on_toggle(self.repo_data)
-        return True # Prevent default handler which might toggle it back? No, standard GTK3 switch state-set needs return True to accept state?? usually return False for default.
-        # Check docs: "True to stop the signal emission". 
-        # Actually usually with state-set used for logic, we typically return False to let the switch animate.
         return False

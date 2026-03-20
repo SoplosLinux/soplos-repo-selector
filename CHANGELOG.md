@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.2-4] - 2026-03-20
+
+### ✨ Added
+- **Ctrl+Shift+Tab**: Keyboard shortcut to navigate to the previous tab.
+- **F1 — About dialog**: Opens the About dialog with version, author, license and website.
+- **GNOME menu About**: Application menu About action now opens the actual dialog instead of doing nothing.
+- **GPG multi-directory search**: When modernizing a `.list` repository, the signed key is now searched across all standard directories (`/usr/share/keyrings/`, `/etc/apt/keyrings/`, `/etc/apt/trusted.gpg.d/`). Fixes error when modernizing repositories such as Google Chrome.
+
+### 🐛 Fixed
+- Email address corrected to `info@soploslinux.com` in setup.py.
+- Version docstring in `main.py` updated from 2.0.0 to 2.0.2.
+- HeaderBar CSS: global `button {}` rule no longer overrides CSD window controls on GNOME.
+- Repositories were loaded twice on startup and twice after each save/modernize operation. Fixed by using the cache properly and updating the filesystem snapshot after each explicit refresh.
+- Bare `except:` clauses replaced with `except Exception:` in `repo_file_manager.py` (4 occurrences).
+
+### 🧹 Removed
+- Dead function `_remove_debian_file()` in `sources_generator_view.py` (never called).
+- Dead functions `_open_url()` and `_on_get_started_clicked()` in `welcome_view.py` (never called).
+- Stale TODO comment in `repo_file_manager.py`.
+- Debug `print()` statements from `main_window.py`.
+
+---
+
 ## [2.0.2-3] - 2026-03-13
 
 ### ✨ New Features

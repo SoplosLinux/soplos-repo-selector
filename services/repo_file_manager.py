@@ -334,8 +334,6 @@ class RepoFileManager:
             components = comp_ordered
             signed_by = next((r['signed_by'] for r in group if r.get('signed_by')), '')
 
-            # TODO: Handle multiple comments?
-
             lines.append(f"{prefix}Types: {' '.join(types)}")
             lines.append(f"{prefix}URIs: {' '.join(uris)}")
             lines.append(f"{prefix}Suites: {' '.join(suites)}")
@@ -425,7 +423,7 @@ class RepoFileManager:
                     # Cleanup temp
                     try:
                         os.unlink(temp_path)
-                    except:
+                    except Exception:
                         pass
                     raise PermissionError(_("pkexec failed: {stderr}").format(stderr=result.stderr))
 
@@ -436,7 +434,7 @@ class RepoFileManager:
                 # Cleanup temp
                 try:
                     os.unlink(temp_path)
-                except:
+                except Exception:
                     pass
                 raise e
                 
@@ -461,7 +459,7 @@ class RepoFileManager:
             if file_path_obj.exists():
                 try:
                     mode = file_path_obj.stat().st_mode
-                except:
+                except Exception:
                     pass
             
             tasks.append({
@@ -553,8 +551,8 @@ class RepoFileManager:
             # Cleanup
             if script_path and os.path.exists(script_path):
                 try: os.unlink(script_path)
-                except: pass
+                except Exception: pass
             for tpath in temp_files:
                 if os.path.exists(tpath):
                     try: os.unlink(tpath)
-                    except: pass
+                    except Exception: pass

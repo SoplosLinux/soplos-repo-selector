@@ -118,18 +118,3 @@ class WelcomeView(Gtk.Box):
         self.pack_start(features_frame, False, False, 8)
 
         # No action buttons here — UI kept minimal like Soplos Welcome.
-
-    def _open_url(self, url):
-        try:
-            import webbrowser
-            webbrowser.open(url)
-        except Exception as e:
-            print(f"Error opening URL {url}: {e}")
-
-    def _on_get_started_clicked(self, button):
-        # Try to switch the main notebook to page 1 (Sources Generator)
-        try:
-            if hasattr(self.main_window, 'notebook'):
-                self.main_window.notebook.set_current_page(1)
-        except Exception as e:
-            print(f"Error switching to Sources tab: {e}")

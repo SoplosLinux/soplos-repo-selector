@@ -108,12 +108,12 @@ class RepoView(Gtk.Box):
         return box
 
     def refresh_repos(self):
-        """Reload repos from disk."""
+        """Reload repos from disk (or cache if still valid)."""
         for row in self.list_box.get_children():
             self.list_box.remove(row)
-        
-        self.repos = self.repo_manager.get_all_repos(use_cache=False)
-        
+
+        self.repos = self.repo_manager.get_all_repos(use_cache=True)
+
         for repo in self.repos:
             row = RepoRow(
                 repo,
@@ -123,9 +123,16 @@ class RepoView(Gtk.Box):
                 on_modernize=self._on_modernize_repo
             )
             self.list_box.add(row)
-        
+
         self.list_box.show_all()
         self.apply_btn.set_sensitive(False)
+
+        # Update mtime snapshot so the autorefresh timer doesn't re-trigger
+        # immediately after we just loaded the fresh state from disk.
+        try:
+            self._paths_mtime = self._snapshot_paths_mtime()
+        except Exception:
+            pass
 
     def _on_repo_changed(self, repo_data):
         self.apply_btn.set_sensitive(True)

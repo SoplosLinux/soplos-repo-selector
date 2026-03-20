@@ -54,8 +54,7 @@ class SourcesGeneratorView(Gtk.Box):
         DERIVATIVE_SUFFIXES = ['-updates', '-security', '-proposed', '-backports']
         
         try:
-            # Get all repos from system (force fresh read, no cache)
-            repos = self.repo_manager.get_all_repos(use_cache=False)
+            repos = self.repo_manager.get_all_repos(use_cache=True)
             
             for repo in repos:
                 # IMPORTANT: We now consider disabled repos too so the UI reflects 
@@ -648,33 +647,6 @@ class SourcesGeneratorView(Gtk.Box):
             'file': f'/etc/apt/sources.list.d/{filename}',
             'format': 'deb822'
         }
-
-    def _remove_debian_file(self, filename):
-        """Remove a Debian sources file if it exists (requires pkexec for /etc)."""
-        import subprocess
-        import os
-        
-        file_path = f'/etc/apt/sources.list.d/{filename}'
-        if os.path.exists(file_path):
-            try:
-                # Try direct removal first (in case user has write access)
-                os.unlink(file_path)
-                print(f"Removed {file_path}")
-            except PermissionError:
-                # Use pkexec to remove
-                try:
-                    result = subprocess.run(
-                        ['pkexec', 'rm', '-f', file_path],
-                        capture_output=True, text=True
-                    )
-                    if result.returncode == 0:
-                        print(f"Removed {file_path} (via pkexec)")
-                    else:
-                        print(f"Failed to remove {file_path}: {result.stderr}")
-                except Exception as e:
-                    print(f"Error removing {file_path}: {e}")
-            except Exception as e:
-                print(f"Error removing {file_path}: {e}")
 
     def _show_msg(self, msg_type, title, text):
         dialog = Gtk.MessageDialog(
