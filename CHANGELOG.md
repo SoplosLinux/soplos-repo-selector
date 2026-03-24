@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.2-6] - 2026-03-24
+
+### 🐛 Fixed
+- **Refresh button**: Was returning stale cached data instead of re-reading from disk. Now always forces a fresh read.
+- **Sources Generator → Repositories tab sync**: After generating new sources, the Repositories tab now refreshes immediately instead of waiting up to 3 seconds for the filesystem watcher to detect the change.
+
+### ✨ Added
+- **Per-suite source files**: Each suite now gets its own independent `.sources` file (`debian-testing.sources`, `debian-trixie.sources`, `debian-trixie-security.sources`, etc.), allowing individual toggle control per suite in the Repositories tab. Old grouped files (`debian.sources`, `debian-security.sources`, `debian-backports.sources`) are automatically removed on first generation.
+
+---
+
 ## [2.0.2-5] - 2026-03-20
 
 ### 🐛 Fixed

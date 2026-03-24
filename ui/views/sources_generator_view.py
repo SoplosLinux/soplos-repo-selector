@@ -561,22 +561,22 @@ class SourcesGeneratorView(Gtk.Box):
             
             repos = []
             keyring = '/usr/share/keyrings/debian-archive-keyring.gpg'
-            
-            # 1. Generate new repo configurations (Official Debian)
+
+            # 1. Generate new repo configurations (one file per suite for independent toggle control)
             for distro in self.selected_distros:
-                repos.append(self._make_repo(distro, comps_str, keyring, 'debian.sources'))
-                
+                repos.append(self._make_repo(distro, comps_str, keyring, f'debian-{distro}.sources'))
+
                 is_unstable_type = distro in ['sid', 'unstable', 'experimental']
                 if not is_unstable_type:
-                    repos.append(self._make_repo(f"{distro}-updates", comps_str, keyring, 'debian.sources'))
+                    repos.append(self._make_repo(f"{distro}-updates", comps_str, keyring, f'debian-{distro}-updates.sources'))
                     if distro == 'testing':
-                        repos.append(self._make_repo(f"{distro}-proposed-updates", comps_str, keyring, 'debian.sources'))
-                    
+                        repos.append(self._make_repo(f"{distro}-proposed-updates", comps_str, keyring, f'debian-{distro}-proposed-updates.sources'))
+
                     sec_uri = 'https://security.debian.org/debian-security/'
-                    repos.append(self._make_repo(f"{distro}-security", comps_str, keyring, 'debian-security.sources', sec_uri))
-                    
+                    repos.append(self._make_repo(f"{distro}-security", comps_str, keyring, f'debian-{distro}-security.sources', sec_uri))
+
                     if self.backports_enabled:
-                        repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, 'debian-backports.sources'))
+                        repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, f'debian-{distro}-backports.sources'))
 
             # 2. Build Batch Tasks
             tasks = []
@@ -596,11 +596,10 @@ class SourcesGeneratorView(Gtk.Box):
 
             # DELETE_FILE tasks (STRICTLY Official Debian managed files only)
             current_generated = set(repos_by_file.keys())
-            if not self.backports_enabled:
-                current_generated.add('/etc/apt/sources.list.d/debian-backports.sources')
 
-            # Find only debian*.sources to remove obsoletes. 
-            # This EXPLICITLY ignores any third-party .list or .sources files.
+            # Remove any debian*.sources not in the newly generated set.
+            # This cleans up old grouped files (debian.sources, debian-security.sources, etc.)
+            # and obsolete per-suite files from previous generations.
             for f in glob.glob('/etc/apt/sources.list.d/debian*.sources'):
                 if f not in current_generated:
                     tasks.append({'type': 'DELETE_FILE', 'path': f})
@@ -623,9 +622,12 @@ class SourcesGeneratorView(Gtk.Box):
     def _on_generation_finished(self, success, btn, error_msg=None):
         btn.set_sensitive(True)
         self.main_window.hide_progress()
-        
+
         if success:
-            self._show_msg(Gtk.MessageType.INFO, _("Sources Generated"), 
+            # Refresh the Repositories tab so it shows the new sources immediately
+            if hasattr(self.main_window, 'repo_view'):
+                self.main_window.repo_view.refresh_repos()
+            self._show_msg(Gtk.MessageType.INFO, _("Sources Generated"),
                            _("Your sources have been updated successfully and APT cache refreshed."))
         else:
             msg = _("Could not save sources files or execute APT update.")

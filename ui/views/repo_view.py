@@ -112,7 +112,7 @@ class RepoView(Gtk.Box):
         for row in self.list_box.get_children():
             self.list_box.remove(row)
 
-        self.repos = self.repo_manager.get_all_repos(use_cache=True)
+        self.repos = self.repo_manager.get_all_repos(use_cache=False)
 
         for repo in self.repos:
             row = RepoRow(
@@ -331,12 +331,12 @@ class RepoView(Gtk.Box):
         """Redraw list from self.repos."""
         for row in self.list_box.get_children():
             self.list_box.remove(row)
-        
+
         for repo in self.repos:
             row = RepoRow(
-                repo, 
-                self._on_repo_changed, 
-                self._on_edit_repo, 
+                repo,
+                self._on_repo_changed,
+                self._on_edit_repo,
                 self._on_delete_repo,
                 self._on_modernize_repo
             )

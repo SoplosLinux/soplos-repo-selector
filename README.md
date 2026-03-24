@@ -1,7 +1,7 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2--5-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--6-green.svg)]()
 
 Soplos Repo Selector is a graphical APT repository manager designed specifically for Soplos Linux. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
@@ -24,6 +24,12 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.2-6
+- Release date: March 24, 2026
+- **Refresh button**: Now always re-reads from disk instead of returning stale cached data.
+- **Sources Generator**: Repositories tab now refreshes immediately after generating new sources, instead of waiting for the filesystem watcher (up to 3 seconds delay).
+- **Per-suite source files**: Each suite now gets its own independent `.sources` file (`debian-testing.sources`, `debian-trixie.sources`, etc.) allowing individual toggle control per suite in the Repositories tab. Old grouped files are automatically removed on first generation.
 
 ### 🆕 What's new in version 2.0.2-5
 - Release date: March 20, 2026
