@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.2-7] - 2026-04-30
+
+### 💄 Changed
+- Simplified the footer UI text to match the modern Soplos standard layout (`XFCE · X11`).
+
+---
+
 ## [2.0.2-6] - 2026-03-24
 
 ### 🐛 Fixed

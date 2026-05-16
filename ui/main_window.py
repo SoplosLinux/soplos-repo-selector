@@ -241,7 +241,7 @@ class MainWindow(Gtk.ApplicationWindow):
         desktop_name = self._translate_desktop_name(desktop)
         protocol_name = self._translate_protocol_name(protocol)
         
-        self.system_label.set_text(_("Running on {} ({})").format(desktop_name, protocol_name))
+        self.system_label.set_text(f"{desktop_name}  ·  {protocol_name}")
 
     def _translate_desktop_name(self, desktop_env):
         """Translate desktop environment name."""

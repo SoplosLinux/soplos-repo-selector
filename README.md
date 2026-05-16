@@ -25,6 +25,10 @@ GPG Keys tab:
 
 ## 🆕 Version History
 
+### 🆕 What's new in version 2.0.2-7
+- Release date: April 30, 2026
+- **UI**: Simplified the footer UI text to match the modern Soplos standard layout (`XFCE · X11`).
+
 ### 🆕 What's new in version 2.0.2-6
 - Release date: March 24, 2026
 - **Refresh button**: Now always re-reads from disk instead of returning stale cached data.
