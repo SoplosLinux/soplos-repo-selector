@@ -1,7 +1,7 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2--6-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--8-green.svg)]()
 
 Soplos Repo Selector is a graphical APT repository manager designed specifically for Soplos Linux. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
@@ -24,6 +24,10 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.2-8
+- Release date: May 19, 2026
+- Documentation-only release: version history corrected across the release page, CHANGELOG and metainfo. All 1.0.x timestamps updated to match the dates extracted from the internal CHANGELOG of each official package.
 
 ### 🆕 What's new in version 2.0.2-7
 - Release date: April 30, 2026
@@ -123,6 +127,8 @@ GPG Keys tab:
 - Improved repository management, GPG key handling, mirror detection and speed testing.
 - Updated AppStream/DEP-11 metadata for better software center integration.
 
+### Tyson (KDE Plasma) — 1.0.x history
+
 ### 🆕 What's new in version 1.0.7 (July 27, 2025)
 - Application icon update
 
@@ -144,20 +150,44 @@ GPG Keys tab:
 - Reduced loading time and memory usage.
 - Fixed color issues and orange accent problems.
 
-### 🆕 What's new in version 1.0.2 (January 15, 2025)
+### 🆕 What's new in version 1.0.2 (June 17, 2025)
 - Automatic system theme detection (KDE and GNOME).
 - Improved Wayland support.
 - Theme environment variables configured automatically.
 - Interface improvements and startup performance.
 - Better error handling and language detection.
 
-### 🆕 What's new in version 1.0.1 (January 10, 2025)
+### 🆕 What's new in version 1.0.1 (June 14, 2025)
 - Full multi-language support (8 languages).
 - GPG key management and repository speed testing.
 - Predefined repositories and better error handling.
 
-### 🆕 What's new in version 1.0.0 (January 5, 2025)
-- Initial release of Soplos Repo Selector.
+### 🆕 What's new in version 1.0.0 (May 8, 2025)
+- Initial release of Soplos Repo Selector for Tyson (KDE Plasma).
+- Basic APT repository management and DEB822 format support.
+- GTK 3 interface and Debian compatibility.
+
+### Tyron (XFCE) — 1.0.x history
+
+### 🆕 What's new in version 1.0.4 (July 27, 2025)
+- Application icon changed.
+- Developer field updated to Sergi Perich.
+
+### 🆕 What's new in version 1.0.3 (July 18, 2025)
+- Metainfo AppStream/DEP-11 update. No functional changes.
+
+### 🆕 What's new in version 1.0.2 (June 17, 2025)
+- Region date/time formats applied.
+- Manual translation improvements and UI performance.
+- Error handling and locale fixes.
+
+### 🆕 What's new in version 1.0.1 (June 14, 2025)
+- Complete i18n for 8 languages.
+- Distribution templates (Debian Stable/Testing/Trixie/Sid/Tyron).
+- Language detection and fallback system.
+
+### 🆕 What's new in version 1.0.0 (May 8, 2025)
+- Initial release of Soplos Repo Selector for Tyron (XFCE).
 - Basic APT repository management and DEB822 format support.
 - GTK 3 interface and Debian compatibility.
 

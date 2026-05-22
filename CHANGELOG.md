@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.2-8] - 2026-05-19
+
+### 📝 Docs
+- Documentation-only release: version history corrected across the release page, CHANGELOG and forensic audit. All 1.0.x timestamps updated to match the dates extracted from the internal CHANGELOG of each official package.
+
+---
+
 ## [2.0.2-7] - 2026-04-30
 
 ### 💄 Changed
@@ -186,6 +193,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 - Fixed theme detection issues in KDE Plasma.
 - Resolved Wayland-specific compatibility issues.
 
+---
+
+## 1.0.x — Tyson (KDE Plasma)
+
 ## [1.0.7] - 2025-07-27
 
 ### 🎨 Changed
@@ -238,7 +249,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 - **Better Error Handling**: Improved management of missing configuration files.
 - **Documentation**: Updated documentation on theme compatibility.
 
-## [1.0.2] - 2025-01-15
+## [1.0.2] - 2025-06-17
 
 ### 🆕 Added
 - **Automatic System Theme Detection**: Support for light and dark themes in KDE and GNOME.
@@ -267,7 +278,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 - **Code Cleanup**: Removed redundant theme detection code.
 - **Documentation**: Updated technical documentation on theme detection.
 
-## [1.0.1] - 2025-01-10
+## [1.0.1] - 2025-06-14
 
 ### 🆕 Added
 - **Complete Multi-Language Support**: 8 supported languages (ES, EN, FR, PT, DE, IT, RU, RO).
@@ -287,22 +298,77 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 - **Repository Validation**: Improved syntax verification.
 - **Stability**: Fixed occasional crashes.
 
-## [1.0.0] - 2025-01-05
+## [1.0.0] - 2025-05-08
 
 ### 🎉 Initial Release
-- **Initial Launch** of Soplos Repo Selector.
+- **Initial Launch** of Soplos Repo Selector for Tyson (KDE Plasma).
 - **Basic Repository Management**: Add, edit, remove APT repositories.
 - **DEB822 Format Support**: Compatibility with modern repository format.
 - **GTK 3 Interface**: Native and responsive graphical interface.
 - **Apply Changes**: Safe system to apply configurations.
 - **Debian Compatibility**: Full support for Debian-based systems.
 
-### Main Features
-- Complete management of `/etc/apt/sources.list.d/`.
-- Intuitive interface for novice and advanced users.
-- Automatic repository syntax validation.
-- Automatic configuration backup system.
-- Integration with pkexec for administrative operations.
+---
+
+## 1.0.x — Tyron (XFCE)
+
+## [1.0.4] - 2025-07-27
+
+### 🎨 Changed
+- Program icon changed.
+- Developer updated to Sergi Perich.
+
+## [1.0.3] - 2025-07-18
+
+### 🛠️ Improved
+- Metainfo update for AppStream/DEP-11 compliance.
+- Minor integration and documentation improvements.
+- No functional changes.
+
+## [1.0.2] - 2025-06-17
+
+### 🆕 Added
+- Region-specific date and time format support.
+- Option to manually reset translations to default values.
+
+### ✨ Improved
+- UI performance optimisations.
+- Better error handling and user messages.
+- Updated dependencies to more recent versions.
+
+### 🛠️ Fixed
+- Minor localisation issues in existing languages.
+- Typographical and formatting errors in translations.
+- Rare failures in automatic language detection.
+
+## [1.0.1] - 2025-06-14
+
+### 🆕 Added
+- Complete i18n system with support for 8 languages (ES, EN, FR, PT, DE, IT, RU, RO).
+- Distribution templates (Debian Stable, Testing/Trixie, Sid/Unstable, Soplos Linux Tyron).
+- Automatic system language detection.
+- Robust and extensible translation management system.
+
+### ✨ Improved
+- Fully localised interface across all components.
+- Better user experience with clearer text.
+- Translation fallback system for missing strings.
+- Consistent use of mnemonics and keyboard shortcuts.
+
+### 🛠️ Fixed
+- Character encoding issues in different languages.
+- System locale detection improvements.
+- Minor UI corrections.
+
+## [1.0.0] - 2025-05-08
+
+### 🎉 Initial Release
+- **Initial Launch** of Soplos Repo Selector for Tyron (XFCE).
+- **Basic Repository Management**: Add, edit, remove APT repositories.
+- **DEB822 Format Support**: Compatibility with modern repository format.
+- **GTK 3 Interface**: Native and responsive graphical interface.
+- **Apply Changes**: Safe system to apply configurations.
+- **Debian Compatibility**: Full support for Debian-based systems.
 
 ---
 
