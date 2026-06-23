@@ -1,7 +1,7 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2--8-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--9-green.svg)]()
 
 Soplos Repo Selector is a graphical APT repository manager designed specifically for Soplos Linux. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
@@ -24,6 +24,10 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.2-9
+- Release date: June 23, 2026
+- **Sources Generator**: new checkbox to include source packages (`deb-src`) in generated APT sources. The option is auto-detected from existing system repos on startup.
 
 ### 🆕 What's new in version 2.0.2-8
 - Release date: May 19, 2026

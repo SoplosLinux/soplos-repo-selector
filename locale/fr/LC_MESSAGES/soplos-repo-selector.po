@@ -924,6 +924,9 @@ msgstr "Experimental"
 msgid "Include Backports"
 msgstr "Inclure les Backports"
 
+msgid "Include source packages (deb-src)"
+msgstr "Inclure les paquets source (deb-src)"
+
 #: ui/views/sources_generator_view.py:147
 msgid "2. Select Components"
 msgstr "2. Sélectionner les composants"

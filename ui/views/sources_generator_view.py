@@ -35,7 +35,7 @@ class SourcesGeneratorView(Gtk.Box):
         self.max_speed_seen = 1.0
         
         # Detect current system state instead of hardcoding defaults
-        self.selected_distros, self.backports_enabled, self.selected_components = self._detect_system_state()
+        self.selected_distros, self.backports_enabled, self.selected_components, self.include_src = self._detect_system_state()
         
         self._create_ui()
     
@@ -49,53 +49,59 @@ class SourcesGeneratorView(Gtk.Box):
         selected_distros = set()
         backports_enabled = False
         selected_components = {comp: False for comp in self.KNOWN_COMPONENTS}
-        
+        include_src = False
+
         # Suffixes that indicate derivative repos (not main distro selection)
         DERIVATIVE_SUFFIXES = ['-updates', '-security', '-proposed', '-backports']
-        
+
         try:
             repos = self.repo_manager.get_all_repos(use_cache=True)
-            
+
             for repo in repos:
-                # IMPORTANT: We now consider disabled repos too so the UI reflects 
+                # IMPORTANT: We now consider disabled repos too so the UI reflects
                 # what's configured even if it's currently turned off.
-                
+
                 distribution = repo.get('distribution', '').lower()
                 components = repo.get('components', '').lower()
                 uri = repo.get('uri', '').lower()
-                
+                repo_type = repo.get('type', '').lower()
+
                 # Detect Debian repos (more flexible: any that look like standard Debian paths)
                 is_debian = any(d in uri for d in ['debian.org', 'deb.debian.org', 'security.debian.org'])
                 # If not official domain, check if it ends in /debian or /debian-security (common for mirrors)
                 if not is_debian:
                     is_debian = uri.rstrip('/').endswith(('/debian', '/debian-security'))
-                
+
                 if not is_debian:
                     continue
-                
+
+                # Detect deb-src anywhere in Debian repos
+                if repo_type == 'deb-src':
+                    include_src = True
+
                 # Detect backports (just flag, don't add base distro from here)
                 if '-backports' in distribution:
                     backports_enabled = True
                     continue
-                
+
                 # Skip -updates, -security, -proposed (they follow main distro)
                 if any(suffix in distribution for suffix in DERIVATIVE_SUFFIXES):
                     continue
-                
+
                 # Only detect MAIN distribution repos (exact match)
                 if distribution in self.KNOWN_DISTROS:
                     selected_distros.add(distribution)
-                    
+
                     # Only count components from main repos
                     for comp in self.KNOWN_COMPONENTS:
                         if comp in components:
                             selected_components[comp] = True
-        
+
         except Exception as e:
             print(f"Error detecting system state: {e}")
             # Return empty defaults on error - user starts fresh
-        
-        return selected_distros, backports_enabled, selected_components
+
+        return selected_distros, backports_enabled, selected_components, include_src
     
     def _create_ui(self):
         self.set_margin_top(20)
@@ -164,7 +170,15 @@ class SourcesGeneratorView(Gtk.Box):
             chk.connect("toggled", self._on_comp_toggled, id)
             self.comp_checks[id] = chk
             comp_box.pack_start(chk, False, False, 0)
-            
+
+        sep_src = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        comp_box.pack_start(sep_src, False, False, 5)
+
+        self.src_check = Gtk.CheckButton(label=_("Include source packages (deb-src)"))
+        self.src_check.set_active(self.include_src)
+        self.src_check.connect("toggled", self._on_src_toggled)
+        comp_box.pack_start(self.src_check, False, False, 0)
+
         comp_frame.add(comp_box)
 
         # Arrange Distribution and Components side-by-side in two columns
@@ -255,9 +269,12 @@ class SourcesGeneratorView(Gtk.Box):
             
     def _on_backports_toggled(self, button):
         self.backports_enabled = button.get_active()
-            
+
     def _on_comp_toggled(self, button, comp_id):
         self.selected_components[comp_id] = button.get_active()
+
+    def _on_src_toggled(self, button):
+        self.include_src = button.get_active()
         
     def _run_speed_test(self, trigger_button):
         """Run the speed test service and update UI via callbacks."""
@@ -558,25 +575,26 @@ class SourcesGeneratorView(Gtk.Box):
         try:
             comps_list = [k for k, v in self.selected_components.items() if v]
             comps_str = " ".join(comps_list)
-            
+            types_str = 'deb deb-src' if self.include_src else 'deb'
+
             repos = []
             keyring = '/usr/share/keyrings/debian-archive-keyring.gpg'
 
             # 1. Generate new repo configurations (one file per suite for independent toggle control)
             for distro in self.selected_distros:
-                repos.append(self._make_repo(distro, comps_str, keyring, f'debian-{distro}.sources'))
+                repos.append(self._make_repo(distro, comps_str, keyring, f'debian-{distro}.sources', types=types_str))
 
                 is_unstable_type = distro in ['sid', 'unstable', 'experimental']
                 if not is_unstable_type:
-                    repos.append(self._make_repo(f"{distro}-updates", comps_str, keyring, f'debian-{distro}-updates.sources'))
+                    repos.append(self._make_repo(f"{distro}-updates", comps_str, keyring, f'debian-{distro}-updates.sources', types=types_str))
                     if distro == 'testing':
-                        repos.append(self._make_repo(f"{distro}-proposed-updates", comps_str, keyring, f'debian-{distro}-proposed-updates.sources'))
+                        repos.append(self._make_repo(f"{distro}-proposed-updates", comps_str, keyring, f'debian-{distro}-proposed-updates.sources', types=types_str))
 
                     sec_uri = 'https://security.debian.org/debian-security/'
-                    repos.append(self._make_repo(f"{distro}-security", comps_str, keyring, f'debian-{distro}-security.sources', sec_uri))
+                    repos.append(self._make_repo(f"{distro}-security", comps_str, keyring, f'debian-{distro}-security.sources', sec_uri, types=types_str))
 
                     if self.backports_enabled:
-                        repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, f'debian-{distro}-backports.sources'))
+                        repos.append(self._make_repo(f"{distro}-backports", comps_str, keyring, f'debian-{distro}-backports.sources', types=types_str))
 
             # 2. Build Batch Tasks
             tasks = []
@@ -635,13 +653,15 @@ class SourcesGeneratorView(Gtk.Box):
                 msg += f"\n\n{error_msg}"
             self._show_msg(Gtk.MessageType.ERROR, _("Error"), msg)
 
-    def _make_repo(self, suite, components, signed_by, filename, uri=None):
+    def _make_repo(self, suite, components, signed_by, filename, uri=None, types=None):
         """Helper to create repo dict."""
         if not uri:
             uri = self.selected_mirror_url
-            
+        if types is None:
+            types = 'deb'
+
         return {
-            'type': 'deb',
+            'type': types,
             'uri': uri,
             'distribution': suite,
             'components': components,
