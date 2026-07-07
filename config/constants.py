@@ -4,7 +4,7 @@ Configuration constants for Soplos Repo Selector.
 
 APP_ID = "org.soplos.reposelector"
 APP_NAME = "Soplos Repo Selector"
-APP_VERSION = "2.0.2"
+APP_VERSION = "2.0.3"
 
 # Window dimensions
 DEFAULT_WINDOW_WIDTH = 900
