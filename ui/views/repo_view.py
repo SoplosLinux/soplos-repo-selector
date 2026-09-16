@@ -24,7 +24,7 @@ class RepoView(Gtk.Box):
         self.repos = []
         
         self._create_ui()
-        self.refresh_repos()
+        self.refresh_repos(use_cache=True)
         self._start_autorefresh()
     
     def _create_ui(self):
@@ -107,12 +107,12 @@ class RepoView(Gtk.Box):
         box.show_all()
         return box
 
-    def refresh_repos(self):
-        """Reload repos from disk (or cache if still valid)."""
+    def refresh_repos(self, use_cache: bool = False):
+        """Reload repos from disk (or cache if still valid and use_cache is True)."""
         for row in self.list_box.get_children():
             self.list_box.remove(row)
 
-        self.repos = self.repo_manager.get_all_repos(use_cache=False)
+        self.repos = self.repo_manager.get_all_repos(use_cache=use_cache)
 
         for repo in self.repos:
             row = RepoRow(

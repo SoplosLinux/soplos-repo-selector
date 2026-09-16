@@ -1,7 +1,7 @@
 # Soplos Repo Selector
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.3-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.3--1-green.svg)]()
 
 Soplos Repo Selector is a graphical APT repository manager designed specifically for Soplos Linux. It allows you to manage, optimize, and configure software repositories in a simple and intuitive way.
 
@@ -24,6 +24,14 @@ GPG Keys tab:
 ![GPG Keys](https://raw.githubusercontent.com/SoplosLinux/soplos-repo-selector/main/assets/screenshots/screenshot4.png)
 
 ## 🆕 Version History
+
+### 🆕 What's new in version 2.0.3-1
+- Release date: September 16, 2026
+- **Fixed**: GPG key resolution on modernize now matches the full hostname before falling back to loose keyword matching, fixing broken signature verification after modernizing a `.list` to `.sources` (e.g. `debian.griffo.io` was resolving to an unrelated `debian-nonupload.gpg`).
+- **Fixed**: DEB822 `.sources` stanzas with an informational header comment before the active fields (Google Chrome, VS Code) were incorrectly shown as disabled.
+- **Fixed**: duplicate full re-read of all source files on startup.
+- **Fixed**: `gpg --show-keys` decoding no longer aborts on keyrings with non-UTF-8 encoded UIDs.
+- **Fixed**: `g_set_application_name()` called multiple times warning from a redundant setup block in the launcher wrapper.
 
 ### 🆕 What's new in version 2.0.3
 - Release date: July 7, 2026

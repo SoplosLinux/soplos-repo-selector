@@ -149,15 +149,41 @@ class RepoManager:
                     log_info(f"GPG key resolved: {signed_by} -> {candidate}")
                     return candidate
 
-        # No explicit path — scan GPG dirs for a file whose name contains a keyword
-        # derived from the URI (handles e.g. dl.google.com/linux/chrome → google-chrome.gpg)
         if uri:
             try:
+                after_scheme = uri.split('://')[-1]
+                hostname = after_scheme.split('/')[0].lower()
+            except Exception:
+                hostname = ''
+
+            # First try the full hostname as a substring match (most specific,
+            # e.g. debian.griffo.io -> debian.griffo.io.gpg). This must run
+            # before the loose keyword search below, since a generic keyword
+            # like "debian" would otherwise match an unrelated official
+            # Debian keyring (debian-nonupload.gpg, debian-archive-*.gpg...)
+            # before ever reaching the actual per-repo key.
+            if hostname:
+                for gpg_dir in GPG_DIRS:
+                    try:
+                        entries = sorted(os.listdir(gpg_dir))
+                    except Exception:
+                        continue
+                    for entry in entries:
+                        entry_lower = entry.lower()
+                        if not entry_lower.endswith(('.gpg', '.asc')):
+                            continue
+                        if hostname in entry_lower:
+                            candidate = os.path.join(gpg_dir, entry)
+                            log_info(f"GPG key resolved by hostname match: {candidate}")
+                            return candidate
+
+            # Fallback: scan GPG dirs for a file whose name contains a keyword
+            # derived from the URI (handles e.g. dl.google.com/linux/chrome → google-chrome.gpg)
+            try:
                 # Extract keywords: domain parts + path segments, skip generic words
-                _GENERIC = {'www', 'dl', 'download', 'apt', 'deb', 'linux',
+                _GENERIC = {'www', 'dl', 'download', 'apt', 'deb', 'debian', 'linux',
                             'stable', 'main', 'archive', 'repo', 'release',
                             'com', 'org', 'net', 'io'}
-                after_scheme = uri.split('://')[-1]
                 raw_parts = after_scheme.replace('/', '.').split('.')
                 keywords = [p.lower() for p in raw_parts
                             if p and p.lower() not in _GENERIC and len(p) > 2]
@@ -167,7 +193,7 @@ class RepoManager:
             if keywords:
                 for gpg_dir in GPG_DIRS:
                     try:
-                        entries = os.listdir(gpg_dir)
+                        entries = sorted(os.listdir(gpg_dir))
                     except Exception:
                         continue
                     for entry in entries:

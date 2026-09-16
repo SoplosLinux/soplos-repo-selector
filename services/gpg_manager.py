@@ -54,9 +54,10 @@ class GPGManager:
         try:
             result = subprocess.run(
                 ["gpg", "--show-keys", "--with-colons", key_path],
-                check=False, capture_output=True, text=True, timeout=2
+                check=False, capture_output=True, text=True, timeout=2,
+                encoding='utf-8', errors='replace'
             )
-            
+
             if result.returncode == 0:
                 for line in result.stdout.split('\n'):
                     parts = line.split(':')
@@ -76,7 +77,8 @@ class GPGManager:
         try:
             result = subprocess.run(
                 ["gpg", "--show-keys", "--with-colons", key_path],
-                check=False, capture_output=True, text=True, timeout=3
+                check=False, capture_output=True, text=True, timeout=3,
+                encoding='utf-8', errors='replace'
             )
             if result.returncode != 0:
                 return None

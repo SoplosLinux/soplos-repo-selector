@@ -169,19 +169,20 @@ class RepoFileManager:
             if not block.strip():
                 continue
             
-            # Check if block is disabled
-            disabled = False
-            if block.strip().startswith('#'):
-                # Try to uncomment
-                lines = block.split('\n')
+            # Check if block is disabled: the whole stanza must be commented out
+            # (every non-empty line starts with '#'), not just a leading header
+            # comment like the ones google-chrome.sources/vscode.sources ship with.
+            non_empty_lines = [l for l in block.split('\n') if l.strip()]
+            disabled = bool(non_empty_lines) and all(l.strip().startswith('#') for l in non_empty_lines)
+            if disabled:
+                # Uncomment to parse the underlying fields
                 uncommented_lines = []
-                for line in lines:
+                for line in block.split('\n'):
                     if line.strip().startswith('#'):
                         uncommented_lines.append(line[1:])
                     else:
                         uncommented_lines.append(line)
                 block = '\n'.join(uncommented_lines)
-                disabled = True
             
             # Parse fields
             fields = {}

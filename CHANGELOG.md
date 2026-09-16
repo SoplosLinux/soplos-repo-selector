@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/lang/en/).
 
+## [2.0.3-1] - 2026-09-16
+
+### 🐛 Fixed
+- **GPG key resolution on modernize**: `_find_gpg_key()` now matches the full hostname (e.g. `debian.griffo.io`) before falling back to loose keyword matching. Previously a generic keyword like `debian` could match an unrelated official Debian keyring (`debian-nonupload.gpg`, `debian-archive-*.gpg`...) before ever reaching the repo's actual key file, breaking signature verification after modernizing a `.list` to `.sources`.
+- **DEB822 disabled detection**: a `.sources` stanza is now only treated as disabled when *every* non-empty line is commented out, not just the first one. Files that ship an informational header comment before the active fields (e.g. Google Chrome's and VS Code's official `.sources`) were incorrectly shown as disabled.
+- **Duplicate repository read on startup**: the Repositories tab always bypassed the cache on its initial load, forcing a second full re-read of every source file right after the Sources Generator tab had already populated it. The initial load now reuses that cache.
+- **GPG key info decoding**: `gpg --show-keys` output is now decoded with `errors='replace'` instead of strict UTF-8, so large keyrings containing non-UTF-8 encoded UIDs no longer abort key listing.
+- **`g_set_application_name()` called multiple times**: removed a redundant GLib/GTK setup block in the `debian/soplos-repo-selector` launcher wrapper that duplicated (with an untranslated name and wrong icon) what `core/application.py` already sets up correctly.
+
 ## [2.0.3] - 2026-07-07
 
 ### 🔧 Changed
